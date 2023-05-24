@@ -3,3 +3,4 @@ Made by:
 - Samip Niraula
 - Abraham Halim
 - Max Schwab
+- Brian Nguyen
