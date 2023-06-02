@@ -11,11 +11,11 @@ const game = new Phaser.Game({
             debug: true,
             gravity: {
                 x : 0,
-                y : 0
+                y : 500
             }
         }
     },
-    backgroundColor: 0x87CEEB,
-    scene: [],
+    backgroundColor: 0x000000,
+    scene: [CoreGameplay],
     title: "Schism"
 });
