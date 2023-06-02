@@ -44,13 +44,9 @@ class CoreGameplay extends Phaser.Scene {
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
-
-
-        
     }
 
     update() {
-
         //controls
         let aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         let dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -78,9 +74,5 @@ class CoreGameplay extends Phaser.Scene {
         {
             this.player.setVelocityY(-500);
         }
-    }
-
-    cameraControl(x, y, player) {
-        //this.cameras.main.setBounds(0, 0, 1920 * .25, 2048);
     }
 }
