@@ -1,7 +1,7 @@
 class SchismScene extends Phaser.Scene {
     init(data) {
         this.data = data.data || [];
-        this.timeTravelTransition = data.timeTravel;
+        this.timeTravelTransition = data.timeTravel || false;
     }
 
     constructor(key, name) {
@@ -10,16 +10,91 @@ class SchismScene extends Phaser.Scene {
     }
 
     create() {
-        console.log(this.data);
+        // Dialogue System
+        this.dialogueActive = false;
+        this.dialogueRectangle = this.add.rectangle(220, 1035, 1470, 300, 0x000000).setOrigin(0).setDepth(10).setAlpha(0.5);
+        //this.dialogueRectangle.visible = false;
+        this.dialogueText = this.add.text(240, 1055, '', {fontSize: 40, color: '#ffffff', wordWrap: { width: 1470 }}).setDepth(10);
+        this.dialogueData = [];
+        this.dialogueIndex = 0;
+
+        // Transition for current scene
         this.transitionDuration = 1000;
         if(this.timeTravelTransition == true) {
             this.cameras.main.fadeIn(this.transitionDuration, 255, 255, 255);
         } else {
             this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
         } 
+
+        // Create world bounds
+        this.worldbounds = this.add.group();
+        this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
+        this.physics.add.existing(this.lWall);
+        this.lWall.body.allowGravity = false;
+        this.lWall.body.immovable = true;
+        this.worldbounds.add(this.lWall);
+
+        this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
+        this.physics.add.existing(this.rWall);
+        this.rWall.body.allowGravity = false;
+        this.rWall.body.immovable = true;
+        this.worldbounds.add(this.rWall);
+
         this.onEnter();
+
+        // Physics Logics
+        this.physics.add.collider(this.player, this.worldbounds);
     }
 
+    // Dialogue System Functions
+    startDialogue(data, start, callback) {
+        this.dialogueActive = true;
+        this.dialogueRectangle.visible = true;
+        this.dialogueIndex = 0;
+        this.dialogueData = data;
+        this.dialogueCallback = callback;
+        start();
+        this.handleDialogueInteraction();
+        
+        // Disable character movement or perform other actions as needed
+        this.player.body.enable = false;
+        
+        // Register the dialogue event handlers with the correct context
+        this.input.keyboard.on('keydown-SPACE', this.handleDialogueInteraction, this);
+        this.input.on('pointerdown', this.handleDialogueInteraction, this);
+    }
+    
+    handleDialogueInteraction() {
+        if (this.dialogueActive && this.dialogueIndex < this.dialogueData.length) {
+            this.displayNextMessage();
+            this.dialogueIndex++;
+        } else {
+            // All dialogue messages have been displayed
+            this.finishDialogue();
+        }
+    }
+    
+    displayNextMessage() {
+        this.dialogueText.setText(this.dialogueData[this.dialogueIndex]);
+    }
+    
+    finishDialogue() {
+        this.dialogueActive = false;
+        this.player.body.enable = true;
+        this.dialogueRectangle.visible = false;
+        this.dialogueText.setText('');
+    
+        // Call the callback function if it exists
+        if (typeof this.dialogueCallback === 'function') {
+            this.dialogueCallback();
+        }
+    
+        // Unregister the dialogue event handlers
+        this.input.keyboard.off('keydown-SPACE', this.handleDialogueInteraction, this);
+        this.input.off('pointerdown', this.handleDialogueInteraction, this);
+    }
+    
+    // Scene Transition Functions
     gotoScene(key) {
         this.cameras.main.fade(this.transitionDuration, 0, 0, 0);
         this.time.delayedCall(this.transitionDuration, () => {
@@ -33,7 +108,8 @@ class SchismScene extends Phaser.Scene {
             this.scene.start(key, { data: this.data, timeTravel: true});
         });
     }
-
+    
+    // Magic to get it to link with Engine Scene
     onEnter() {
         console.warn('This AdventureScene did not implement onEnter():', this.constructor.name);
     }

@@ -20,7 +20,7 @@ class SceneFlow extends SchismScene {
         // Create background
         let bg = this.add.image(0, 0, 'office').setOrigin(0);
 
-        // Create Player
+        // Create Player + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
@@ -31,26 +31,15 @@ class SceneFlow extends SchismScene {
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
 
-        // Create world bounds
-        this.worldbounds = this.add.group();
-        this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
-        this.physics.add.existing(this.lWall);
-        this.lWall.body.allowGravity = false;
-        this.lWall.body.immovable = true;
-        this.worldbounds.add(this.lWall);
-
-        this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
-        this.physics.add.existing(this.rWall);
-        this.rWall.body.allowGravity = false;
-        this.rWall.body.immovable = true;
-        this.worldbounds.add(this.rWall);
-
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
-        this.physics.add.collider(this.player, this.worldbounds);
 
         this.time.delayedCall(1000, () => {
-            this.timeTravel('coregameplay');
+            this.startDialogue(["idsaidoasjsioadiosajdiosajdoasdasoidjaosdioasdjasodjasoidjasoidjsaoidjsaidjasdjoiasjoidsaidasdjoasdioasd", "What's Up"], () => {console.log("start")}, () => {console.log("finish")});
+        });
+
+        this.time.delayedCall(5000, () => {
+            this.startDialogue(["Round", "#2"], () => {console.log("let's")}, () => {console.log("goo")});
         });
     }
 
@@ -90,7 +79,7 @@ class CoreGameplay extends SchismScene {
         // Create background
         let bg = this.add.image(0, 0, 'office').setOrigin(0);
 
-        // Create Player
+        // Create Player + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
@@ -100,20 +89,6 @@ class CoreGameplay extends SchismScene {
         this.physics.add.existing(this.floor);
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
-
-        // Create world bounds
-        this.worldbounds = this.add.group();
-        this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
-        this.physics.add.existing(this.lWall);
-        this.lWall.body.allowGravity = false;
-        this.lWall.body.immovable = true;
-        this.worldbounds.add(this.lWall);
-
-        this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
-        this.physics.add.existing(this.rWall);
-        this.rWall.body.allowGravity = false;
-        this.rWall.body.immovable = true;
-        this.worldbounds.add(this.rWall);
 
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
