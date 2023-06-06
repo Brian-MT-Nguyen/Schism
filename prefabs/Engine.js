@@ -13,7 +13,7 @@ class SchismScene extends Phaser.Scene {
         console.log(this.data);
         this.transitionDuration = 1000;
         if(this.timeTravelTransition == true) {
-            this.cameras.main.fadeIn(this.transitionDuration, 0, 128, 128);
+            this.cameras.main.fadeIn(this.transitionDuration, 255, 255, 255);
         } else {
             this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
         } 
@@ -28,7 +28,7 @@ class SchismScene extends Phaser.Scene {
     }
 
     timeTravel(key) {
-        this.cameras.main.fade(this.transitionDuration/2, 0, 128, 128);
+        this.cameras.main.fade(this.transitionDuration/2, 255, 255, 255);
         this.time.delayedCall(this.transitionDuration/2, () => {
             this.scene.start(key, { data: this.data, timeTravel: true});
         });
