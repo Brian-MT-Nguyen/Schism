@@ -1,4 +1,8 @@
-class CoreGameplay extends Phaser.Scene {
+class CoreGameplay extends SchismScene {
+    constructor() {
+        super("coregameplay", "Deez Nuts");
+    }
+
     preload() {
         //characters
         this.load.path = '../assets/character/';
@@ -12,12 +16,12 @@ class CoreGameplay extends Phaser.Scene {
         this.load.image('office', 'officeLvlPast.png');
     }
     
-    create() {
+    onEnter() {
         // Create background
         let bg = this.add.image(0, 0, 'office').setOrigin(0);
 
         // Create Player
-        this.player = new Player(this, 300, 700, 'lunebase');
+        this.player = new Player(this, 300, 1035, 'lunebase');
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
@@ -44,6 +48,10 @@ class CoreGameplay extends Phaser.Scene {
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
+
+        this.time.delayedCall(1000, () => {
+            this.timeTravel('sceneflow');
+        });
     }
 
     update() {

@@ -16,6 +16,6 @@ const game = new Phaser.Game({
         }
     },
     backgroundColor: 0x000000,
-    scene: [CoreGameplay],
+    scene: [CoreGameplay, SceneFlow],
     title: "Schism"
 });
