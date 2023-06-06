@@ -17,7 +17,7 @@ class CoreGameplay extends Phaser.Scene {
         let bg = this.add.image(0, 0, 'office').setOrigin(0);
 
         // Create Player
-        this.player = this.physics.add.sprite(300, 700, 'lunebase').setOrigin(0.5).setScale(0.8);
+        this.player = new Player(this, 300, 700, 'lunebase');
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
@@ -27,7 +27,7 @@ class CoreGameplay extends Phaser.Scene {
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
 
-        //create world bounds
+        // Create world bounds
         this.worldbounds = this.add.group();
         this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
         this.physics.add.existing(this.lWall);
@@ -47,32 +47,7 @@ class CoreGameplay extends Phaser.Scene {
     }
 
     update() {
-        //controls
-        let aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        let dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        let spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-
-        //movement
-        if (aKey.isDown)
-        {
-            this.player.setVelocityX(-320);
-
-            //this.player.anims.play('left', true);
-        }
-        else if (dKey.isDown)
-        {
-            this.player.setVelocityX(320);
-
-            //this.player.anims.play('right', true);
-        }
-        else {
-            this.player.setVelocityX(0);
-        }
-
-        if (spaceKey.isDown && this.player.body.touching.down)
-        {
-            this.player.setVelocityY(-500);
-        }
+        // Update Player Logics
+        this.player.update();
     }
 }
