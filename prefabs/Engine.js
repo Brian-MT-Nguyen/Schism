@@ -2,29 +2,37 @@ class SchismScene extends Phaser.Scene {
     init(data) {
         this.data = data.data || [];
         this.timeTravelTransition = data.timeTravel || false;
+        this.dialogueData = [];
     }
 
     constructor(key, name) {
         super(key);
         this.name = name;
+        fetch('../data/dialogue.json').then(
+            (response) => response.json()
+            ).then(
+                (json) => {
+                    this.dialogueData = json;
+                });
     }
 
     create() {
         // Dialogue System
         this.dialogueActive = false;
         this.dialogueRectangle = this.add.rectangle(220, 1035, 1470, 300, 0x000000).setOrigin(0).setDepth(10).setAlpha(0.5);
-        //this.dialogueRectangle.visible = false;
+        this.dialogueRectangle.visible = false;
         this.dialogueText = this.add.text(240, 1055, '', {fontSize: 40, color: '#ffffff', wordWrap: { width: 1470 }}).setDepth(10);
-        this.dialogueData = [];
+        this.dialogueKey;
         this.dialogueIndex = 0;
 
+        console.log(this.dialogueData);
         // Transition for current scene
         this.transitionDuration = 1000;
         if(this.timeTravelTransition == true) {
             this.cameras.main.fadeIn(this.transitionDuration, 255, 255, 255);
         } else {
             this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
-        } 
+        }
 
         // Create world bounds
         this.worldbounds = this.add.group();
@@ -47,14 +55,15 @@ class SchismScene extends Phaser.Scene {
     }
 
     // Dialogue System Functions
-    startDialogue(data, start, callback) {
+    startDialogue(key, start, callback) {
         this.dialogueActive = true;
         this.dialogueRectangle.visible = true;
+        this.dialogueKey = key;
         this.dialogueIndex = 0;
-        this.dialogueData = data;
         this.dialogueCallback = callback;
         start();
         this.handleDialogueInteraction();
+        console.log(this.dialogueData[this.dialogueKey]);
         
         // Disable character movement or perform other actions as needed
         this.player.body.enable = false;
@@ -65,7 +74,7 @@ class SchismScene extends Phaser.Scene {
     }
     
     handleDialogueInteraction() {
-        if (this.dialogueActive && this.dialogueIndex < this.dialogueData.length) {
+        if (this.dialogueActive && this.dialogueIndex < this.dialogueData[this.dialogueKey].length) {
             this.displayNextMessage();
             this.dialogueIndex++;
         } else {
@@ -75,7 +84,7 @@ class SchismScene extends Phaser.Scene {
     }
     
     displayNextMessage() {
-        this.dialogueText.setText(this.dialogueData[this.dialogueIndex]);
+        this.dialogueText.setText(this.dialogueData[this.dialogueKey][this.dialogueIndex]);
     }
     
     finishDialogue() {

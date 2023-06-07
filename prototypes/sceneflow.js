@@ -35,26 +35,26 @@ class SceneFlow extends SchismScene {
         this.physics.add.collider(this.player, this.floor);
 
         this.time.delayedCall(1000, () => {
-            this.startDialogue(["idsaidoasjsioadiosajdiosajdoasdasoidjaosdioasdjasodjasoidjasoidjsaoidjsaidjasdjoiasjoidsaidasdjoasdioasd", "What's Up"], () => {console.log("start")}, () => {console.log("finish")});
+            this.startDialogue('keycard', () => {console.log("start")}, () => {console.log("finish")});
         });
 
-        this.time.delayedCall(5000, () => {
-            this.startDialogue(["Round", "#2"], () => {console.log("let's")}, () => {console.log("goo")});
-        });
+        // this.time.delayedCall(5000, () => {
+        //     this.startDialogue(["Round", "#2"], () => {console.log("let's")}, () => {console.log("goo")});
+        // });
+
+        // this.time.delayedCall(1000, () => {
+        //     this.timeTravel('coregameplay');
+        // })
+
+        // this.time.delayedCall(1000, () => {
+        //     this.gotoScene('coregameplay');
+        // });
     }
 
     update() {
         // Update Player Logics
         this.player.update();
     }
-
-    gotoScene(key) {
-        this.cameras.main.fade(this.transitionDuration, 0, 0, 0);
-        this.time.delayedCall(this.transitionDuration, () => {
-           this.scene.start(key, { inventory: this.inventory });
-        });
-    }
-
 }
 
 class CoreGameplay extends SchismScene {
