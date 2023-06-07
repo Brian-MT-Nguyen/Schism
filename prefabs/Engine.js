@@ -25,7 +25,6 @@ class SchismScene extends Phaser.Scene {
         this.dialogueKey;
         this.dialogueIndex = 0;
 
-        console.log(this.dialogueData);
         // Transition for current scene
         this.transitionDuration = 1000;
         if(this.timeTravelTransition == true) {
@@ -63,11 +62,11 @@ class SchismScene extends Phaser.Scene {
         this.dialogueCallback = callback;
         start();
         this.handleDialogueInteraction();
-        console.log(this.dialogueData[this.dialogueKey]);
         
-        // Disable character movement or perform other actions as needed
+        // Disable character movement
         this.player.body.enable = false;
-        
+        // Pause Animations
+
         // Register the dialogue event handlers with the correct context
         this.input.keyboard.on('keydown-SPACE', this.handleDialogueInteraction, this);
         this.input.on('pointerdown', this.handleDialogueInteraction, this);
@@ -89,7 +88,6 @@ class SchismScene extends Phaser.Scene {
     
     finishDialogue() {
         this.dialogueActive = false;
-        this.player.body.enable = true;
         this.dialogueRectangle.visible = false;
         this.dialogueText.setText('');
     
@@ -97,6 +95,10 @@ class SchismScene extends Phaser.Scene {
         if (typeof this.dialogueCallback === 'function') {
             this.dialogueCallback();
         }
+
+        // Enable character movement
+        this.player.body.enable = true;
+        // Resume animations
     
         // Unregister the dialogue event handlers
         this.input.keyboard.off('keydown-SPACE', this.handleDialogueInteraction, this);
