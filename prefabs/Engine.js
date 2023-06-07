@@ -1,19 +1,21 @@
 class SchismScene extends Phaser.Scene {
     init(data) {
-        this.data = data.data || [];
+        this.progressionData = data.progressionData || {};
         this.timeTravelTransition = data.timeTravel || false;
-        this.dialogueData = [];
-    }
+        this.dialogueData = data.dialogueData || [];
+        if(this.dialogueData.length == 0) {
+            fetch('../data/dialogue.json').then(
+                (response) => response.json()
+                ).then(
+                    (json) => {
+                        this.dialogueData = json;
+                });
+        }
+    }   
 
     constructor(key, name) {
         super(key);
         this.name = name;
-        fetch('../data/dialogue.json').then(
-            (response) => response.json()
-            ).then(
-                (json) => {
-                    this.dialogueData = json;
-                });
     }
 
     create() {
@@ -51,6 +53,26 @@ class SchismScene extends Phaser.Scene {
 
         // Physics Logics
         this.physics.add.collider(this.player, this.worldbounds);
+    }
+
+    // Progession Data System Functions
+    getData(key) {
+        return this.progressionData[key];
+    }
+
+    addData(key, value = true) {
+        this.progressionData[key] = value;
+        console.log(this.progressionData);
+    }
+
+    removeData(key) {
+        delete this.progressionData[key];
+        console.log(this.progressionData);
+    }
+
+    resetData() {
+        this.progressionData = {};
+        console.log(this.progressionData);
     }
 
     // Dialogue System Functions
@@ -109,14 +131,14 @@ class SchismScene extends Phaser.Scene {
     gotoScene(key) {
         this.cameras.main.fade(this.transitionDuration, 0, 0, 0);
         this.time.delayedCall(this.transitionDuration, () => {
-            this.scene.start(key, { data: this.data, timeTravel: false});
+            this.scene.start(key, { progressionData: this.progressionData, timeTravel: false, dialogueData: this.dialogueData});
         });
     }
 
     timeTravel(key) {
         this.cameras.main.fade(this.transitionDuration/2, 255, 255, 255);
         this.time.delayedCall(this.transitionDuration/2, () => {
-            this.scene.start(key, { data: this.data, timeTravel: true});
+            this.scene.start(key, { progressionData: this.progressionData, timeTravel: true, dialogueData: this.dialogueData});
         });
     }
     
