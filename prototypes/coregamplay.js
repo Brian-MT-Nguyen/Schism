@@ -73,7 +73,7 @@ class CoreGameplay extends SchismScene {
 
         
 
-        this.physics.add.overlap(this.player, this.goal, console.log("dog"));
+        this.physics.add.overlap(this.player, this.goal, () => {console.log('dog')});
         //this.physics.add.overlap(this.player, this.goal, null, null, this);
     }
 
