@@ -76,6 +76,7 @@ class SchismScene extends Phaser.Scene {
     }
 
     // Dialogue System Functions
+    // USE startDialogue() ONLY IN SCENES
     startDialogue(key, start, callback) {
         this.dialogueActive = true;
         this.dialogueRectangle.visible = true;
