@@ -26,6 +26,8 @@ class CoreGameplay extends SchismScene {
        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
        
+
+       
         // Create background
         let bg = this.add.image(0, 0, 'office').setOrigin(0);
 
@@ -33,6 +35,7 @@ class CoreGameplay extends SchismScene {
         this.player = new Player(this, 300, 1035, 'lunebase');
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
+        this.player.body.onOverlap = true;
 
         //goal
         //this.goal = this.Phaser.Physics.Arcade.Sprite.add.staticGroup();
@@ -73,7 +76,7 @@ class CoreGameplay extends SchismScene {
 
         
 
-        this.physics.add.overlap(this.player, this.goal, console.log("dog"));
+        ///this.physics.add.overlap(this.player, this.goal, console.log("dog"));
         //this.physics.add.overlap(this.player, this.goal, null, null, this);
     }
 
@@ -86,6 +89,9 @@ class CoreGameplay extends SchismScene {
         // Update Player Logics
         this.player.update();
 
+
+        //this.physics.add.overlap(this.player, this.goal, console.log("dog"));
+        //this.physics.add.overlap(this.player, this.goal, console.log("dog"));
         //this.physics.add.overlap(this.player, this.goal, console.log("dog"), null, this);
 
     }
