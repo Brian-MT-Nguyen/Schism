@@ -7,7 +7,7 @@ class IntroCinematic extends Phaser.Scene {
     }
 
     preload() {
-        this.load.video('schismIntro', '/assets/title/schism intro wip.mp4');
+        this.load.video('schismIntro', '../../assets/title/schism intro wip.mp4');
     }
 
     create() {
@@ -50,16 +50,16 @@ class TitleScreen extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('title', '/assets/title/schismTitle-01.png');
+        this.load.image('title', '../../assets/title/schismTitle-01.png');
         //characters
-        this.load.path = '/assets/character/';
+        this.load.path = '../../assets/character/';
         this.load.image('lunebase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
 
 
         //levels
-        this.load.path = '/assets/levels/';
+        this.load.path = '../../assets/levels/';
         this.load.image('office', 'officeLvlPast.png');
     }
 
@@ -244,13 +244,13 @@ class Gameplay2 extends SchismScene {
 
     preload() {
         //characters
-        this.load.path = '/assets/character/';
+        this.load.path = '../../assets/character/';
         this.load.image('lunebase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
 
         //levels
-        this.load.path = '/assets/levels/';
+        this.load.path = '../../assets/levels/';
         this.load.image('office', 'officeLvlPast.png');
     }
     
