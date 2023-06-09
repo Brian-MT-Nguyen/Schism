@@ -210,8 +210,8 @@ class Gameplay1 extends SchismScene {
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
 
-        // Create instructions for prototype
-        let instructions = this.add.text(game.config.width/2, 1320, 'A to Move Left, D to Move Right, Space to Jump\nPress E to switch to Past Gameplay Scene\nClick to go to final End Credits Scene (Must be in this scene)', {font: `40px Futura`, color: '#000000'})
+        // Create instructions for prototype (old text: (Must be in this scene)\nA to Move Left, D to Move Right, Space to Jump\nPress E to switch to Past Gameplay Scene)
+        let instructions = this.add.text(game.config.width/2, 1320, 'Office Level, Click to go to final End Credits Scene', {font: `40px Futura`, color: '#000000'})
             .setOrigin(0.5);
 
         // On click go to End Credits
