@@ -311,7 +311,7 @@ class EndCredits extends Phaser.Scene {
         this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.cameras.main.setBackgroundColor('#FFFFFF');
 
-		this.add.text(game.config.width/2, game.config.height/2, 'Thank you for playing!', {
+		this.add.text(game.config.width/2, game.config.height/2, 'Placeholder for Credits', {
 			font: 'Comic Sans',
             fill: '#000000'
 		}).setOrigin(0.5).setFontSize(50);
