@@ -21,8 +21,15 @@ class IntroCinematic extends Phaser.Scene {
             });
         });
         
-        video.play();
         
+        let skip = this.add.text(100, 980, 'Click to Begin...', {font: `bold 50px Futura`, color: '#ffffff'})
+                .setOrigin(0);
+
+        this.input.on('pointerdown', () => {
+            skip.destroy();
+            video.play();
+        });
+
         if(gameDone) {
             let skip = this.add.text(100, 980, 'Click to Skip...', {font: `bold 50px Futura`, color: '#ffffff'})
                 .setOrigin(0).setAlpha(0);
