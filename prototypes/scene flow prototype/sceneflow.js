@@ -247,7 +247,6 @@ class Gameplay2 extends SchismScene {
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
 
-
         //levels
         this.load.path = '/assets/levels/';
         this.load.image('office', 'officeLvlPast.png');
@@ -324,7 +323,7 @@ const game = new Phaser.Game({
             debug: true,
             gravity: {
                 x : 0,
-                y : 500
+                y : 2000
             }
         }
     },
