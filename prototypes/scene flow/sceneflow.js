@@ -36,8 +36,6 @@ class IntroCinematic extends Phaser.Scene {
             });
         });
         
-        
-        
         video.play();
 
         if(gameDone) {
@@ -67,13 +65,14 @@ class TitleScreen extends Phaser.Scene {
     }
 
     preload() {
+        //title
         this.load.image('title', '../../assets/title/schismTitle-01.png');
+
         //characters
         this.load.path = '../../assets/character/';
         this.load.image('lunebase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
-
 
         //levels
         this.load.path = '../../assets/levels/';
@@ -354,7 +353,6 @@ const game = new Phaser.Game({
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
             gravity: {
                 x : 0,
                 y : 2000
