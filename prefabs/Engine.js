@@ -1,10 +1,10 @@
 class SchismScene extends Phaser.Scene {
     init(data) {
         this.progressionData = data.progressionData || {};
-        this.timeTravelTransition = data.timeTravel || false;
+        this.timeTravelTransition = data.timeTravel;
         this.dialogueData = data.dialogueData || [];
         if(this.dialogueData.length == 0) {
-            fetch('../data/dialogue.json').then(
+            fetch('/data/dialogue.json').then(
                 (response) => response.json()
                 ).then(
                     (json) => {
@@ -31,7 +31,7 @@ class SchismScene extends Phaser.Scene {
         this.transitionDuration = 1000;
         if(this.timeTravelTransition == true) {
             this.cameras.main.fadeIn(this.transitionDuration, 255, 255, 255);
-        } else {
+        } else if (this.timeTravelTransition != undefined) {
             this.cameras.main.fadeIn(this.transitionDuration, 0, 0, 0);
         }
 
