@@ -1,4 +1,6 @@
 let gameDone = true;
+let inSettings = false;
+
 class IntroCinematic extends Phaser.Scene {
     constructor() {
         super("introcinematic");
@@ -20,23 +22,25 @@ class IntroCinematic extends Phaser.Scene {
         });
         
         video.play();
-
-        this.input.on('pointerdown', (pointer) => {
-            if (gameDone) {
+        
+        if(gameDone) {
+            let skip = this.add.text(100, 980, 'Click to Skip...', {font: `bold 50px Futura`, color: '#ffffff'})
+                .setOrigin(0).setAlpha(0);
+                this.time.delayedCall(500, () => {
+                    this.tweens.add({
+                        targets: skip,
+                        alpha: 1,
+                        ease: 'Linear',
+                        duration: 1000,
+                        yoyo: true,
+                        repeat: -1
+                    });
+                });
+            this.input.on('pointerdown', (pointer) => {
                 video.stop();
                 this.scene.start('titlescreen');
-            }
-        });
-
-    }
-
-    update() {
-        // if(gameDone && Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
-        //     this.cameras.main.fade(1000, 0, 0, 0);
-        //     this.time.delayedCall(1000, () => {
-        //         this.scene.start('titlescreen');
-        //     });
-        // }
+            });
+        }
     }
 }
 
@@ -60,16 +64,17 @@ class TitleScreen extends Phaser.Scene {
     }
 
     create() {
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
+        // Create backdrop
         let bg = this.add.image(0, -360, 'office').setOrigin(0);
         let lune = this.add.image(300, 675, 'lunebase').setOrigin(0.5).setScale(0.8);
 
+        // Create title image
         let title = this.add.image(game.config.width/2, 300, 'title').setOrigin(0.5);
 
+        // Create play button and interactive properties
         let play = this.add.text(game.config.width/2, 630, 'PLAY', {font: `bold 50px Futura`, color: '#000000'})
             .setOrigin(0.5);
-        play.setInteractive()
-            .on('pointerover', () => {
+        play.on('pointerover', () => {
                 play.setColor('#006400');
                 this.tweens.add({
                     targets: play,
@@ -91,10 +96,10 @@ class TitleScreen extends Phaser.Scene {
                 this.scene.start('gameplay1');
             });
 
+        // Create settings button and interactive properties
         let settings = this.add.text(game.config.width/2, 750, 'SETTINGS', {font: `bold 50px Futura`, color: '#000000'})
             .setOrigin(0.5);
-            settings.setInteractive()
-            .on('pointerover', () => {
+            settings.on('pointerover', () => {
                 settings.setColor('#006400');
                 this.tweens.add({
                     targets: settings,
@@ -115,12 +120,66 @@ class TitleScreen extends Phaser.Scene {
             .on('pointerdown', () => {
                 this.scene.start('settingsmenu');
             });
+        
+        // Logic for if getting out of settings or not
+        if (inSettings != true) {
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
+            this.time.delayedCall(1000, () => {
+                play.setInteractive();
+            });
+            this.time.delayedCall(1000, () => {
+                settings.setInteractive();
+            });
+        } else {
+            play.setInteractive();
+            settings.setInteractive();
+        }
+        inSettings = false;
     }
 }
 
 class SettingsMenu extends Phaser.Scene {
     constructor() {
         super("settingsmenu");
+    }
+
+    create() {
+        // Update in settings var
+        inSettings = true;
+
+        // Create backdrop
+        let bg = this.add.image(0, -360, 'office').setOrigin(0);
+        let lune = this.add.image(300, 675, 'lunebase').setOrigin(0.5).setScale(0.8);
+
+        // Create back button and interactive properties
+        let back = this.add.text(game.config.width/2, 950, 'BACK', {font: `bold 50px Futura`, color: '#000000'})
+            .setOrigin(0.5);
+        back.setInteractive()
+            .on('pointerover', () => {
+                back.setColor('#006400');
+                this.tweens.add({
+                    targets: back,
+                    scale: 1.2,
+                    ease: 'Expo.Out',
+                    duration: 500
+                });
+            })
+            .on('pointerout', () => {
+                back.setColor('#000000');
+                this.tweens.add({
+                    targets: back,
+                    scale: 1,
+                    ease: 'Expo.Out',
+                    duration: 500
+                });
+            })
+            .on('pointerdown', () => {
+                this.scene.start('titlescreen');
+            });
+        
+        // Create placeholder text
+        let placeholder = this.add.text(game.config.width/2, 300, 'Settings Placeholder Text', {font: `bold 50px Futura`, color: '#000000'})
+            .setOrigin(0.5);
     }
 }
 
@@ -133,8 +192,15 @@ class Gameplay1 extends SchismScene {
         // Create background
         let bg = this.add.image(0, 0, 'office').setOrigin(0);
 
-        // Create Player + Camera Follow
+        // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
+        if(this.getData('x') != undefined) {
+            this.player.x = this.getData('x');
+        }
+        if(this.getData('y') != undefined) {
+            this.player.y = this.getData('y');
+        }
+
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
@@ -144,15 +210,28 @@ class Gameplay1 extends SchismScene {
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
 
+        // Create instructions for prototype
+        let instructions = this.add.text(game.config.width/2, 1320, 'A to Move Left, D to Move Right, Space to Jump\nPress E to switch to Past Gameplay Scene\nGet to the door on the right and Press E on it to go to final End Credits Scene (Must be in this scene)', {font: `40px Futura`, color: '#000000'})
+            .setOrigin(0.5);
+
+        // Create Door interact box
+        let interactDoorHitbox = this.add.rectangle()
+
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
-
-        
     }
 
     update() {
         // Update Player Logics
         this.player.update();
+
+        // If E press update player coords, disable body, time travel
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
+            this.player.body.enable = false;
+            this.addData('x', this.player.x);
+            this.addData('y', this.player.y);
+            this.timeTravel('gameplay2');
+        }
     }
 }
 
@@ -178,8 +257,15 @@ class Gameplay2 extends SchismScene {
         // Create background
         let bg = this.add.image(0, 0, 'office').setOrigin(0);
 
-        // Create Player + Camera Follow
+        // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
+        if(this.getData('x') != undefined) {
+            this.player.x = this.getData('x');
+        }
+        if(this.getData('y') != undefined) {
+            this.player.y = this.getData('y');
+        }
+
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
@@ -191,21 +277,38 @@ class Gameplay2 extends SchismScene {
 
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
-        this.physics.add.collider(this.player, this.worldbounds);
 
-        this.time.delayedCall(1000, () => {
-            this.startDialogue('keycard', () => {console.log("start")}, () => {console.log("finish")});
-        });
+        // Create instructions for prototype
+        let instructions = this.add.text(game.config.width/2, 1320, 'Press E to switch back to Present Gameplay Scene\nMust go back to reach final End Credits Scene', {font: `40px Futura`, color: '#000000'})
+            .setOrigin(0.5);
     }
 
     update() {
         // Update Player Logics
         this.player.update();
+
+        // If E press update player coords, disable body, time travel
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
+            this.player.body.enable = false;
+            this.addData('x', this.player.x);
+            this.addData('y', this.player.y);
+            this.timeTravel('gameplay1');
+        }
     }
 }
 
 class EndCredits extends Phaser.Scene {
+    constructor() {
+        super("endcredits");
+    }
 
+    preload() {
+        gameDone = true;
+    }
+
+    create() {
+
+    }
 }
 
 const game = new Phaser.Game({
