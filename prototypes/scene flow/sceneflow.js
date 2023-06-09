@@ -1,21 +1,6 @@
 let gameDone = false;
 let inSettings = false;
 
-class BeginScreen extends Phaser.Scene {
-    constructor() {
-        super("beginscreen");
-    }
-
-    create() {
-        let skip = this.add.text(100, 980, 'Click to Begin...', {font: `bold 50px Futura`, color: '#ffffff'})
-                .setOrigin(0);
-
-        this.input.on('pointerdown', () => {
-            this.scene.start('introcinematic');
-        });
-    }
-}
-
 class IntroCinematic extends Phaser.Scene {
     constructor() {
         super("introcinematic");
@@ -360,6 +345,6 @@ const game = new Phaser.Game({
         }
     },
     backgroundColor: 0x000000,
-    scene: [BeginScreen, IntroCinematic, TitleScreen, SettingsMenu, Gameplay1, Gameplay2, EndCredits],
+    scene: [IntroCinematic, TitleScreen, SettingsMenu, Gameplay1, Gameplay2, EndCredits],
     title: "Schism"
 });
