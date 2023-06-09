@@ -1,6 +1,18 @@
-class SceneFlow extends SchismScene {
+class IntroCinematic extends Phaser.Scene {
+
+}
+
+class TitleScreen extends Phaser.Scene {
+
+}
+
+class SettingsMenu extends Phaser.Scene {
+
+}
+
+class Gameplay1 extends SchismScene {
     constructor() {
-        super("sceneflow", "Deez Nuts");
+        super("gameplay1", "Deez Nuts");
     }
 
     preload() {
@@ -34,25 +46,7 @@ class SceneFlow extends SchismScene {
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
 
-        this.time.delayedCall(1000, () => {
-            this.startDialogue('keycard', () => {console.log("start")}, () => {console.log("finish")});
-        });
-
-        // this.time.delayedCall(5000, () => {
-        //     this.startDialogue(["Round", "#2"], () => {console.log("let's")}, () => {console.log("goo")});
-        // });
-
-        // this.time.delayedCall(1000, () => {
-        //     this.timeTravel('coregameplay');
-        // })
-
-        // this.time.delayedCall(1000, () => {
-        //     this.gotoScene('coregameplay');
-        // });
-        this.time.delayedCall(2000, () => { this.addData('pizzarolls')});
-        this.time.delayedCall(3000, () => { this.addData('bagelbites', 'gross')});
-        this.time.delayedCall(4000, () => {this.removeData('bagelbites')});
-        this.time.delayedCall(5000, () => {this.resetData()});
+        
     }
 
     update() {
@@ -61,9 +55,9 @@ class SceneFlow extends SchismScene {
     }
 }
 
-class CoreGameplay extends SchismScene {
+class Gameplay2 extends SchismScene {
     constructor() {
-        super("coregameplay", "Deez Nuts");
+        super("gameplay2", "Deez Nuts");
     }
 
     preload() {
@@ -109,6 +103,10 @@ class CoreGameplay extends SchismScene {
     }
 }
 
+class EndCredits extends Phaser.Scene {
+
+}
+
 const game = new Phaser.Game({
     scale: {
         mode: Phaser.Scale.FIT,
@@ -127,6 +125,6 @@ const game = new Phaser.Game({
         }
     },
     backgroundColor: 0x000000,
-    scene: [SceneFlow, CoreGameplay],
+    scene: [Gameplay1, Gameplay2],
     title: "Schism"
 });
