@@ -73,7 +73,7 @@ class CoreGameplay extends SchismScene {
 
         
 
-        this.physics.add.overlap(this.player, this.goal, () => {console.log('dog')});
+        this.physics.add.overlap(this.player, this.goal, () => {this.scene.start("CoreGameplay2")});
         //this.physics.add.overlap(this.player, this.goal, null, null, this);
     }
 
@@ -92,6 +92,11 @@ class CoreGameplay extends SchismScene {
 }
 
 class CoreGameplay2 extends SchismScene {
+
+    //keyboard;
+
+    
+
     constructor() {
         super("CoreGameplay2", "testing");
     }
@@ -104,28 +109,66 @@ class CoreGameplay2 extends SchismScene {
 
         //levels
         this.load.path = '../assets/levels/';
-        this.load.image('office', 'officeLvlPast.png');
+        this.load.image('lvl', 'level2_present.png');
     }
 
     onEnter() {
+
+        let tense = 0;
         // Create background
-        let bg = this.add.image(0, 0, 'office').setOrigin(0);
+        let bg = this.add.image(0, 0, 'lvl').setOrigin(0);
 
         // Create Player
         this.player = new Player(this, 300, 1035, 'lunebase');
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
-        // Create floor
-        this.floor = this.add.rectangle(0, 1250, 2560, 100).setOrigin(0);
+        // Create left floor
+        this.floor = this.add.rectangle(0, 1250, 2560*.4, 100).setOrigin(0);
         this.physics.add.existing(this.floor);
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
+        
+        // create right floor
+        this.floor2 = this.add.rectangle(2560*.87, 1250, 2560, 100).setOrigin(0);
+        this.physics.add.existing(this.floor2);
+        this.floor2.body.allowGravity = false;
+        this.floor2.body.immovable = true;
+
+        // Create world bounds
+        this.worldbounds = this.add.group();
+        this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
+        this.physics.add.existing(this.lWall);
+        this.lWall.body.allowGravity = false;
+        this.lWall.body.immovable = true;
+        this.worldbounds.add(this.lWall);
+
+        this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
+        this.physics.add.existing(this.rWall);
+        this.rWall.body.allowGravity = false;
+        this.rWall.body.immovable = true;
+        this.worldbounds.add(this.rWall);
+
+        // Player Physics
+        this.physics.add.collider(this.player, this.floor);
+        this.physics.add.collider(this.player, this.worldbounds);
     }
 
     update() {
         // Update Player Logics
         this.player.update();
+
+        //let fKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+
+        var fKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+
+        if (fKey.isDown)
+        {
+            console.log("dog")
+        }
+
+
+
     }
 }
 
