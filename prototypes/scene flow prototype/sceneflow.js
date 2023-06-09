@@ -1,4 +1,4 @@
-let gameDone = true;
+let gameDone = false;
 let inSettings = false;
 
 class IntroCinematic extends Phaser.Scene {
@@ -36,7 +36,7 @@ class IntroCinematic extends Phaser.Scene {
                         repeat: -1
                     });
                 });
-            this.input.on('pointerdown', (pointer) => {
+            this.input.on('pointerdown', () => {
                 video.stop();
                 this.scene.start('titlescreen');
             });
@@ -211,11 +211,13 @@ class Gameplay1 extends SchismScene {
         this.floor.body.immovable = true;
 
         // Create instructions for prototype
-        let instructions = this.add.text(game.config.width/2, 1320, 'A to Move Left, D to Move Right, Space to Jump\nPress E to switch to Past Gameplay Scene\nGet to the door on the right and Press E on it to go to final End Credits Scene (Must be in this scene)', {font: `40px Futura`, color: '#000000'})
+        let instructions = this.add.text(game.config.width/2, 1320, 'A to Move Left, D to Move Right, Space to Jump\nPress E to switch to Past Gameplay Scene\nClick to go to final End Credits Scene (Must be in this scene)', {font: `40px Futura`, color: '#000000'})
             .setOrigin(0.5);
 
-        // Create Door interact box
-        let interactDoorHitbox = this.add.rectangle()
+        // On click go to End Credits
+        this.input.on('pointerdown', () => {
+            this.gotoScene('endcredits');
+        });
 
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
@@ -306,7 +308,22 @@ class EndCredits extends Phaser.Scene {
     }
 
     create() {
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+        this.cameras.main.setBackgroundColor('#FFFFFF');
 
+		this.add.text(game.config.width/2, game.config.height/2, 'Thank you for playing!', {
+			font: 'Comic Sans',
+            fill: '#000000'
+		}).setOrigin(0.5).setFontSize(50);
+
+        this.add.text(game.config.width/2, game.config.height/2 + 50, "Click anywhere to restart", {
+            fill: '#000000'
+        }).setFontSize(20).setOrigin(0.5);
+
+        this.input.on('pointerdown', () => {
+            this.cameras.main.fade(1000, 0,0,0);
+            this.time.delayedCall(1000, () => this.scene.start('introcinematic'));
+        });
     }
 }
 
