@@ -13,7 +13,7 @@ class IntroCinematic extends Phaser.Scene {
     }
 
     create() {
-        const video = this.add.video(game.config.width/2, game.config.height/2, 'schismIntro');
+        let video = this.add.video(game.config.width/2, game.config.height/2, 'schismIntro');
 
         video.on('complete', () => {
             // Add your logic here to move on or perform any other actions
