@@ -345,6 +345,8 @@ class CoreGameplay2Alt extends SchismScene {
     }
 
     onEnter() {
+
+        platStat = 0;
         // Create background
         let bg = this.add.image(0, 0, 'lvl2Past').setOrigin(0);
 
@@ -377,9 +379,16 @@ class CoreGameplay2Alt extends SchismScene {
         this.activate.body.allowGravity = false;
         this.activate.body.immovable = true;
 
+        // create moving platform
+        /* this.plat = this.add.rectangle(2560*.4, 1920, 2560*.47, 100, 0xff0000).setOrigin(0);
+        this.physics.add.existing(this.plat);
+        this.plat.body.allowGravity = false;
+        this.plat.body.immovable = true; */
+
 
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.floor2);
+        this.physics.add.collider(this.player, this.plat);
         this.physics.add.collider(this.player, this.worldbounds);
     }
 
@@ -399,7 +408,17 @@ class CoreGameplay2Alt extends SchismScene {
             //Put desk note test here somehow
             //console.log("desk note desc");
 
-            this.physics.add.overlap(this.player, this.activate, () => {console.log("duck")});
+            this.physics.add.overlap(this.player, this.activate,
+                 () => {
+                    if(platStat == 0){
+                        platStat = 1;
+                        this.plat = this.add.rectangle(2560*.4, 1250, 2560*.47, 100, 0xff0000).setOrigin(0);
+                        this.physics.add.existing(this.plat);
+                        this.plat.body.allowGravity = false;
+                        this.plat.body.immovable = true;
+
+                        this.physics.add.collider(this.player, this.plat);
+            }});
         }
     }
 }
