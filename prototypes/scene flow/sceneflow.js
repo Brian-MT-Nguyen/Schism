@@ -7,7 +7,9 @@ class IntroCinematic extends Phaser.Scene {
     }
 
     preload() {
-        this.load.video('schismIntro', '../../assets/title/schism_intro_wip.mp4');
+        if(!gameDone) {
+            this.load.video('schismIntro', '../../assets/title/schism_intro_wip.mp4');
+        }
     }
 
     create() {
@@ -20,7 +22,7 @@ class IntroCinematic extends Phaser.Scene {
                 this.scene.start('titlescreen');
             });
         });
-        
+
         if(!gameDone) {
             let skip = this.add.text(100, 980, 'Click to Begin...', {font: `bold 50px Futura`, color: '#ffffff'})
                 .setOrigin(0);
