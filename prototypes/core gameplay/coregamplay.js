@@ -10,14 +10,14 @@ class CoreGameplay extends SchismScene {
 
     preload() {
         //characters
-        this.load.path = '../assets/character/';
+        this.load.path = '../../assets/character/';
         this.load.image('lunebase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
 
 
         //levels
-        this.load.path = '../assets/levels/';
+        this.load.path = '../../assets/levels/';
         this.load.image('office', 'officeLvlPast.png');
     }
     
@@ -97,13 +97,13 @@ class CoreGameplay2 extends SchismScene {
     }
 
     preload() {
-        this.load.path = '../assets/character/';
+        this.load.path = '../../assets/character/';
         this.load.image('lunebase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
 
         //levels
-        this.load.path = '../assets/levels/';
+        this.load.path = '../../assets/levels/';
         this.load.image('office', 'officeLvlPast.png');
     }
 
