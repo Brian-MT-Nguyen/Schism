@@ -481,6 +481,10 @@ class CoreGameplay3 extends SchismScene {
         this.load.path = '../../assets/interactables/';
         this.load.image('consolePres', 'console future.PNG');
 
+        //sound
+        this.load.path = '../../assets/sound/';
+        this.load.audio('woof', 'woof.mp3');
+
         
         
     }
@@ -598,6 +602,9 @@ class CoreGameplay3 extends SchismScene {
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
             this.enemy.setVelocityX(-250);
             this.vision.setVelocityX(-250);
+
+            this.woof = this.sound.add("woof");
+            this.woof.play();
             
             barkPlace = this.player.x;
         }
@@ -646,6 +653,8 @@ class CoreGameplay3Alt extends SchismScene {
         //interactibles
         this.load.path = '../../assets/interactables/';
         this.load.image('consolePast', 'console past.PNG');
+
+    
 
     }
 
