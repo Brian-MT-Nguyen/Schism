@@ -27,10 +27,6 @@ class CoreGameplay extends SchismScene {
     onEnter() {
 
        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
-       
-
-       
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0);
 
@@ -290,13 +286,27 @@ class CoreGameplay2 extends SchismScene {
         this.brokeConsole.body.allowGravity = false;
         this.brokeConsole.body.immovable = true;
 
+        //goal
+        this.goal = this.add.rectangle(2560 * 0.9, 1920 * 0.5, 2560 *0.1 , 1920 * 0.15, 0xff0000).setOrigin(0);
+        this.physics.add.existing(this.goal);
+        this.goal.body.allowGravity = false;
+        this.goal.body.immovable = true;
+
 
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.floor2);
         this.physics.add.collider(this.player, this.worldbounds);
 
-        this.physics.add.overlap(this.player, this.brokeConsole, () => {if(brkCon == 0){brkCon = 1}});
+        //this.physics.add.overlap(this.player, this.brokeConsole, () => {if(brkCon == 0){brkCon = 1}});
+        this.physics.add.overlap(this.player, this.brokeConsole, this.pickUp, null, this);
+        this.physics.add.overlap(this.player, this.goal, () => {this.scene.start("CoreGameplay3")});
     }
+
+    pickUp() {
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
+                  console.log("the console is very broken");
+              }
+      }
 
     update() {
         // Update Player Logics
@@ -310,7 +320,7 @@ class CoreGameplay2 extends SchismScene {
         }
 
 
-        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
+        /* if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
             
             //Put desk note test here somehow
             //console.log("desk note desc");
@@ -323,7 +333,7 @@ class CoreGameplay2 extends SchismScene {
             }
             
 
-        }
+        } */
     }
 }
 
@@ -392,6 +402,17 @@ class CoreGameplay2Alt extends SchismScene {
         this.physics.add.collider(this.player, this.worldbounds);
     }
 
+    pickUp() {
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
+            this.plat = this.add.rectangle(2560*.4, 1250, 2560*.47, 100, 0xff0000).setOrigin(0);
+            this.physics.add.existing(this.plat);
+            this.plat.body.allowGravity = false;
+            this.plat.body.immovable = true;
+
+            this.physics.add.collider(this.player, this.plat);
+              }
+      }
+
     update() {
         // Update Player Logics
         this.player.update();
@@ -403,7 +424,7 @@ class CoreGameplay2Alt extends SchismScene {
             this.timeTravel('CoreGameplay2');
         }
 
-        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
+        /* if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
             
             //Put desk note test here somehow
             //console.log("desk note desc");
@@ -419,8 +440,248 @@ class CoreGameplay2Alt extends SchismScene {
 
                         this.physics.add.collider(this.player, this.plat);
             }});
-        }
+        } */
     }
+}
+
+let barkPlace = 0;
+
+class CoreGameplay3 extends SchismScene {
+    constructor() {
+        super("CoreGameplay3", "testing");
+    }
+
+    preload() {
+        this.load.path = '../../assets/character/';
+        this.load.image('lunebase', 'luneBaseSprite.png');
+        this.load.image('solBase', 'solBaseSprite.png');
+        this.load.image('solSit', 'solSitting.png');
+        this.load.image('enemy', 'enemyBaseSprite.png');
+
+        //levels
+        this.load.path = '../../assets/levels/';
+        this.load.image('lvl3present', 'level3_present.png');
+        
+    }
+
+    onEnter() {
+
+        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+         // Create background
+
+        
+         let bg = this.add.image(0, 0, 'lvl3present').setOrigin(0);
+ 
+         // Create Player + Set Position + Camera Follow
+         this.player = new Player(this, 300, 1035, 'lunebase');
+         if(this.getData('x') != undefined) {
+             this.player.x = this.getData('x');
+         }
+         if(this.getData('y') != undefined) {
+             this.player.y = this.getData('y');
+         }
+         this.cameras.main.startFollow(this.player);
+         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
+         
+ 
+         // Create floor
+         this.floor = this.add.rectangle(0, 1920*.7, 2560, 100).setOrigin(0);
+         this.physics.add.existing(this.floor);
+         this.floor.body.allowGravity = false;
+         this.floor.body.immovable = true;
+ 
+         // Create world bounds
+         this.worldbounds = this.add.group();
+         this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
+         this.physics.add.existing(this.lWall);
+         this.lWall.body.allowGravity = false;
+         this.lWall.body.immovable = true;
+         this.worldbounds.add(this.lWall);
+ 
+         this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
+         this.physics.add.existing(this.rWall);
+         this.rWall.body.allowGravity = false;
+         this.rWall.body.immovable = true;
+         this.worldbounds.add(this.rWall);
+
+         //create enemy
+         this.enemy = this.physics.add.sprite(2560 *.7, 1920*.5, 'enemy').setScale(.9);
+         this.physics.add.existing(this.enemy);
+         this.vision = this.physics.add.sprite(this.enemy.x-150, 1920*.5, 'enemy').setScale(.75).setAlpha(.5);
+
+         this.physics.add.existing(this.vision);
+         //this.vision.body.allowGravity = false;
+         //this.vision.setVelocityX(100);
+         //this.enemy.setVelocityX(-250);
+         
+ 
+         // Player Physics
+         this.physics.add.collider(this.player, this.floor);
+         this.physics.add.collider(this.player, this.worldbounds);
+
+         // Enemy Physics
+         this.physics.add.collider(this.enemy, this.floor);
+         this.physics.add.collider(this.enemy, this.worldbounds);
+
+         this.physics.add.collider(this.vision, this.floor);
+         this.physics.add.collider(this.vision, this.worldbounds);
+ 
+ 
+
+ 
+         //this.physics.add.collider(this.player, this.goal);
+ 
+         
+ 
+         //this.physics.add.overlap(this.player, this.goal, () => {if(keyStatus == 1){this.scene.start("CoreGameplay2")}});
+ 
+         //this.physics.add.overlap(this.player, this.desk, () => {if(atDesk == 0){atDesk = 1}});
+         //this.physics.add.overlap(this.player, this.goal, null, null, this);
+     }
+
+     update() {
+        // Update Player Logics
+        
+        this.player.update();
+
+        //enemy vison
+        //this.vision.moveTo(this.vision, this.player.x, this.player.y);
+
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
+            this.player.body.enable = false;
+            this.addData('x', this.player.x);
+            this.addData('y', this.player.y);
+            this.timeTravel('CoreGameplay3Alt');
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
+            this.enemy.setVelocityX(-250);
+            this.vision.setVelocityX(-250);
+            
+            barkPlace = this.player.x;
+        }
+        if (this.enemy.x <= barkPlace){
+            this.enemy.setVelocityX(0);
+            this.vision.setVelocityX(0);
+            //this.vision.setVelocityX(-250);
+        }
+
+
+
+        console.log(barkPlace);
+
+        /* if (this.enemy.x >= 2560*.9)
+        {
+            this.enemy.setVelocityX(-250);
+        }
+        else if (this.enemy.x <= 2560 * .45)
+        {
+            this.enemy.setVelocityX(250);
+        } */
+    }
+
+    
+
+}
+
+class CoreGameplay3Alt extends SchismScene {
+    constructor() {
+        super("CoreGameplay3Alt", "testing");
+    }
+
+    preload() {
+        this.load.path = '../../assets/character/';
+        this.load.image('lunebase', 'luneBaseSprite.png');
+        this.load.image('solBase', 'solBaseSprite.png');
+        this.load.image('solSit', 'solSitting.png');
+        this.load.image('dedemy', 'enemyBaseSprite_disabled.png');
+
+        //levels
+        this.load.path = '../../assets/levels/';
+        this.load.image('lvl3past', 'level3Past.png');
+    }
+
+    onEnter() {
+
+        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+         // Create background
+         let bg = this.add.image(0, 0, 'lvl3past').setOrigin(0);
+ 
+         // Create Player + Set Position + Camera Follow
+         this.player = new Player(this, 300, 1035, 'lunebase');
+         if(this.getData('x') != undefined) {
+             this.player.x = this.getData('x');
+         }
+         if(this.getData('y') != undefined) {
+             this.player.y = this.getData('y');
+         }
+         this.cameras.main.startFollow(this.player);
+         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
+         
+ 
+         // Create floor
+         this.floor = this.add.rectangle(0, 1920*.7, 2560, 100).setOrigin(0);
+         this.physics.add.existing(this.floor);
+         this.floor.body.allowGravity = false;
+         this.floor.body.immovable = true;
+ 
+         // Create world bounds
+         this.worldbounds = this.add.group();
+         this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
+         this.physics.add.existing(this.lWall);
+         this.lWall.body.allowGravity = false;
+         this.lWall.body.immovable = true;
+         this.worldbounds.add(this.lWall);
+ 
+         this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
+         this.physics.add.existing(this.rWall);
+         this.rWall.body.allowGravity = false;
+         this.rWall.body.immovable = true;
+         this.worldbounds.add(this.rWall);
+
+         //create enemy
+         this.ded = this.physics.add.sprite(2560 *.7, 1920*.5, 'dedemy').setScale(.9);
+         this.physics.add.existing(this.ded);
+         //this.enemy.setVelocityX(-250);
+         
+ 
+         // Player Physics
+         this.physics.add.collider(this.player, this.floor);
+         this.physics.add.collider(this.player, this.worldbounds);
+
+         // Enemy Physics
+         this.physics.add.collider(this.ded, this.floor);
+         this.physics.add.collider(this.ded, this.worldbounds);
+ 
+ 
+
+ 
+         //this.physics.add.collider(this.player, this.goal);
+ 
+         
+ 
+         //this.physics.add.overlap(this.player, this.goal, () => {if(keyStatus == 1){this.scene.start("CoreGameplay2")}});
+ 
+         //this.physics.add.overlap(this.player, this.desk, () => {if(atDesk == 0){atDesk = 1}});
+         //this.physics.add.overlap(this.player, this.goal, null, null, this);
+     }
+
+     update() {
+        // Update Player Logics
+        this.player.update();
+
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
+            this.player.body.enable = false;
+            this.addData('x', this.player.x);
+            this.addData('y', this.player.y);
+            this.timeTravel('CoreGameplay3');
+        }
+
+        
+    }
+
+    
+
 }
 const game = new Phaser.Game({
     scale: {
@@ -441,6 +702,7 @@ const game = new Phaser.Game({
     },
     backgroundColor: 0x000000,
     //scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt],
-    scene: [CoreGameplay2, CoreGameplay2Alt],
+    scene: [CoreGameplay3, CoreGameplay3Alt],
+    //scene: [CoreGameplay2, CoreGameplay2Alt,CoreGameplay3],
     title: "Schism"
 });
