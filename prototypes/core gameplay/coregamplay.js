@@ -22,6 +22,10 @@ class CoreGameplay extends SchismScene {
         //levels
         this.load.path = '../../assets/levels/';
         this.load.image('lvl1Pres', 'scene_1_present.png');
+
+        //sound
+        this.load.path = '../../assets/sound/';
+        this.load.audio('sound', 'sound.mp3');
     }
     
     onEnter() {
@@ -102,9 +106,11 @@ class CoreGameplay extends SchismScene {
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
+            this.timeSound = this.sound.add("sound");
+            this.timeSound.play();
             this.timeTravel('CoreGameplayAlt');
             
-            console.log(atDesk);
+            //console.log(atDesk);
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)) && atDesk == 1) {
@@ -210,6 +216,8 @@ class CoreGameplayAlt extends SchismScene {
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
+            this.timeSound = this.sound.add("sound");
+            this.timeSound.play();
             this.timeTravel('CoreGameplay');
         }
 
@@ -316,6 +324,8 @@ class CoreGameplay2 extends SchismScene {
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
+            this.timeSound = this.sound.add("sound");
+            this.timeSound.play();
             this.timeTravel('CoreGameplay2Alt');
         }
 
@@ -400,6 +410,9 @@ class CoreGameplay2Alt extends SchismScene {
         this.physics.add.collider(this.player, this.floor2);
         this.physics.add.collider(this.player, this.plat);
         this.physics.add.collider(this.player, this.worldbounds);
+
+        this.physics.add.overlap(this.player, this.activate, this.pickUp, null, this);
+        
     }
 
     pickUp() {
@@ -422,6 +435,8 @@ class CoreGameplay2Alt extends SchismScene {
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
             this.timeTravel('CoreGameplay2');
+            this.timeSound = this.sound.add("sound");
+            this.timeSound.play();
         }
 
         /* if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
@@ -461,6 +476,12 @@ class CoreGameplay3 extends SchismScene {
         //levels
         this.load.path = '../../assets/levels/';
         this.load.image('lvl3present', 'level3_present.png');
+
+        //interactibles
+        this.load.path = '../../assets/interactables/';
+        this.load.image('consolePres', 'console future.PNG');
+
+        
         
     }
 
@@ -468,6 +489,8 @@ class CoreGameplay3 extends SchismScene {
 
         //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
          // Create background
+
+         
 
         
          let bg = this.add.image(0, 0, 'lvl3present').setOrigin(0);
@@ -505,7 +528,7 @@ class CoreGameplay3 extends SchismScene {
          this.worldbounds.add(this.rWall);
 
          //create enemy
-         this.enemy = this.physics.add.sprite(2560 *.7, 1920*.5, 'enemy').setScale(.9);
+         this.enemy = this.physics.add.sprite(2560 *.7, 1920*.5, 'enemy').setScale(.8);
          this.physics.add.existing(this.enemy);
          this.vision = this.physics.add.sprite(this.enemy.x-150, 1920*.5, 'enemy').setScale(.75).setAlpha(.5);
 
@@ -513,6 +536,11 @@ class CoreGameplay3 extends SchismScene {
          //this.vision.body.allowGravity = false;
          //this.vision.setVelocityX(100);
          //this.enemy.setVelocityX(-250);
+
+         //console
+         this.conPres = this.physics.add.sprite(2560 *.9, 1920*.5, 'consolePres');
+         this.physics.add.existing(this.conPres);
+
          
  
          // Player Physics
@@ -525,8 +553,18 @@ class CoreGameplay3 extends SchismScene {
 
          this.physics.add.collider(this.vision, this.floor);
          this.physics.add.collider(this.vision, this.worldbounds);
+
+         this.physics.add.collider(this.conPres, this.floor);
+         this.physics.add.collider(this.conPres, this.worldbounds);
  
- 
+
+
+
+         this.physics.add.overlap(this.player, this.enemy, () => {this.gotoScene("CoreGameplay3")});
+         //this.physics.add.overlap(this.player, this.vision, () => {this.gotoScene("CoreGameplay3")});
+
+
+         this.physics.add.overlap(this.player, this.conPres, () => {this.gotoScene("ending")});
 
  
          //this.physics.add.collider(this.player, this.goal);
@@ -551,6 +589,9 @@ class CoreGameplay3 extends SchismScene {
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
+            this.timeSound = this.sound.add("sound");
+            this.timeSound.play();
+
             this.timeTravel('CoreGameplay3Alt');
         }
 
@@ -566,9 +607,11 @@ class CoreGameplay3 extends SchismScene {
             //this.vision.setVelocityX(-250);
         }
 
+        this.physics.add.overlap(this.player, this.vision, () => {this.enemy.setVelocityX(-250);
+            this.vision.setVelocityX(-250);});
 
 
-        console.log(barkPlace);
+
 
         /* if (this.enemy.x >= 2560*.9)
         {
@@ -599,6 +642,11 @@ class CoreGameplay3Alt extends SchismScene {
         //levels
         this.load.path = '../../assets/levels/';
         this.load.image('lvl3past', 'level3Past.png');
+
+        //interactibles
+        this.load.path = '../../assets/interactables/';
+        this.load.image('consolePast', 'console past.PNG');
+
     }
 
     onEnter() {
@@ -643,7 +691,10 @@ class CoreGameplay3Alt extends SchismScene {
          this.ded = this.physics.add.sprite(2560 *.7, 1920*.5, 'dedemy').setScale(.9);
          this.physics.add.existing(this.ded);
          //this.enemy.setVelocityX(-250);
-         
+
+         //console
+         this.conPres = this.physics.add.sprite(2560 *.9, 1920*.5, 'consolePast');
+         this.physics.add.existing(this.conPres);
  
          // Player Physics
          this.physics.add.collider(this.player, this.floor);
@@ -652,6 +703,10 @@ class CoreGameplay3Alt extends SchismScene {
          // Enemy Physics
          this.physics.add.collider(this.ded, this.floor);
          this.physics.add.collider(this.ded, this.worldbounds);
+
+         //console
+         this.physics.add.collider(this.conPres, this.floor);
+         this.physics.add.collider(this.conPres, this.worldbounds);
  
  
 
@@ -666,6 +721,12 @@ class CoreGameplay3Alt extends SchismScene {
          //this.physics.add.overlap(this.player, this.goal, null, null, this);
      }
 
+     pickUp() {
+        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
+                  console.log("the console is very broken");
+              }
+      }
+
      update() {
         // Update Player Logics
         this.player.update();
@@ -674,13 +735,42 @@ class CoreGameplay3Alt extends SchismScene {
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
+            this.timeSound = this.sound.add("sound");
+            this.timeSound.play();
             this.timeTravel('CoreGameplay3');
         }
 
         
     }
+}
 
+class ending extends Phaser.Scene {
+    constructor() {
+        super("ending", "ending");
+    }
+
+    preload(){
+
+    }
+
+    onEnter() {
+        //let circle = this.add.image(1920 *.51, 1080 *.5, 'player').setScale(1.5)
+        //this.add.thing(1920 *.5, 1080 *.5,"player")
+        this.add.text(2560 *.5, 1920 *.5,"you did it");
+        this.add.text(2560 *.47, 1920 *.6,":>");
+
+        this.add.text(0,0,"dog");
+        console.log("dog");
+        //this.input.on('pointerdown', () => this.scene.start('lvl3'));
+    }
+
+    update(){
+        //console.log("dog");
+        this.add.text(1920 *.5, 1080 *.5,"you did it");
+        this.add.text(2560 *.5, 1920 *.6,":>");
+    }
     
+
 
 }
 const game = new Phaser.Game({
@@ -701,8 +791,9 @@ const game = new Phaser.Game({
         }
     },
     backgroundColor: 0x000000,
-    //scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt],
-    scene: [CoreGameplay3, CoreGameplay3Alt],
+    scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt, CoreGameplay3, CoreGameplay3Alt, ending],
+    //scene: [CoreGameplay3, CoreGameplay3Alt, ending],
+    //scene:[ending],
     //scene: [CoreGameplay2, CoreGameplay2Alt,CoreGameplay3],
     title: "Schism"
 });
