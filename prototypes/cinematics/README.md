@@ -6,7 +6,9 @@ The cinematics of Schism created by Samip Niraula.
 
 
 
-Link to Deployed Prototype: Schism Scene Flow
+Link to Deployed Prototype: https://brian-mt-nguyen.github.io/Schism/prototypes/cinematics/cinematics-1.html
+
+
 Scene Flow Prototype Requirements:
 
    
