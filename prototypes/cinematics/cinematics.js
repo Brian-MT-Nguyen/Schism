@@ -153,8 +153,8 @@ class TitleScreen extends Phaser.Scene {
 
       //Interactables
       this.load.path = '../../assets/interactables/';
-      this.load.image('podPresent', 'podPresent.png');
-      this.load.image('podDoor', 'podDoor.png');
+      this.load.image('podPresent', 'podPresent.PNG');
+      this.load.image('podDoor', 'podDoor.PNG');
   }
 
   create() {
