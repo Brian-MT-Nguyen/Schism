@@ -1,7 +1,9 @@
 Schism Scene Flow Prototype
 
 
-The scene flow of Schism created by Samip Niraula.
+
+The cinematics of Schism created by Samip Niraula.
+
 
 
 Link to Deployed Prototype: Schism Scene Flow
