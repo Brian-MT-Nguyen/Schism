@@ -404,7 +404,7 @@ const game = new Phaser.Game({
       }
   },
   backgroundColor: 0x000000,
-  //scene: [BeginIntro, StudioIntro, TitleScreen, SettingsMenu, Gameplay1],
-  scene: [TitleScreen],
+  scene: [BeginIntro, StudioIntro, TitleScreen, SettingsMenu, Gameplay1],
+  //scene: [TitleScreen],
   title: "Schism"
 });
