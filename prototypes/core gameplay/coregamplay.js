@@ -26,9 +26,13 @@ class CoreGameplay extends SchismScene {
         //sound
         this.load.path = '../../assets/sound/';
         this.load.audio('sound', 'sound.mp3');
+        this.load.audio('bgm', 'bgm.mp3');
     }
     
     onEnter() {
+
+        this.bgm = this.sound.add("bgm");
+        this.bgm.play();
 
        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         // Create background
@@ -155,6 +159,9 @@ class CoreGameplayAlt extends SchismScene {
 
        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
+       this.bgm = this.sound.add("bgm");
+        this.bgm.play();
+
        
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Past').setOrigin(0);
@@ -261,6 +268,9 @@ class CoreGameplay2 extends SchismScene {
     }
 
     onEnter() {
+
+        this.bgm = this.sound.add("bgm");
+        this.bgm.play();
         // Create background
         let bg = this.add.image(0, 0, 'lvl').setOrigin(0);
 
@@ -365,6 +375,9 @@ class CoreGameplay2Alt extends SchismScene {
     }
 
     onEnter() {
+
+        this.bgm = this.sound.add("bgm");
+        this.bgm.play();
 
         platStat = 0;
         // Create background
@@ -490,6 +503,9 @@ class CoreGameplay3 extends SchismScene {
     }
 
     onEnter() {
+
+        this.bgm = this.sound.add("bgm");
+        this.bgm.play();
 
         //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
          // Create background
@@ -659,6 +675,9 @@ class CoreGameplay3Alt extends SchismScene {
     }
 
     onEnter() {
+
+        this.bgm = this.sound.add("bgm");
+        this.bgm.play();
 
         //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
          // Create background
