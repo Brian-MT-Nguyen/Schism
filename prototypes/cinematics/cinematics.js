@@ -164,6 +164,17 @@ class TitleScreen extends Phaser.Scene {
       let lune = this.add.image(300, 675, 'lunebase').setOrigin(0.5).setScale(0.8);
       let podDoor = this.add.image(330, 675, 'podDoor').setOrigin(0.5).setScale(1);
 
+      //tween
+
+      this.tweens.add({
+        targets: lune,
+        angle: '+=1',
+        duration: 250,
+        repeat: -1
+      });
+
+
+
 
       // Create title image
       let title = this.add.image(game.config.width/2, 300, 'title').setOrigin(0.5);
@@ -192,6 +203,25 @@ class TitleScreen extends Phaser.Scene {
                   }
               });
           })
+
+          play.preFX.setPadding(32);
+
+          const fx = play.preFX.addGlow();
+    
+          this.tweens.add({
+            targets: fx,
+            outerStrength: 15,
+            yoyo: true,
+            loop: -1,
+            ease: 'sine.inout'
+        });
+
+        this.tweens.add({
+            targets: play,
+            angle: '+=1',
+            duration: 250,
+            repeat: -1
+          });
 
       this.tweens.add({
           targets: title,
@@ -241,6 +271,8 @@ class TitleScreen extends Phaser.Scene {
       }
       inSettings = false;
   }
+
+  
 }
 
 class SettingsMenu extends Phaser.Scene {
@@ -372,6 +404,7 @@ const game = new Phaser.Game({
       }
   },
   backgroundColor: 0x000000,
-  scene: [BeginIntro, StudioIntro, TitleScreen, SettingsMenu, Gameplay1],
+  //scene: [BeginIntro, StudioIntro, TitleScreen, SettingsMenu, Gameplay1],
+  scene: [TitleScreen],
   title: "Schism"
 });
