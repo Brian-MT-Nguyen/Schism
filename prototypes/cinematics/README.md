@@ -14,12 +14,12 @@ Cinematic Prototype Requirements:
    
    Non-interactive cinematic: SATISFIED
         
-   Main studio cinematic satisfies this requirement
+   Main studio cinematic satisfies this requirement (Fridge zooms in, text shows and does animation, fridge zooms out and cinematic finishes)
    
    Interactive cinematic: SATISFIED
         
-   When the play button is held, the cinematic shows the pod opening up and then lets the player interact with the level
+   The main title menu screen with interactive buttons where when held they expand and change tint and shrink back and advance the scene when clicked.
   
    Choreography in code: SATISFIED
         
-   Used multiple tween chains where tween animations were based off each other and when they completed. 
+   Studio intro uses many chained event callbacks (onComplete's), also the door moves down and does callback to allow player to move after user clicks play.
