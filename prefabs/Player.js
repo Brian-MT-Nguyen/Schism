@@ -30,4 +30,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-1000);
         }
     }
+
+    //afaf
 }

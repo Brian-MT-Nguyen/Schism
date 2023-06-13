@@ -27,6 +27,10 @@ class CoreGameplay extends SchismScene {
         this.load.path = '../../assets/sound/';
         this.load.audio('sound', 'sound.mp3');
         this.load.audio('bgm', 'bgm.mp3');
+
+        //UI
+        this.load.path = '../../assets/UI/';
+        this.load.image('right', 'right.png');
     }
     
     onEnter() {
@@ -39,6 +43,9 @@ class CoreGameplay extends SchismScene {
        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0);
+
+        //UI
+        this.thing = new UI(this, "right");
 
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
