@@ -31,6 +31,10 @@ class CoreGameplay extends SchismScene {
         //UI
         this.load.path = '../../assets/UI/';
         this.load.image('right', 'right.png');
+        this.load.image('interact', 'interact.png');
+        this.load.image('mute', 'mute.png');
+        this.load.image('music', 'sound.png');
+        this.load.image('swap', 'swap.png');
     }
     
     onEnter() {
@@ -55,12 +59,8 @@ class CoreGameplay extends SchismScene {
             this.player.y = this.getData('y');
         }
 
-        //UI
-        this.thing = new UI(this, "right", this.player);
-
-        //this.lPress = this.add.image(2560 * .2,1920 * .7,"right").setScale(1);
-        //this.lPress.setScrollFactor(0);
-        //this.lPress.flipX=true;
+        //UI scene, arrow, interact, mute, sound, swap
+        this.thing = new UI(this, "right", "interact", "mute", "music");
 
 
         this.cam =this.cameras.main.startFollow(this.player);
