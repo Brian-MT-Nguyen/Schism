@@ -62,6 +62,9 @@ class CoreGameplay extends SchismScene {
         //UI scene, arrow, interact, mute, sound, swap
         this.thing = new UI(this, "right", "interact", "mute", "music");
 
+        //CC 
+        //this.cc = new this.cc()
+
 
         this.cam =this.cameras.main.startFollow(this.player);
         this.cam = this.cameras.main.setBounds(0, 0, bg.width, bg.height);
