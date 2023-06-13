@@ -22,8 +22,10 @@ class SchismScene extends Phaser.Scene {
         // Dialogue System
         this.dialogueActive = false;
         this.dialogueRectangle = this.add.rectangle(220, 1035, 1470, 300, 0x000000).setOrigin(0).setDepth(10).setAlpha(0.5);
+        this.dialogueRectangle.setScrollFactor(0);
         this.dialogueRectangle.visible = false;
         this.dialogueText = this.add.text(240, 1055, '', {fontSize: 40, color: '#ffffff', wordWrap: { width: 1470 }}).setDepth(10);
+        this.dialogueText.setScrollFactor(0);
         this.dialogueKey;
         this.dialogueIndex = 0;
 
@@ -80,6 +82,11 @@ class SchismScene extends Phaser.Scene {
     startDialogue(key, start, callback) {
         this.dialogueActive = true;
         this.dialogueRectangle.visible = true;
+        this.dialogueRectangle.x = this.cameras.main.x + 220;
+        this.dialogueRectangle.y = this.cameras.main.y + 735;
+        this.dialogueText.x = this.dialogueRectangle.x + 20;
+        this.dialogueText.y = this.dialogueRectangle.y + 20;
+
         this.dialogueKey = key;
         this.dialogueIndex = 0;
         this.dialogueCallback = callback;
