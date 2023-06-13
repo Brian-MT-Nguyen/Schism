@@ -5,8 +5,8 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         super(left, right, up, time, interact, mute, fullscreen)
     } */
 
-    constructor(scene, arrow, interact, mute, music){
-        super(scene, arrow, interact, mute, music);
+    constructor(scene, arrow, interact, mute, music, swap){
+        super(scene, arrow, interact, mute, music, swap);
 
         //left
         this.lPress = scene.add.sprite(0, 0, arrow).setScale(0.12);
