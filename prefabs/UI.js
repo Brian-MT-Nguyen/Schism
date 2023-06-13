@@ -10,8 +10,7 @@ class UI extends Phaser.Physics.Arcade.Sprite {
 
         //left
         this.lPress = scene.add.sprite(2560 * .2,1920 * .7,arrow).setScale(0.12);
-        this.lPress.setScrollFactor(0)
-        //this.lPress.main.startFollow(follow);
+        this.lPress.setScrollFactor(0);
 
         //right
         this.rPress = scene.add.sprite(2560 * .05,1920 * .7,arrow).setScale(0.12)
@@ -29,6 +28,7 @@ class UI extends Phaser.Physics.Arcade.Sprite {
     
 
     update() {
-
+        this.lPress.x = this.scene.cameras.main.x + (500);
+        this.lPress.y = this.scene.cameras.main.y + (500);
     }
 }

@@ -114,6 +114,7 @@ class CoreGameplay extends SchismScene {
         //let atDesk = 0; 
 
         this.player.update();
+        this.thing.update();
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
             this.player.body.enable = false;
