@@ -5,11 +5,14 @@ class CoreGameplay extends SchismScene {
 
     preload() {
         //characters
-        this.load.spritesheet('lune', '../assets/character/spritesheetLune-01.png', {frameWidth: 600, frameHeight: 600});
         this.load.path = '../assets/character/';
-        this.load.image('lunebase', 'luneBaseSprite.png');
+        this.load.image('luneSleep', 'luneBaseSprite.png');
+        this.load.image('luneBase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
+        this.load.spritesheet('luneIdle', 'luneIdle_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneRun', 'luneRun_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneJump', 'luneJump_spritesheet.png', {frameWidth: 600, frameHeight: 600});
         this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 600});
 
 
@@ -46,7 +49,7 @@ class CoreGameplay extends SchismScene {
         this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen");
         
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 300, 1035, 'lunebase');
+        this.player = new Player(this, 300, 1010, 'luneSleep');
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
         if(this.getData('x') != undefined) {
@@ -101,7 +104,7 @@ class CoreGameplay extends SchismScene {
         this.physics.add.collider(this.goal, this.floor);
         this.physics.add.collider(this.goal, this.worldbounds);
 
-        this.time.delayedCall(6000, () => {this.startDialogue("keycard", () => {console.log("test")}, () => {console.log("test")})});
+        this.time.delayedCall(6000, () => {this.startDialogue("tutorial1", () => {console.log("test")}, () => {console.log("test")})});
 
         
 

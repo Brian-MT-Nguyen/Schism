@@ -23,9 +23,9 @@ const game = new Phaser.Game({
         }
     },
     backgroundColor: 0x000000,
-    scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt, CoreGameplay3, CoreGameplay3Alt, ending],
+    //scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt, CoreGameplay3, CoreGameplay3Alt, ending],
     //scene: [CoreGameplay3, CoreGameplay3Alt, ending],
-    //scene:[ending],
+    scene: [CoreGameplay],
     //scene: [CoreGameplay2, CoreGameplay2Alt,CoreGameplay3],
     title: "Schism"
 });

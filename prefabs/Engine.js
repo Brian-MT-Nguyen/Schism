@@ -4,7 +4,7 @@ class SchismScene extends Phaser.Scene {
         this.timeTravelTransition = data.timeTravel;
         this.dialogueData = data.dialogueData || [];
         if(this.dialogueData.length == 0) {
-            fetch('/data/dialogue.json').then(
+            fetch('../data/dialogue.json').then(
                 (response) => response.json()
                 ).then(
                     (json) => {
