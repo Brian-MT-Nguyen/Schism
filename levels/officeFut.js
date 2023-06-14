@@ -44,6 +44,8 @@ class CoreGameplay extends SchismScene {
         
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
+        let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
+        this.player.create(mobileControls);
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -108,10 +110,9 @@ class CoreGameplay extends SchismScene {
 
     update() {
         // Update Player Logics
+        this.player.update();
 
-        //let atDesk = 0; 
-        let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
-        this.player.update(mobileControls);
+        // Update UI Logics
         this.ui.update();
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
