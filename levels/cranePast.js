@@ -16,11 +16,6 @@ class CoreGameplay2Alt extends SchismScene {
 
     onEnter() {
 
-        this.bgm = this.sound.add("bgm");
-        this.bgm.play({
-            loop: true
-        });
-
         platStat = 0;
         // Create background
         let bg = this.add.image(0, 0, 'lvl2Past').setOrigin(0);

@@ -6,7 +6,7 @@ let platStat = 0;
 //let barkPlace = 0;
 
 const game = new Phaser.Game({
-
+// https://www.youtube.com/watch?v=H4BAEf5V-Yc&ab_channel=BreakingCopyright%E2%80%94RoyaltyFreeMusic
     preload() {
         //sound
         this.load.path = '../assets/sound/';
@@ -33,7 +33,8 @@ const game = new Phaser.Game({
     backgroundColor: 0x000000,
     //scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt, CoreGameplay3, CoreGameplay3Alt, ending],
     //scene: [CoreGameplay3, CoreGameplay3Alt, ending],
-    scene: [CoreGameplay],
+    //scene: [CoreGameplay],
+    scene: []
     //scene: [CoreGameplay2, CoreGameplay2Alt,CoreGameplay3],
     title: "Schism"
 });
