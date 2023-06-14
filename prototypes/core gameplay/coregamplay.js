@@ -48,8 +48,15 @@ class CoreGameplay extends SchismScene {
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0);
 
         //UI
+<<<<<<< Updated upstream
         this.ui = new UI(this, "right", "interact", "mute", "swap");
         
+=======
+        this.thing = new UI(this, "right", "interact", "mute", "sound", "swap");
+
+        
+
+>>>>>>> Stashed changes
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
         if(this.getData('x') != undefined) {
@@ -61,6 +68,9 @@ class CoreGameplay extends SchismScene {
 
         this.cameras.main.startFollow(this.player);
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
+
+        //cc
+        this.cc = new cc(this, this.player.x, this.player.y);
 
         //dog
         this.goal = this.physics.add.sprite(2560*.6, 1920*.5,'solSit')
