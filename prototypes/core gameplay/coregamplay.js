@@ -49,11 +49,16 @@ class CoreGameplay extends SchismScene {
 
         //UI
         this.ui = new UI(this, "right", "interact", "mute", "swap");
+
+        this.ui.swapButton.on('pointerdown', () => {
+            this.timeTravel("CoreGameplayAlt");
+        });
         
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
+
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }

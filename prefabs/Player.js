@@ -6,9 +6,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         scene.physics.world.enable(this);
         this.setOrigin(0.5).setScale(0.8);
         this.moving = false;
-        this.moveLeft = false;
-        this.moveRight = false;
-        this.jump = false;
     }
 
     create(mc) {
@@ -22,16 +19,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         let jumpButton = mobileControls[2];
 
         // Interact based on button input
+        // POINTEROVER EVENTS
         leftButton.on('pointerover', () =>
         {
-                this.setVelocityX(-500);
-                this.moving = true;
+            this.setVelocityX(-500);
+            this.moving = true;
         });
 
         rightButton.on('pointerover', () =>
         {
-                this.setVelocityX(500);
-                this.moving = true;
+            this.setVelocityX(500);
+            this.moving = true;
         });
 
         jumpButton.on('pointerover', () =>
@@ -41,21 +39,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.moving = true;
             }
         });
-        
-        this.scene.input.on('gameobjectout', (pointer, gameObject) =>
+
+        // POINTEROUT EVENTS
+        leftButton.on('pointerout', () =>
         {
-            // this.moving = false;
-            // if(gameObject == leftButton) {
-            //     this.setVelocityX(-500);
-            //     this.moving = true;
-            // }
-            // if(gameObject == rightButton) {
-            //     this.setVelocityX(500);
-            //     this.moving = true;
-            // }
-            // if(gameObject == jumpButton) {
-            //     this.setVelocityY(-1000);
-            // }
+            this.moving = false;
+        });
+
+        rightButton.on('pointerout', () =>
+        {
             this.moving = false;
         });
     }
@@ -68,24 +60,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         let dKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         let spaceKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         let moving = false;
-
-        // // Iterate over active pointers
-        // this.scene.input.manager.pointers.forEach(pointer => {
-        //     if (pointer.isDown) {
-        //         moving = true;
-        //         // Check mobile control bounds for each active pointer
-        //         if (mobileControls[0].getBounds().contains(pointer.x, pointer.y)) {
-        //             this.setVelocityX(500);
-        //         }
-
-        //         else if (mobileControls[1].getBounds().contains(pointer.x, pointer.y)) {
-        //             this.setVelocityX(-500);
-        //         }
-        //         if (mobileControls[2].getBounds().contains(pointer.x, pointer.y) && this.body.touching.down) {
-        //             this.setVelocityY(-1000);
-        //         }
-        //     } 
-        // });
 
         // Handle movement based on the keys events
         if(!this.moving) {
