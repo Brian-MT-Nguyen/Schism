@@ -135,6 +135,7 @@ class CoreGameplay3 extends SchismScene {
         //this.vision.moveTo(this.vision, this.player.x, this.player.y);
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
+            this.player.text.setText("swssh");
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
@@ -147,7 +148,7 @@ class CoreGameplay3 extends SchismScene {
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
             this.enemy.setVelocityX(-250);
             this.vision.setVelocityX(-250);
-
+            this.player.text.setText("woof");
             this.woof = this.sound.add("woof");
             this.woof.play();
             
