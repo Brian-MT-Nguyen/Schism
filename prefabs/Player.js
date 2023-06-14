@@ -7,54 +7,82 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(0.5).setScale(0.8);
 
         //testing
-
         this.rect = scene.add.rectangle(2560 * 0.25, 1920 * 0.46, 2560 *0.25 , 1920 * 0.1, 0x222021).setOrigin(0).setAlpha(.75);
         this.rect.setScrollFactor(0);
 
         this.text = scene.add.text(this.rect.x + 330, (1920 * 0.51), "N/A").setOrigin(0.5,0.5)
         .setStyle({ fontSize: 100 });
         this.text.setScrollFactor(0);
-
-        console.log(scene.name);
-
-
+      
+        this.moving = false;
     }
 
-    update(mc) {
+    create(mc) {
+        // Be able to listen to 2 touch inputs
+        this.scene.input.addPointer(2);
+        
         // Get mobile controls
         let mobileControls = mc;
-        let rightKey = this.scene.input.pointer1.isDown && mobileControls[0].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
-        let leftKey = this.scene.input.pointer1.isDown && mobileControls[1].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
-        let jumpKey = this.scene.input.pointer2.isDown && mobileControls[2].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
-        let timeKey = this.scene.input.pointer2.isDown && mobileControls[3].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
-        let intKey = this.scene.input.pointer2.isDown && mobileControls[4].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let leftButton = mobileControls[0];
+        let rightButton = mobileControls[1];
+        let jumpButton = mobileControls[2];
 
-        // Get desktop keeb controls
+        // Interact based on button input
+        // POINTEROVER EVENTS
+        leftButton.on('pointerover', () =>
+        {
+            this.setVelocityX(-500);
+            this.moving = true;
+        });
+
+        rightButton.on('pointerover', () =>
+        {
+            this.setVelocityX(500);
+            this.moving = true;
+        });
+
+        jumpButton.on('pointerover', () =>
+        {
+            if(this.body.touching.down) {
+                this.setVelocityY(-1000);
+                this.moving = true;
+            }
+        });
+
+        // POINTEROUT EVENTS
+        leftButton.on('pointerout', () =>
+        {
+            this.moving = false;
+        });
+
+        rightButton.on('pointerout', () =>
+        {
+            this.moving = false;
+        });
+    }
+
+    update() {
+        
+
+        // Get desktop keyboard controls
         let aKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         let dKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         let spaceKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        let eKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        let fKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-        
-        //movement
-        if (aKey.isDown || leftKey)
-        {
-            this.setVelocityX(-500);
-            this.text.setText("walking");
-            
-        }
-        else if (dKey.isDown || rightKey)
-        {
-            this.setVelocityX(500);
-            this.text.setText("walking");
-        }
-        else {
-            this.setVelocityX(0);
-            this.text.setText("...");
-        }
+        let moving = false;
 
-        if ((spaceKey.isDown || jumpKey) && this.body.touching.down)
-        {
+        // Handle movement based on the keys events
+        if(!this.moving) {
+            if (aKey.isDown) {
+                this.setVelocityX(-500);
+            } 
+            else if (dKey.isDown) {
+                this.setVelocityX(500);
+            } else {
+                this.setVelocityX(0);
+            }
+        }
+        
+        if (spaceKey.isDown && this.body.touching.down) {
             this.setVelocityY(-1000);
             
         }
