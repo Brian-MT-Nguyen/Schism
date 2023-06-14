@@ -829,10 +829,6 @@ class ending extends Phaser.Scene {
 
 }
 const game = new Phaser.Game({
-    input: {
-        multiTouch: true,
-        activePointers: 2
-    },    
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
