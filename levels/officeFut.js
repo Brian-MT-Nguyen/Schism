@@ -30,6 +30,7 @@ class CoreGameplay extends SchismScene {
         this.load.image('sound', 'sound.png');
         this.load.image('swap', 'swap.png');
         this.load.image('fullscreen', "fullScreen.png");
+
     }
     
     onEnter() {
