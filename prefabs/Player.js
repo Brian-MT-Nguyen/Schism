@@ -93,9 +93,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         //timewarp cc
-        if(eKey.isDown || timeKey){
+        /* if(eKey.isDown || timeKey){
             this.text.setText("swssh");
-        }
+        } */
 
         //shitty activatables
         
