@@ -10,9 +10,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     update(mc) {
         // Get mobile controls
         let mobileControls = mc;
-        let rightKey = this.scene.input.activePointer.isDown && mobileControls[0].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
-        let leftKey = this.scene.input.activePointer.isDown && mobileControls[1].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
-        let jumpKey = this.scene.input.activePointer.isDown && mobileControls[2].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let rightKey = this.scene.input.pointer1.isDown && mobileControls[0].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let leftKey = this.scene.input.pointer1.isDown && mobileControls[1].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let jumpKey = this.scene.input.pointer2.isDown && mobileControls[2].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
 
         // Get desktop keeb controls
         let aKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
