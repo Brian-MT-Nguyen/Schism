@@ -18,6 +18,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     create(mc) {
+        // Animation set
+        // this.anims.create({
+        //     key: 'walk',
+        //     frames: this.anims.generateFrameNumbers('lune', { frames: [0] }),
+        //     frameRate: 8,
+        //     repeat: -1
+        // });
+
         // Be able to listen to 2 touch inputs
         this.scene.input.addPointer(2);
         
@@ -34,12 +42,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         leftButton.on('pointerover', () =>
         {
             this.setVelocityX(-500);
+            this.text.setText("walking");
             this.moving = true;
         });
 
         rightButton.on('pointerover', () =>
         {
             this.setVelocityX(500);
+            this.text.setText("walking");
             this.moving = true;
         });
 
@@ -47,7 +57,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         {
             if(this.body.touching.down) {
                 this.setVelocityY(-1000);
-                this.moving = true;
             }
         });
 
@@ -55,11 +64,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         leftButton.on('pointerout', () =>
         {
             this.moving = false;
+            this.text.setText("...");
         });
 
         rightButton.on('pointerout', () =>
         {
             this.moving = false;
+            this.text.setText("...");
         });
     }
 
@@ -97,6 +108,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //While in the air play jump cc
         if(!this.body.touching.down){
             this.text.setText("jumping");
+        } 
+        else if(!this.moving && this.body.touching.down) {
+            this.text.setText("...");
         }
 
         //timewarp cc

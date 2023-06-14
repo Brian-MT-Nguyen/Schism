@@ -5,23 +5,25 @@ class CoreGameplay extends SchismScene {
 
     preload() {
         //characters
-        this.load.path = '../../assets/character/';
+        this.load.spritesheet('lune', '../assets/character/spritesheetLune-01.png', {frameWidth: 600, frameHeight: 600});
+        this.load.path = '../assets/character/';
         this.load.image('lunebase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
+        this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 600});
 
 
         //levels
-        this.load.path = '../../assets/levels/';
+        this.load.path = '../assets/levels/';
         this.load.image('lvl1Pres', 'scene_1_present.png');
 
         //sound
-        this.load.path = '../../assets/sound/';
+        this.load.path = '../assets/sound/';
         this.load.audio('sound', 'sound.mp3');
         this.load.audio('bgm', 'bgm.mp3');
 
         //UI
-        this.load.path = '../../assets/UI/';
+        this.load.path = '../assets/UI/';
         this.load.image('right', 'right.png');
         this.load.image('interact', 'interact.png');
         this.load.image('mute', 'mute.png');
