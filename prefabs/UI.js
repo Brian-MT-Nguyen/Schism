@@ -1,6 +1,6 @@
 class UI extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, arrow, interact, mute, swap){
-        super(scene, arrow, interact, mute, swap);
+    constructor(scene, arrow, interact, mute, swap, fullScreen){
+        super(scene, arrow, interact, mute, swap,fullScreen);
 
         // Left Button
         this.leftButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
@@ -37,6 +37,11 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12);
         this.swapButton.setScrollFactor(0);
         this.swapButton.setInteractive();
+
+        // fullscreen
+        this.fsButton = scene.add.sprite(0,0,fullScreen);
+        this.fsButton.setScrollFactor(0);
+        this.fsButton.setInteractive();
     }
     
     update() {
@@ -61,5 +66,9 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         // Swap Button
         this.swapButton.x = this.scene.cameras.main.x + (1620);
         this.swapButton.y = this.scene.cameras.main.y + (980);
+
+        //FS 
+        this.fsButton.x = this.scene.cameras.main.x + (100);
+        this.fsButton.y = this.scene.cameras.main.y + (100);
     }
 }
