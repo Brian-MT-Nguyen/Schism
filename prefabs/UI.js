@@ -11,11 +11,13 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         this.rightButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
         this.rightButton.setFlipX(true);
         this.rightButton.setScrollFactor(0);
+        this.rightButton.setInteractive();
 
         // Up Button
         this.upButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
         this.upButton.angle += 270;
         this.upButton.setScrollFactor(0);
+        this.upButton.setInteractive();
 
         // Interact Button
         this.interactButton = scene.add.sprite(0, 0, interact).setScale(0.12);
