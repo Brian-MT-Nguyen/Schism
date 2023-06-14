@@ -1,6 +1,8 @@
 class UI extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, arrow, interact, mute, swap, fullScreen){
-        super(scene, arrow, interact, mute, swap,fullScreen);
+    constructor(scene, arrow, interact, mute, swap, fullScreen, unmute){
+        super(scene, arrow, interact, mute, swap, fullScreen, unmute);
+
+        let muteStatus = 0;
 
         // Left Button
         this.leftButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
@@ -29,10 +31,17 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         this.muteButton.setScrollFactor(0);
         this.muteButton.setInteractive()
         .on('pointerdown', () => {
-            game.sound.mute = true;
+            if(muteStatus == 0){
+                this.muteButton = this.muteButton.setTexture(unmute)
+                game.sound.mute = true;
+                muteStatus = 1;
+            }else{
+                this.muteButton = this.muteButton.setTexture(mute)
+                game.sound.mute = false;
+                muteStatus = 0;
+            }
         })
         
-
         // Swap Button
         this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12);
         this.swapButton.setScrollFactor(0);
@@ -41,7 +50,14 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         // fullscreen
         this.fsButton = scene.add.sprite(0,0,fullScreen);
         this.fsButton.setScrollFactor(0);
-        this.fsButton.setInteractive();
+        this.fsButton.setInteractive()
+        .on('pointerdown', () => {
+            if (scene.scale.isFullscreen) {
+                scene.scale.stopFullscreen();
+            } else {
+                scene.scale.startFullscreen();
+            }
+        })
     }
     
     update() {
@@ -66,7 +82,6 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         // Swap Button
         this.swapButton.x = this.scene.cameras.main.x + (1620);
         this.swapButton.y = this.scene.cameras.main.y + (980);
-
         //FS 
         this.fsButton.x = this.scene.cameras.main.x + (100);
         this.fsButton.y = this.scene.cameras.main.y + (100);

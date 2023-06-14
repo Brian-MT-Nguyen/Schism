@@ -33,6 +33,7 @@ class CoreGameplay extends SchismScene {
         this.load.image('sound', 'sound.png');
         this.load.image('swap', 'swap.png');
         this.load.image('fullscreen', "fullScreen.png");
+
     }
     
     onEnter() {
@@ -46,7 +47,7 @@ class CoreGameplay extends SchismScene {
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0);
 
         //UI
-        this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen");
+        this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen", "sound");
         
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1010, 'luneSleep');
