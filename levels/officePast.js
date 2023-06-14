@@ -6,7 +6,7 @@ class CoreGameplayAlt extends SchismScene {
     //goal;
 
     constructor() {
-        super("CoreGameplayAlt", "Deez Nuts");
+        super("CoreGameplayAlt", "CoreGameplayAlt");
     }
 
     preload() {

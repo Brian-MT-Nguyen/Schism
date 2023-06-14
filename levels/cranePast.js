@@ -1,6 +1,6 @@
 class CoreGameplay2Alt extends SchismScene {
     constructor() {
-        super("CoreGameplay2Alt", "testing");
+        super("CoreGameplay2Alt", "CoreGameplay2Alt");
     }
 
     preload() {
