@@ -14,7 +14,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     create(mc) {
         // Be able to listen to 2 touch inputs
         this.scene.input.addPointer(2);
-        
+
         // Get mobile controls
         let mobileControls = mc;
         let leftButton = mobileControls[0];
@@ -24,17 +24,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // Interact based on button input
         this.scene.input.on('gameobjectover', (pointer, gameObject) =>
         {
-            if(gameObject == leftButton) {
-                this.setVelocityX(-500);
-                this.moving = true;
-            }
-            if(gameObject == rightButton) {
-                this.setVelocityX(500);
-                this.moving = true;
-            }
-            if(gameObject == jumpButton && this.body.touching.down) {
-                this.setVelocityY(-1000);
-            }
+            gameObject.setTintFill(0x00ff00, 0x00ff00, 0xff0000, 0xff0000);
         });
         this.scene.input.on('gameobjectout', (pointer, gameObject) =>
         {
