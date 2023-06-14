@@ -44,13 +44,12 @@ class CoreGameplay extends SchismScene {
             loop: true
         });
 
-       //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0);
 
         //UI
-        this.thing = new UI(this, "right", "interact", "mute", "sound", "swap");
-
+        this.ui = new UI(this, "right", "interact", "mute", "swap");
+        
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
         if(this.getData('x') != undefined) {
@@ -102,7 +101,7 @@ class CoreGameplay extends SchismScene {
         this.physics.add.collider(this.goal, this.floor);
         this.physics.add.collider(this.goal, this.worldbounds);
 
-        //this.physics.add.collider(this.player, this.goal);
+        this.time.delayedCall(6000, () => {this.startDialogue("keycard", () => {console.log("test")}, () => {console.log("test")})});
 
         
 
@@ -116,9 +115,9 @@ class CoreGameplay extends SchismScene {
         // Update Player Logics
 
         //let atDesk = 0; 
-
-        this.player.update();
-        this.thing.update();
+        let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
+        this.player.update(mobileControls);
+        this.ui.update();
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
             this.player.body.enable = false;
@@ -826,6 +825,9 @@ class ending extends Phaser.Scene {
 
 }
 const game = new Phaser.Game({
+    input: {
+        multiTouch: true
+    },    
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,

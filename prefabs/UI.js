@@ -1,42 +1,56 @@
 class UI extends Phaser.Physics.Arcade.Sprite {
-    //2560, 1920
-    //
-    /* constructor(left, right, up, time, interact, mute, fullscreen) {
-        super(left, right, up, time, interact, mute, fullscreen)
-    } */
+    constructor(scene, arrow, interact, mute, swap){
+        super(scene, arrow, interact, mute, swap);
 
-    constructor(scene, arrow, interact, mute, music, swap){
-        super(scene, arrow, interact, mute, music, swap);
+        // Left Button
+        this.leftButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
+        this.leftButton.setScrollFactor(0);
+        this.leftButton.setInteractive();
 
-        //left
-        this.lPress = scene.add.sprite(0, 0, arrow).setScale(0.12);
-        this.lPress.setScrollFactor(0);
+        // Right Button
+        this.rightButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
+        this.rightButton.setFlipX(true);
+        this.rightButton.setScrollFactor(0);
 
-        //right
-        this.rPress = scene.add.sprite(0, 0, arrow).setScale(0.12);
-        this.rPress.setFlipX(true);
-        this.rPress.setScrollFactor(0);
+        // Up Button
+        this.upButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
+        this.upButton.angle += 270;
+        this.upButton.setScrollFactor(0);
 
-        //up
-        this.uPress = scene.add.sprite(0, 0,arrow).setScale(0.12);
-        this.uPress.angle += 270;
-        this.uPress.setScrollFactor(0);
+        // Interact Button
+        this.interactButton = scene.add.sprite(0, 0, interact).setScale(0.12);
+        this.interactButton.setScrollFactor(0);
 
-        
-        //dscene.physics.world.enable(this);
-        // /this.setOrigin(0.1).setScale(0.8);
+        // Mute Button
+        this.muteButton = scene.add.sprite(0, 0, mute).setScale(0.12);
+        this.muteButton.setScrollFactor(0);
+
+        // Swap Button
+        this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12);
+        this.swapButton.setScrollFactor(0);
     }
-
     
-
     update() {
-        this.lPress.x = this.scene.cameras.main.x + (300);
-        this.lPress.y = this.scene.cameras.main.y + (980);
+        // Movement Buttons
+        this.leftButton.x = this.scene.cameras.main.x + (300);
+        this.leftButton.y = this.scene.cameras.main.y + (980);
 
-        this.rPress.x = this.scene.cameras.main.x + (100);
-        this.rPress.y = this.scene.cameras.main.y + (980);
+        this.rightButton.x = this.scene.cameras.main.x + (100);
+        this.rightButton.y = this.scene.cameras.main.y + (980);
 
-        this.uPress.x = this.scene.cameras.main.x + (1820);
-        this.uPress.y = this.scene.cameras.main.y + (980);
+        this.upButton.x = this.scene.cameras.main.x + (1820);
+        this.upButton.y = this.scene.cameras.main.y + (980);
+
+        // Interact Button
+        this.interactButton.x = this.scene.cameras.main.x + (1820);
+        this.interactButton.y = this.scene.cameras.main.y + (780);
+
+        // Mute Button
+        this.muteButton.x = this.scene.cameras.main.x + (1820);
+        this.muteButton.y = this.scene.cameras.main.y + (100);
+
+        // Swap Button
+        this.swapButton.x = this.scene.cameras.main.x + (1620);
+        this.swapButton.y = this.scene.cameras.main.y + (980);
     }
 }

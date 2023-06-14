@@ -7,17 +7,24 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(0.5).setScale(0.8);
     }
 
-    update() {
+    update(mc) {
+        // Get mobile controls
+        let mobileControls = mc;
+        let rightKey = this.scene.input.activePointer.isDown && mobileControls[0].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let leftKey = this.scene.input.activePointer.isDown && mobileControls[1].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let jumpKey = this.scene.input.activePointer.isDown && mobileControls[2].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+
+        // Get desktop keeb controls
         let aKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         let dKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         let spaceKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
+        
         //movement
-        if (aKey.isDown)
+        if (aKey.isDown || leftKey)
         {
             this.setVelocityX(-500);
         }
-        else if (dKey.isDown)
+        else if (dKey.isDown || rightKey)
         {
             this.setVelocityX(500);
         }
@@ -25,11 +32,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityX(0);
         }
 
-        if (spaceKey.isDown && this.body.touching.down)
+        if ((spaceKey.isDown || jumpKey) && this.body.touching.down)
         {
             this.setVelocityY(-1000);
         }
     }
-
-    //afaf
 }
