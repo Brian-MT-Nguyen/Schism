@@ -4,12 +4,12 @@ class UI extends Phaser.Physics.Arcade.Sprite {
 
         // Left Button
         this.leftButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
+        this.leftButton.setFlipX(true);
         this.leftButton.setScrollFactor(0);
         this.leftButton.setInteractive();
 
         // Right Button
         this.rightButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
-        this.rightButton.setFlipX(true);
         this.rightButton.setScrollFactor(0);
         this.rightButton.setInteractive();
 
@@ -34,10 +34,10 @@ class UI extends Phaser.Physics.Arcade.Sprite {
     
     update() {
         // Movement Buttons
-        this.leftButton.x = this.scene.cameras.main.x + (300);
+        this.leftButton.x = this.scene.cameras.main.x + (100);
         this.leftButton.y = this.scene.cameras.main.y + (980);
 
-        this.rightButton.x = this.scene.cameras.main.x + (100);
+        this.rightButton.x = this.scene.cameras.main.x + (300);
         this.rightButton.y = this.scene.cameras.main.y + (980);
 
         this.upButton.x = this.scene.cameras.main.x + (1820);
