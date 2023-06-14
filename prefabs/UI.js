@@ -22,14 +22,17 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         // Interact Button
         this.interactButton = scene.add.sprite(0, 0, interact).setScale(0.12);
         this.interactButton.setScrollFactor(0);
+        this.interactButton.setInteractive();
 
         // Mute Button
         this.muteButton = scene.add.sprite(0, 0, mute).setScale(0.12);
         this.muteButton.setScrollFactor(0);
+        this.muteButton.setInteractive();
 
         // Swap Button
         this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12);
         this.swapButton.setScrollFactor(0);
+        this.swapButton.setInteractive();
     }
     
     update() {
