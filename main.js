@@ -6,6 +6,14 @@ let platStat = 0;
 //let barkPlace = 0;
 
 const game = new Phaser.Game({
+
+    preload() {
+        //sound
+        this.load.path = '../assets/sound/';
+        this.load.audio('sound', 'sound.mp3');
+        this.load.audio('bgm', 'bgm.mp3');
+    },
+
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,

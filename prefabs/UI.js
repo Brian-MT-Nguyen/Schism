@@ -32,11 +32,25 @@ class UI extends Phaser.Physics.Arcade.Sprite {
             game.sound.mute = true;
         })
         
-
         // Swap Button
         this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12);
         this.swapButton.setScrollFactor(0);
         this.swapButton.setInteractive();
+<<<<<<< Updated upstream
+=======
+
+        // fullscreen
+        this.fsButton = scene.add.sprite(0,0,fullScreen);
+        this.fsButton.setScrollFactor(0);
+        this.fsButton.setInteractive()
+        .on('pointerdown', () => {
+            if (scene.scale.isFullscreen) {
+                scene.scale.stopFullscreen();
+            } else {
+                scene.scale.startFullscreen();
+            }
+        })
+>>>>>>> Stashed changes
     }
     
     update() {

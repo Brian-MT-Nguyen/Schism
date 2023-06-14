@@ -27,11 +27,6 @@ class CoreGameplayAlt extends SchismScene {
 
        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
-       this.bgm = this.sound.add("bgm");
-       this.bgm.play({
-        loop: true
-    });
-
        
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Past').setOrigin(0);
