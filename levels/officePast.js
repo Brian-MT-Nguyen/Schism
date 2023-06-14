@@ -36,6 +36,9 @@ class CoreGameplayAlt extends SchismScene {
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Past').setOrigin(0);
 
+        //UI
+        this.ui = new UI(this, "right", "interact", "mute", "swap");
+
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
         if(this.getData('x') != undefined) {
@@ -87,9 +90,13 @@ class CoreGameplayAlt extends SchismScene {
 
     update() {
         // Update Player Logics
-        this.player.update();
+        //this.player.update();
+        let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
+        this.player.update(mobileControls);
+        this.ui.update();
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
+            this.player.text.setText("swssh");
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
@@ -105,9 +112,11 @@ class CoreGameplayAlt extends SchismScene {
 
             if(keyStatus == 1){
                 console.log("keys aquired");
+                this.player.text.setText("keys aquired");
             }
             else{
                 console.log("no keys");
+                this.player.text.setText("no keys");
             }
             
 

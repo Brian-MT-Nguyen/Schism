@@ -111,6 +111,7 @@ class CoreGameplay3Alt extends SchismScene {
         this.player.update();
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
+            this.player.text.setText("swssh");
             this.player.body.enable = false;
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);

@@ -27,7 +27,11 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         // Mute Button
         this.muteButton = scene.add.sprite(0, 0, mute).setScale(0.12);
         this.muteButton.setScrollFactor(0);
-        this.muteButton.setInteractive();
+        this.muteButton.setInteractive()
+        .on('pointerdown', () => {
+            game.sound.mute = true;
+        })
+        
 
         // Swap Button
         this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12);

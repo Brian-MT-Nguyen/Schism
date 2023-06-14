@@ -96,7 +96,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.text.setText("walking");
             } else {
                 this.setVelocityX(0);
-                this.text.setText("...");
+                this.text.setText("");
             }
         }
         
@@ -113,10 +113,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.text.setText("...");
         }
 
-        //timewarp cc
+        /* //timewarp cc
         if(eKey.isDown){
             this.text.setText("swssh");
-        }
+        } */
 
         //shitty activatables
         
