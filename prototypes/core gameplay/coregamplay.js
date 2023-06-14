@@ -826,7 +826,8 @@ class ending extends Phaser.Scene {
 }
 const game = new Phaser.Game({
     input: {
-        multiTouch: true
+        multiTouch: true,
+        activePointers: 2
     },    
     scale: {
         mode: Phaser.Scale.FIT,
