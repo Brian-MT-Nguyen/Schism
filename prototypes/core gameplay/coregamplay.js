@@ -5,7 +5,6 @@ let brkCon = 0;
 let platStat = 0;
 
 
-
 class CoreGameplay extends SchismScene {
     constructor() {
         super("CoreGameplay", "Deez Nuts");
@@ -833,6 +832,7 @@ class ending extends Phaser.Scene {
 
 
 }
+
 const game = new Phaser.Game({
     scale: {
         mode: Phaser.Scale.FIT,
@@ -852,6 +852,7 @@ const game = new Phaser.Game({
     },
     backgroundColor: 0x000000,
     scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt, CoreGameplay3, CoreGameplay3Alt, ending],
+    //scene: [CoreGameplayAlt],
     //scene: [CoreGameplay3, CoreGameplay3Alt, ending],
     //scene:[ending],
     //scene: [CoreGameplay2, CoreGameplay2Alt,CoreGameplay3],
