@@ -1,5 +1,12 @@
 {
-    "tutorial1": ["testing", "testing"],
+    "tutorial1": ["on desktop w to jump, a for left, d for right, f to interact, e to timeswap", "on mobile tap the arrows to move in the corresponding direction. Moon button to time swap, arrow button to interact. Top left to fullscreen and top right to mute/unmute"],
     "desk": ["It is day 482, and I have come to the realization that the most crucial part of Project Moon’s development is..well..not here with me. I have to travel to the Corvus facility to retrieve it, but hopefully I will be back soon for Lune’s awakening."
-, "There's jar of dog treats. Unfortunately, you can not eat them, but maybe something else can"]
+, "There's jar of dog treats. Unfortunately, you can not eat them, but maybe something else can"],
+    "crate": ["Lune steps forward and opens a crate as Sol jumps out, barking at the stranger. Player has the option to befriend dog by giving a dog treat. After befriending Sol, Lune unlocks the ability to switch to the past."],
+    "keycard": ["You found a key card. This can be useful."],
+    "brokenCon": ["The console is broken, can't do anything with it"],
+    "workCon": ["The console turns on and it drops a steel beam to make a bridge"],
+    "finalCon":["As you touch the console a light envelops you", "..."],
+    "endScrene": ["Day 987: Lune, if you find this message, then you will grow to be disappointed upon my absence. Ever since you came into this world, I knew you would grow the heart to look for your creator. I established that in you. However, after I have learned that the state of this world has fallen, I had to create something to take care of Sol.", "I had to create you."]
+
 }
