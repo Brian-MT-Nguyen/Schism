@@ -15,6 +15,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         .setStyle({ fontSize: 100 });
         this.text.setScrollFactor(0);
 
+        console.log(scene.name);
+
 
     }
 
@@ -24,11 +26,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         let rightKey = this.scene.input.pointer1.isDown && mobileControls[0].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
         let leftKey = this.scene.input.pointer1.isDown && mobileControls[1].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
         let jumpKey = this.scene.input.pointer2.isDown && mobileControls[2].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let timeKey = this.scene.input.pointer2.isDown && mobileControls[3].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
+        let intKey = this.scene.input.pointer2.isDown && mobileControls[4].getBounds().contains(this.scene.input.activePointer.x, this.scene.input.activePointer.y);
 
         // Get desktop keeb controls
         let aKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         let dKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         let spaceKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        let eKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        let fKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         
         //movement
         if (aKey.isDown || leftKey)
@@ -53,8 +59,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             
         }
 
+        //While in the air play jump cc
         if(!this.body.touching.down){
             this.text.setText("jumping");
         }
+
+        //timewarp cc
+        if(eKey.isDown || timeKey){
+            this.text.setText("swssh");
+        }
+
+        //shitty activatables
+        
     }
 }
