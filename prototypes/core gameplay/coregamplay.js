@@ -48,15 +48,6 @@ class CoreGameplay extends SchismScene {
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0);
 
         //UI
-<<<<<<< Updated upstream
-        this.ui = new UI(this, "right", "interact", "mute", "swap");
-        
-=======
-        this.thing = new UI(this, "right", "interact", "mute", "sound", "swap");
-
-        
-
->>>>>>> Stashed changes
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1035, 'lunebase');
         if(this.getData('x') != undefined) {
