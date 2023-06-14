@@ -82,7 +82,7 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         // Swap Button
         this.swapButton.x = this.scene.cameras.main.x + (1620);
         this.swapButton.y = this.scene.cameras.main.y + (980);
-
+        //FS 
         this.fsButton.x = this.scene.cameras.main.x + (100);
         this.fsButton.y = this.scene.cameras.main.y + (100);
     }
