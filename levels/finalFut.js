@@ -3,7 +3,7 @@ let barkPlace = 0;
 
 class CoreGameplay3 extends SchismScene {
     constructor() {
-        super("CoreGameplay3", "testing");
+        super("CoreGameplay3", "CoreGameplay3");
     }
 
     preload() {

@@ -26,6 +26,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         let leftButton = mobileControls[0];
         let rightButton = mobileControls[1];
         let jumpButton = mobileControls[2];
+        let timeButton = mobileControls[3];
+        let intButton = mobileControls[4];
 
         // Interact based on button input
         // POINTEROVER EVENTS
@@ -68,17 +70,22 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         let aKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         let dKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         let spaceKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        let eKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        let fKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         let moving = false;
 
         // Handle movement based on the keys events
         if(!this.moving) {
             if (aKey.isDown) {
                 this.setVelocityX(-500);
+                this.text.setText("walking");
             } 
             else if (dKey.isDown) {
                 this.setVelocityX(500);
+                this.text.setText("walking");
             } else {
                 this.setVelocityX(0);
+                this.text.setText("...");
             }
         }
         
@@ -93,9 +100,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         //timewarp cc
-        /* if(eKey.isDown || timeKey){
+        if(eKey.isDown){
             this.text.setText("swssh");
-        } */
+        }
 
         //shitty activatables
         

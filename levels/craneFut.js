@@ -1,7 +1,7 @@
 
 class CoreGameplay2 extends SchismScene {
     constructor() {
-        super("CoreGameplay2", "testing");
+        super("CoreGameplay2", "CoreGameplay2");
     }
 
     preload() {
