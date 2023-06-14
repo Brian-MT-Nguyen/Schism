@@ -63,7 +63,7 @@ class CoreGameplay extends SchismScene {
         this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
         //cc
-        this.cc = new cc(this, this.player.x, this.player.y);
+        //this.cc = new cc(this);
 
         //dog
         this.goal = this.physics.add.sprite(2560*.6, 1920*.5,'solSit')
