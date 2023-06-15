@@ -8,6 +8,7 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
 
         this.running = false;
         this.jumping = false;
+        this.canFollow = true;
     }
 
     create() {
@@ -20,49 +21,50 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-        this.setVelocityX(this.scene.player.body.velocity.x);
+        if(this.canFollow) {
+            this.setVelocityX(this.scene.player.body.velocity.x);
+            // Have Dog follow player
+            if(this.body.velocity.x > 0) {
+                this.body.setOffset(100,0);
+                if(!this.running && !this.scene.player.isPaused) {
+                    this.running = true;
+                    this.flipX = false;
+                    this.play('run');
+                }
+                if(this.x < this.scene.player.x + 50) {
+                    this.setVelocityX(this.scene.player.body.velocity.x + 200);
+                }
+                if(this.x > this.scene.player.x + 50) {
+                    this.setVelocityX(this.scene.player.body.velocity.x - 200);
+                }
+            }
+            else if(this.body.velocity.x < 0) {
+                this.body.setOffset(100,0);
+                if(!this.running && !this.scene.player.isPaused) {
+                    this.running = true;
+                    this.flipX = true;
+                    this.play('run');
+                }
+                if(this.x > this.scene.player.x - 50) {
+                    this.setVelocityX(this.scene.player.body.velocity.x - 200);
+                }
+                if(this.x < this.scene.player.x - 50) {
+                    this.setVelocityX(this.scene.player.body.velocity.x + 200);
+                }
+            }
+            else if(this.body.velocity.x == 0  && this.running){
+                this.body.setOffset(0,0);
+                this.running = false;
+                this.stop();
+                this.setTexture("solBase");
+            }
 
-        // Have Dog follow player
-        if(this.body.velocity.x > 0) {
-            this.body.setOffset(100,0);
-            if(!this.running) {
-                this.running = true;
-                this.flipX = false;
-                this.play('run');
+            // If player can't move then dog no move
+            if(this.scene.player.body.enable == false) {
+                this.body.enable = false;
+            } else {
+                this.body.enable = true;
             }
-            if(this.x < this.scene.player.x + 50) {
-                this.setVelocityX(this.scene.player.body.velocity.x + 200);
-            }
-            if(this.x > this.scene.player.x + 50) {
-                this.setVelocityX(this.scene.player.body.velocity.x - 200);
-            }
-        }
-        else if(this.body.velocity.x < 0) {
-            this.body.setOffset(100,0);
-            if(!this.running) {
-                this.running = true;
-                this.flipX = true;
-                this.play('run');
-            }
-            if(this.x > this.scene.player.x - 50) {
-                this.setVelocityX(this.scene.player.body.velocity.x - 200);
-            }
-            if(this.x < this.scene.player.x - 50) {
-                this.setVelocityX(this.scene.player.body.velocity.x + 200);
-            }
-        }
-        else if(this.body.velocity.x == 0  && this.running){
-            this.body.setOffset(0,0);
-            this.running = false;
-            this.stop();
-            this.setTexture("solBase");
-        }
-
-        // If player can't move then dog no move
-        if(this.scene.player.body.enable == false) {
-            this.body.enable = false;
-        } else {
-            this.body.enable = true;
         }
     }
 }

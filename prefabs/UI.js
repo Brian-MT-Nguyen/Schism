@@ -5,29 +5,29 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         let muteStatus = 0;
 
         // Left Button
-        this.leftButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
+        this.leftButton = scene.add.sprite(0, 0, arrow).setScale(0.12).setDepth(uiDepth);
         this.leftButton.setFlipX(true);
         this.leftButton.setScrollFactor(0);
         this.leftButton.setInteractive();
 
         // Right Button
-        this.rightButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
+        this.rightButton = scene.add.sprite(0, 0, arrow).setScale(0.12).setDepth(uiDepth);
         this.rightButton.setScrollFactor(0);
         this.rightButton.setInteractive();
 
         // Up Button
-        this.upButton = scene.add.sprite(0, 0, arrow).setScale(0.12);
+        this.upButton = scene.add.sprite(0, 0, arrow).setScale(0.12).setDepth(uiDepth);
         this.upButton.angle += 270;
         this.upButton.setScrollFactor(0);
         this.upButton.setInteractive();
 
         // Interact Button
-        this.interactButton = scene.add.sprite(0, 0, interact).setScale(0.12);
+        this.interactButton = scene.add.sprite(0, 0, interact).setScale(0.12).setDepth(uiDepth);
         this.interactButton.setScrollFactor(0);
         this.interactButton.setInteractive();
 
         // Mute Button
-        this.muteButton = scene.add.sprite(0, 0, mute).setScale(0.12);
+        this.muteButton = scene.add.sprite(0, 0, mute).setScale(0.12).setDepth(uiDepth);
         this.muteButton.setScrollFactor(0);
         this.muteButton.setInteractive()
         .on('pointerdown', () => {
@@ -43,12 +43,12 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         })
         
         // Swap Button
-        this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12);
+        this.swapButton = scene.add.sprite(0, 0, swap).setScale(0.12).setDepth(uiDepth);
         this.swapButton.setScrollFactor(0);
         this.swapButton.setInteractive();
 
         // fullscreen
-        this.fsButton = scene.add.sprite(0,0,fullScreen);
+        this.fsButton = scene.add.sprite(0,0,fullScreen).setDepth(uiDepth);
         this.fsButton.setScrollFactor(0);
         this.fsButton.setInteractive()
         .on('pointerdown', () => {

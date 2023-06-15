@@ -6,7 +6,7 @@ class OfficePresent extends SchismScene {
     preload() {
         //characters
         this.load.path = '../assets/character/';
-        this.load.image('luneSleep', 'luneBaseSprite.png');
+        this.load.image('luneSleep', 'luneSleep.png');
         this.load.image('luneBase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
@@ -38,6 +38,11 @@ class OfficePresent extends SchismScene {
         this.load.path = '../../assets/interactables/';
         this.load.image('podPresent', 'podPresent.PNG');
         this.load.image('podDoor', 'podDoor.PNG');
+        this.load.image('laptopPresent', 'laptopPresent.png');
+        this.load.image('laptopPresentOn', 'laptopPresent_on.png');
+        this.load.image('dogTreatsFut', 'dogTreatsFuture.png');
+        this.load.image('cratePresent', 'cratePresent.png');
+        this.load.image('crateDoorPresent', 'crateDoorPresent.png');
 
     }
     
@@ -50,13 +55,13 @@ class OfficePresent extends SchismScene {
 
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0).setDepth(envDepth);
-        let pod = this.add.image(330, 1010, 'podPresent').setOrigin(0.5).setDepth(envDepth);
 
         //UI
         this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen", "sound");
         
         // Create Player + Set Position + Camera Follow
         this.player = new Player(this, 300, 1010, 'luneSleep').setDepth(playerDepth);
+        this.player.body.enable = false;
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -70,6 +75,7 @@ class OfficePresent extends SchismScene {
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
 
+        let pod = this.add.image(330, 1010, 'podPresent').setOrigin(0.5).setScale(1.1).setDepth(envDepth);
         let podDoor = this.add.image(330, 1010, 'podDoor').setOrigin(0.5).setDepth(playerDepth);
 
         this.time.delayedCall(400, () => {
@@ -79,18 +85,19 @@ class OfficePresent extends SchismScene {
                 duration: 1000,
                 onComplete: () => {
                     this.player.body.enable = true;
+                    this.player.play('idle');
                     podDoor.setDepth(envDepth);
                 }
             });
         });
 
-        //dog
-        // this.dog = this.physics.add.sprite(2560*.6, 1920*.5,'solSit')
-        // this.dog.flipX=true;
-        this.dog = new Dog(this, this.player.x, this.player.y, "solBase").setDepth(dogDepth);
+        // Create dog
+        this.dog = new Dog(this, this.player.x, this.player.y, "solSit").setDepth(dogDepth);
         this.dog.create();
+        this.dog.visible = false;
+        this.dog.canFollow = false;
 
-        //desk
+        // Create desk
         this.desk = this.add.rectangle(2560 * 0.4, 1920 * 0.5, 2560 *0.1 , 1920 * 0.05, 0xff0000).setOrigin(0);
         this.physics.add.existing(this.desk);
         this.desk.body.allowGravity = false;

@@ -59,28 +59,11 @@ class OfficePast extends SchismScene {
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
 
-        // Create world bounds
-        this.worldbounds = this.add.group();
-        this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
-        this.physics.add.existing(this.lWall);
-        this.lWall.body.allowGravity = false;
-        this.lWall.body.immovable = true;
-        this.worldbounds.add(this.lWall);
-
-        this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
-        this.physics.add.existing(this.rWall);
-        this.rWall.body.allowGravity = false;
-        this.rWall.body.immovable = true;
-        this.worldbounds.add(this.rWall);
-
         // Player Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
 
         this.physics.add.overlap(this.player, this.passCode, () => {if(keyStatus == 0){keyStatus = 1}});
-
-        //this.physics.add.overlap(this.player, this.passCode, () => {this.scene.start("CoreGameplay2")});
-        //this.physics.add.overlap(this.player, this.goal, null, null, this);
     }
 
     update() {
@@ -89,33 +72,6 @@ class OfficePast extends SchismScene {
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.update(mobileControls);
         this.ui.update();
-
-        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
-            this.player.text.setText("swssh");
-            this.player.body.enable = false;
-            this.addData('x', this.player.x);
-            this.addData('y', this.player.y);
-            this.timeSound = this.sound.add("sound");
-            this.timeSound.play();
-            this.timeTravel('CoreGameplay');
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F))) {
-            
-            //Put desk note test here somehow
-            //console.log("desk note desc");
-
-            if(keyStatus == 1){
-                console.log("keys aquired");
-                this.player.text.setText("keys aquired");
-            }
-            else{
-                console.log("no keys");
-                this.player.text.setText("no keys");
-            }
-            
-
-        }
 
         //this.physics.add.overlap(this.player, this.goal, console.log("dog"), null, this);
 

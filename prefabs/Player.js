@@ -16,6 +16,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       
         this.moving = false;
         this.jumping = false;
+        this.isPaused = false;
     }
 
     create(mc) {
@@ -48,9 +49,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setSize(400,600);
         this.body.setOffset(100, 0);
 
-        // Play idle on load
-        this.play('idle');
-
         // Player hitbox
         this.playerInteractBox = this.scene.physics.add.sprite(this.x, this.y, this.texture).setOrigin(0.5).setScale(0.8);
         this.playerInteractBox.visible = false;
@@ -73,28 +71,32 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // POINTEROVER EVENTS
         leftButton.on('pointerover', () =>
         {
-            this.text.setText("walking");
-            this.setVelocityX(-500);
-            this.flipX = true;
-            if(!this.jumping) {
+            if(!this.jumping && !this.isPaused) {
                 this.play('run');
             }
-            this.moving = true;
-            this.playerInteractBox.body.setSize(600,600);
-            this.playerInteractBox.body.setOffset(-100,0);
+            if(!this.isPaused) {
+                this.text.setText("walking");
+                this.setVelocityX(-500);
+                this.flipX = true;
+                this.moving = true;
+                this.playerInteractBox.body.setSize(600,600);
+                this.playerInteractBox.body.setOffset(-100,0);
+            }
         });
 
         rightButton.on('pointerover', () =>
         {
-            this.text.setText("walking");
-            this.setVelocityX(500);
-            this.flipX = false;
-            if(!this.jumping) {
+            if(!this.jumping && !this.isPaused) {
                 this.play('run');
             }
-            this.moving = true;
-            this.playerInteractBox.body.setSize(600,600);
-            this.playerInteractBox.body.setOffset(100,0);
+            if(!this.isPaused) {
+                this.moving = true;
+                this.playerInteractBox.body.setSize(600,600);
+                this.playerInteractBox.body.setOffset(100,0);
+                this.text.setText("walking");
+                this.setVelocityX(500);
+                this.flipX = false;
+            }
         });
 
         jumpButton.on('pointerover', () =>
@@ -106,16 +108,20 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                     this.setVelocityY(-1000);
                 });
                 this.stop();
-                this.play('jump');
+                if(!this.isPaused) {
+                    this.play('jump');
+                }
                 this.scene.time.delayedCall(1250, () => {
                     this.jumping = false;
-                    if(!this.moving) {
+                    if(!this.moving && !this.isPaused) {
                         this.text.setText("");
                         this.stop();
                         this.play('idle');
                     } else {
                         this.text.setText("walking");
-                        this.play('run');
+                        if(!this.isPaused) {
+                            this.play('run');
+                        }
                     }
                 })
             }
@@ -125,14 +131,18 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         leftButton.on('pointerout', () =>
         {
             this.moving = false;
-            this.play('idle');
+            if(!this.isPaused) {
+                this.play('idle');
+            }
             this.text.setText("");
         });
 
         rightButton.on('pointerout', () =>
         {
             this.moving = false;
-            this.play('idle');
+            if(!this.isPaused) {
+                this.play('idle');
+            }
             this.text.setText("");
         });
     }
@@ -145,6 +155,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // While not moving idle player
         if(!this.moving) {
             this.setVelocityX(0);
+        }
+
+        if(this.body.enable == false) {
+            this.isPaused = true;
+        } else {
+            this.isPaused = false;
         }
     }
 }
