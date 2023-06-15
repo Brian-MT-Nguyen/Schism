@@ -6,7 +6,7 @@ class CranePresent extends SchismScene {
 
     preload() {
         //characters
-        this.load.path = '../assets/character/';
+        this.load.path = 'assets/character/';
         this.load.image('luneSleep', 'luneSleep.png');
         this.load.image('luneBase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
@@ -17,7 +17,7 @@ class CranePresent extends SchismScene {
         this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 300});
 
         //UI
-        this.load.path = '../assets/UI/';
+        this.load.path = 'assets/UI/';
         this.load.image('right', 'right.png');
         this.load.image('interact', 'interact.png');
         this.load.image('mute', 'mute.png');
@@ -26,13 +26,13 @@ class CranePresent extends SchismScene {
         this.load.image('fullscreen', "fullScreen.png");
 
         //interactables 
-        this.load.path = '../assets/interactables/';
+        this.load.path = 'assets/interactables/';
         this.load.image('consoleFuture', 'consoleFuture.png');
         this.load.image('cranePresent', 'cranePresent.png');
         this.load.image('craneHandPresent', 'craneHandPresent.png');
 
         //levels
-        this.load.path = '../../assets/levels/';
+        this.load.path = 'assets/levels/';
         this.load.image('lvl', 'level2_present.png');
     }
 

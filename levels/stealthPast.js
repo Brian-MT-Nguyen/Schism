@@ -5,7 +5,7 @@ class StealthPast extends SchismScene {
 
     preload() {
         //characters
-        this.load.path = '../assets/character/';
+        this.load.path = 'assets/character/';
         this.load.image('luneSleep', 'luneSleep.png');
         this.load.image('luneBase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
@@ -17,16 +17,16 @@ class StealthPast extends SchismScene {
 
 
         //levels
-        this.load.path = '../assets/levels/';
+        this.load.path = 'assets/levels/';
         this.load.image('lvl3Past', 'level3past.png');
 
         //sound
-        this.load.path = '../assets/sound/';
+        this.load.path = 'assets/sound/';
         this.load.audio('sound', 'sound.mp3');
         this.load.audio('bgm', 'bgm.mp3');
 
         //UI
-        this.load.path = '../assets/UI/';
+        this.load.path = 'assets/UI/';
         this.load.image('right', 'right.png');
         this.load.image('interact', 'interact.png');
         this.load.image('mute', 'mute.png');
@@ -35,7 +35,7 @@ class StealthPast extends SchismScene {
         this.load.image('fullscreen', "fullScreen.png");
 
         //Interactables
-        this.load.path = '../../assets/interactables/';
+        this.load.path = 'assets/interactables/';
         this.load.image('consolePast', 'consolePast.png');
     }
     

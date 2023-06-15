@@ -5,25 +5,25 @@ class TitleScreen extends Phaser.Scene {
   
     preload() {
         //title
-        this.load.image('title', '../assets/title/schismTitle-01.png');
+        this.load.image('title', 'assets/title/schismTitle-01.png');
   
         //characters
-        this.load.path = '../assets/character/';
+        this.load.path = 'assets/character/';
         this.load.image('lunebase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
   
         //levels
-        this.load.path = '../assets/levels/';
+        this.load.path = 'assets/levels/';
         this.load.image('office', 'scene_1_present.png');
   
         //Interactables
-        this.load.path = '../assets/interactables/';
+        this.load.path = 'assets/interactables/';
         this.load.image('podPresent', 'podPresent.png');
         this.load.image('podDoor', 'podDoor.png');
 
         //sound
-        this.load.path = '../assets/sound/';
+        this.load.path = 'assets/sound/';
         this.load.audio('sound', 'sound.mp3');
         this.load.audio('bgm', 'bgm.mp3');
     }

@@ -11,11 +11,11 @@ class OfficePast extends SchismScene {
 
     preload() {
         //levels
-        this.load.path = '../assets/levels/';
+        this.load.path = 'assets/levels/';
         this.load.image('lvl1Past', 'officeLvlPast.png');
 
         //Interactables
-        this.load.path = '../assets/interactables/';
+        this.load.path = 'assets/interactables/';
         this.load.image('keycard', 'keycard.png');
         this.load.image('podPast', 'podPast.png');
         this.load.image('dogTreatsPast', 'dogTreatsPast.png');

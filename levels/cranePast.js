@@ -5,7 +5,7 @@ class CranePast extends SchismScene {
 
     preload() {
         //characters
-        this.load.path = '../assets/character/';
+        this.load.path = 'assets/character/';
         this.load.image('luneSleep', 'luneSleep.png');
         this.load.image('luneBase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
@@ -16,7 +16,7 @@ class CranePast extends SchismScene {
         this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 300});
 
         //UI
-        this.load.path = '../assets/UI/';
+        this.load.path = 'assets/UI/';
         this.load.image('right', 'right.png');
         this.load.image('interact', 'interact.png');
         this.load.image('mute', 'mute.png');
@@ -25,14 +25,14 @@ class CranePast extends SchismScene {
         this.load.image('fullscreen', "fullScreen.png");
 
         //interactables 
-        this.load.path = '../assets/interactables/';
+        this.load.path = 'assets/interactables/';
         this.load.image('consolePast', 'consolePast.png');
         this.load.image('lvl3platform', 'lvl3platform.png');
         this.load.image('cranePast', 'cranePast.png');
         this.load.image('craneHandPast', 'craneHandPast.png');
 
         //levels
-        this.load.path = '../../assets/levels/';
+        this.load.path = 'assets/levels/';
         this.load.image('lvl2Past', 'level2past.png');
     }
 
