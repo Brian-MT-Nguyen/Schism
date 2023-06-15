@@ -62,8 +62,6 @@ class StealthPast extends SchismScene {
         this.player.create(mobileControls);
         this.ui.swapButton.setVisible(false);
 
-        // Interactable Events
-
         // Time Travel
         this.ui.swapButton.on('pointerover', () => {
                 this.addData('x', this.player.x);
@@ -78,16 +76,40 @@ class StealthPast extends SchismScene {
         this.floor.body.immovable = true;
 
         // Create console
+        this.interactables =  this.add.group();
         this.consoleWork = this.physics.add.sprite(2400, 1120, "consolePast").setDepth(objectDepth).setScale(0.8);
         this.consoleWork.body.allowGravity = false;
         this.consoleWork.body.immovable = true;
+        this.interactables.add(this.consoleWork);
 
         this.ui.interactButton.on('pointerover', () => {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.consoleWork.getBounds())) {
                 this.addData('robotOff');
                 this.ui.swapButton.setVisible(true);
+                this.consoleGlow.stop();
+                this.consoleGlow.destroy();
+                this.consoleWork.destroy();
+                this.consoleWork = this.physics.add.sprite(2400, 1120, "consolePast").setDepth(objectDepth).setScale(0.8);
+                this.consoleWork.body.allowGravity = false;
+                this.consoleWork.body.immovable = true;
             }
         })
+
+        // Interactable Events
+        this.interactables.getChildren().forEach( (object) => {
+            if(object == this.consoleWork && !this.getData('robotOff')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.consoleGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 20,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+        });
+
         // Dialogue
 
         //Physics
