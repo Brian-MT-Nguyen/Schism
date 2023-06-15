@@ -7,6 +7,8 @@ const envDepth = 0;
 const playerDepth = 3;
 const dogDepth = 2;
 const objectDepth = 1;
+const dialogueDepth = 5;
+const uiDepth = 4;
 
 let barkPlace = 0;
 
