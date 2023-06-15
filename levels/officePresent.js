@@ -130,20 +130,6 @@ class OfficePresent extends SchismScene {
         this.dogTreats.body.immovable = true;
         this.interactables.add(this.dogTreats);
 
-        /* bomb.preFX.setPadding(32);
-
-        const fx = bomb.preFX.addGlow();
-
-        //  For PreFX Glow the quality and distance are set in the Game Configuration
-
-        this.tweens.add({
-            targets: fx,
-            outerStrength: 10,
-            yoyo: true,
-            loop: -1,
-            ease: 'sine.inout'
-        }); */
-
         if(this.getData('interactedTreats')) {
 
         }
@@ -242,7 +228,7 @@ class OfficePresent extends SchismScene {
                 let fx = object.preFX.addGlow();
                 this.laptopGlow = this.tweens.add({
                     targets: fx,
-                    outerStrength: 10,
+                    outerStrength: 20,
                     yoyo: true,
                     loop: -1,
                     ease: 'sine.inout'
@@ -254,7 +240,7 @@ class OfficePresent extends SchismScene {
                 let fx = object.preFX.addGlow();
                 this.dogTreatsGlow = this.tweens.add({
                     targets: fx,
-                    outerStrength: 10,
+                    outerStrength: 20,
                     yoyo: true,
                     loop: -1,
                     ease: 'sine.inout'
@@ -266,7 +252,7 @@ class OfficePresent extends SchismScene {
                 let fx = object.preFX.addGlow();
                 this.crateGlow = this.tweens.add({
                     targets: fx,
-                    outerStrength: 10,
+                    outerStrength: 20,
                     yoyo: true,
                     loop: -1,
                     ease: 'sine.inout'
