@@ -65,6 +65,8 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
             } else {
                 this.body.enable = true;
             }
+        } else {
+            this.setTexture('solSit');
         }
     }
 }

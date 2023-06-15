@@ -43,7 +43,6 @@ class OfficePresent extends SchismScene {
         this.load.image('dogTreatsFut', 'dogTreatsFuture.png');
         this.load.image('cratePresent', 'cratePresent.png');
         this.load.image('crateDoorPresent', 'crateDoorPresent.png');
-
     }
     
     onEnter() {
@@ -75,33 +74,98 @@ class OfficePresent extends SchismScene {
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
 
+        // Start of game pod opening
         let pod = this.add.image(330, 1010, 'podPresent').setOrigin(0.5).setScale(1.1).setDepth(envDepth);
         let podDoor = this.add.image(330, 1010, 'podDoor').setOrigin(0.5).setDepth(playerDepth);
 
-        this.time.delayedCall(400, () => {
-            this.tweens.add({
-                targets: podDoor, 
-                x: `-=${270}`,
-                duration: 1000,
-                onComplete: () => {
-                    this.player.body.enable = true;
-                    this.player.play('idle');
-                    podDoor.setDepth(envDepth);
-                }
+        if(this.getData('started') == undefined) {
+            this.time.delayedCall(400, () => {
+                this.tweens.add({
+                    targets: podDoor, 
+                    x: `-=${270}`,
+                    duration: 1000,
+                    onComplete: () => {
+                        this.player.body.enable = true;
+                        this.player.play('idle');
+                        podDoor.setDepth(envDepth);
+                        this.addData('started');
+                        this.startDialogue("tutorial1", () => {}, () => {});
+                    }
+                });
             });
-        });
+        } else {
+            podDoor.x = 1010 - 270;
+        }
 
         // Create dog
-        this.dog = new Dog(this, this.player.x, this.player.y, "solSit").setDepth(dogDepth);
+        this.dog = new Dog(this, 1700, this.player.y, "solBase").setDepth(dogDepth);
         this.dog.create();
         this.dog.visible = false;
         this.dog.canFollow = false;
+        this.dog.flipX = true;
 
-        // Create desk
-        this.desk = this.add.rectangle(2560 * 0.4, 1920 * 0.5, 2560 *0.1 , 1920 * 0.05, 0xff0000).setOrigin(0);
-        this.physics.add.existing(this.desk);
-        this.desk.body.allowGravity = false;
-        this.desk.body.immovable = true;
+        // Interactable Events
+        let laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
+        laptop.body.allowGravity = false;
+        laptop.body.immovable = true;
+
+        let dogTreats = this.physics.add.sprite(1274, 960, 'dogTreatsFut').setOrigin(0.5).setScale(0.25).setDepth(objectDepth);
+        dogTreats.body.allowGravity = false;
+        dogTreats.body.immovable = true;
+
+        let crateDoorPresent = this.physics.add.sprite(1700, 1125, 'crateDoorPresent').setOrigin(0.5).setScale(0.4).setDepth(objectForeDepth);
+        crateDoorPresent.body.allowGravity = false;
+        crateDoorPresent.body.immovable = true;
+        crateDoorPresent.visible = false;
+
+        let cratePresent = this.physics.add.sprite(1970, 1100, 'cratePresent').setOrigin(0.5).setScale(0.6).setDepth(objectForeDepth);
+        cratePresent.body.allowGravity = false;
+        cratePresent.body.immovable = true;
+
+        this.ui.swapButton.visible = false;
+        this.ui.swapButton.disableInteractive();
+
+        this.ui.interactButton.on('pointerover', () => {
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), laptop.getBounds()) 
+                && !this.getData('interactedLaptop')) {
+                laptop.setTexture('laptopPresentOn');
+                this.startDialogue('desk', () => {}, () => {this.addData('interactedLaptop')});
+            }
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), dogTreats.getBounds()) 
+                && this.getData('interactedLaptop') != undefined) {
+                this.startDialogue('dogTreats', () => {
+                    dogTreats.setScrollFactor(0);
+                    dogTreats.setDepth(objectForeDepth);
+                    dogTreats.x = game.config.width/2;
+                    dogTreats.y = game.config.height/3;
+                    dogTreats.angle = -15;
+                    dogTreats.setScale(1);
+                }, () => {
+                    this.addData('interactedTreats');
+                    dogTreats.destroy();
+                });
+            }
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), cratePresent.getBounds()) 
+                && this.getData('interactedLaptop') && this.getData('interactedTreats')) {
+                this.startDialogue('crate', () => {
+                    this.dog.visible = true;
+                }, () => {
+                    this.addData('friendAcquired');
+                    this.dog.canFollow = true;
+                    this.ui.swapButton.visible = true;
+                    this.ui.swapButton.setInteractive();
+                });
+            }
+        });
+
+        // Time Travel
+        this.ui.swapButton.on('pointerover', () => {
+            if(this.getData('friendAcquired') != undefined) {
+                this.addData('x', this.player.x);
+                this.addData('y', this.player.y);
+                this.timeTravel('officepast');
+            }
+        });
         
 
         // Create floor
@@ -111,10 +175,6 @@ class OfficePresent extends SchismScene {
         this.floor.body.immovable = true;
 
         // Dialogue
-        this.time.delayedCall(6000, () => {
-            this.player.anims.pause();
-            this.startDialogue("tutorial1", () => {console.log("test")}, () => {this.player.anims.resume()});
-        });
 
         //Physics
         this.physics.add.collider(this.player, this.floor);
@@ -122,9 +182,6 @@ class OfficePresent extends SchismScene {
 
         this.physics.add.collider(this.dog, this.floor);
         this.physics.add.collider(this.dog, this.worldbounds);
-
-        this.physics.add.overlap(this.player, this.dog, () => {});
-        this.physics.add.overlap(this.player, this.desk, () => {});
     }
 
     update() {
