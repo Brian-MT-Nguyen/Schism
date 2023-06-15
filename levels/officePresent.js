@@ -35,7 +35,7 @@ class OfficePresent extends SchismScene {
         this.load.image('fullscreen', "fullScreen.png");
 
         //Interactables
-        this.load.path = '../../assets/interactables/';
+        this.load.path = '../assets/interactables/';
         this.load.image('podPresent', 'podPresent.PNG');
         this.load.image('podDoor', 'podDoor.PNG');
         this.load.image('laptopPresent', 'laptopPresent.png');
