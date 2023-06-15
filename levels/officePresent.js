@@ -105,14 +105,18 @@ class OfficePresent extends SchismScene {
             this.dog.flipX = true;
         }
 
+        
+        this.interactables =  this.add.group();
+
         // Create door collision
         this.door = this.add.rectangle(2250, 700, 270, 550).setOrigin(0);
         this.physics.add.existing(this.door);
         this.door.body.allowGravity = false;
         this.door.body.immovable = true;
+        this.interactables.add(this.door);
 
         // Interactable Events
-        this.interactables =  this.add.group();
+       
 
         this.laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
         this.laptop.body.allowGravity = false;
@@ -122,27 +126,22 @@ class OfficePresent extends SchismScene {
         //console.log(interactables);
 
         if(this.getData('interactedLaptop')) {
-            laptop.setTexture('laptopPresentOn');
+            this.laptop.setTexture('laptopPresentOn');
         }
 
-        this.dogTreats = this.physics.add.sprite(1274, 960, 'dogTreatsFut').setOrigin(0.5).setScale(0.25).setDepth(objectDepth);
+        if(!this.getData("interactedTreats")){
+            this.dogTreats = this.physics.add.sprite(1274, 960, 'dogTreatsFut').setOrigin(0.5).setScale(0.25).setDepth(objectDepth);
         this.dogTreats.body.allowGravity = false;
         this.dogTreats.body.immovable = true;
         this.interactables.add(this.dogTreats);
-
-        if(this.getData('interactedTreats')) {
-
         }
+        
 
         this.crateDoorPresent = this.physics.add.sprite(1700, 1125, 'crateDoorPresent').setOrigin(0.5).setScale(0.4).setDepth(objectForeDepth);
         this.crateDoorPresent.body.allowGravity = false;
         this.crateDoorPresent.body.immovable = true;
         this.crateDoorPresent.visible = false;
         this.interactables.add(this.crateDoorPresent);
-
-        if(this.getData('friendAcquired')) {
-
-        }
 
         this.cratePresent = this.physics.add.sprite(1970, 1100, 'cratePresent').setOrigin(0.5).setScale(0.6).setDepth(objectForeDepth);
         this.cratePresent.body.allowGravity = false;
@@ -258,7 +257,12 @@ class OfficePresent extends SchismScene {
                     ease: 'sine.inout'
                 });
             }
+
+            
+
           });
+
+          
     }
 
     update() {

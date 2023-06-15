@@ -50,6 +50,8 @@ class OfficePast extends SchismScene {
         this.player.create(mobileControls);
 
         // Interactable Events
+        this.interactables =  this.add.group();
+
         let laptop = this.physics.add.sprite(1024, 960, 'laptopPast').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
         laptop.body.allowGravity = false;
         laptop.body.immovable = true;
@@ -58,26 +60,27 @@ class OfficePast extends SchismScene {
         dogTreats.body.allowGravity = false;
         dogTreats.body.immovable = true;
 
-        let keycard = this.physics.add.sprite(1474, 980, 'keycard').setOrigin(0.5).setScale(0.2).setDepth(objectDepth);
-        keycard.body.allowGravity = false;
-        keycard.body.immovable = true;
+        this.keycard = this.physics.add.sprite(1474, 980, 'keycard').setOrigin(0.5).setScale(0.2).setDepth(objectDepth);
+        this.keycard.body.allowGravity = false;
+        this.keycard.body.immovable = true;
+        this.interactables.add(this.keycard);
 
         this.ui.swapButton.visible = false;
         this.ui.swapButton.disableInteractive();
 
         this.ui.interactButton.on('pointerover', () => {
-            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), keycard.getBounds())) {
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.keycard.getBounds())) {
                 this.startDialogue('keycard', () => {
-                    keycard.setScrollFactor(0);
-                    keycard.setDepth(objectForeDepth);
-                    keycard.x = game.config.width/2;
-                    keycard.y = game.config.height/3;
-                    keycard.angle = -15;
-                    keycard.setScale(1);
+                    this.keycard.setScrollFactor(0);
+                    this.keycard.setDepth(objectForeDepth);
+                    this.keycard.x = game.config.width/2;
+                    this.keycard.y = game.config.height/3;
+                    this.keycard.angle = -15;
+                    this.keycard.setScale(1);
                 }, () => {
                     this.ui.swapButton.visible = true;
                     this.ui.swapButton.setInteractive();
-                    keycard.destroy();
+                    this.keycard.destroy();
                     this.addData('keycard');
                 });
             }
@@ -102,6 +105,21 @@ class OfficePast extends SchismScene {
         //Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
+
+        this.interactables.getChildren().forEach( (object) => {
+
+            if(object == this.keycard && !this.getData('keycard')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.keycardGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 20,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+        })
     }
 
     update() {
@@ -110,5 +128,6 @@ class OfficePast extends SchismScene {
 
         // Update UI Logics
         this.ui.update();
+
     }
 }
