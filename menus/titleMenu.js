@@ -21,9 +21,19 @@ class TitleScreen extends Phaser.Scene {
         this.load.path = '../assets/interactables/';
         this.load.image('podPresent', 'podPresent.png');
         this.load.image('podDoor', 'podDoor.png');
+
+        //sound
+        this.load.path = '../assets/sound/';
+        this.load.audio('sound', 'sound.mp3');
+        this.load.audio('bgm', 'bgm.mp3');
     }
   
     create() {
+        bgm = this.sound.add("bgm");
+        bgm.play({
+            loop: true
+        });
+
         // Create backdrop
         let bg = this.add.image(0, -360, 'office').setOrigin(0);
         let pod = this.add.image(330, 675, 'podPresent').setOrigin(0.5).setScale(1);

@@ -12,16 +12,10 @@ const dialogueDepth = 6;
 const uiDepth = 5;
 
 let bgm;
+let muteStatus = 0;
 let barkPlace = 0;
 
 const game = new Phaser.Game({
-    preload() {
-        //sound
-        this.load.path = '../assets/sound/';
-        this.load.audio('sound', 'sound.mp3');
-        this.load.audio('bgm', 'bgm.mp3');
-    },
-
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -40,6 +34,6 @@ const game = new Phaser.Game({
     },
     backgroundColor: 0x000000,
     //BeginIntro, StudioIntro, IntroCinematic, TitleScreen, SettingsMenu, 
-    scene: [OfficePresent, OfficePast, CranePresent, CranePast, StealthPresent, StealthPast, ending],
+    scene: [BeginIntro, StudioIntro, IntroCinematic, TitleScreen, SettingsMenu, OfficePresent, OfficePast, CranePresent, CranePast, StealthPresent, StealthPast, ending],
     title: "Schism"
 });

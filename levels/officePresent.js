@@ -47,11 +47,6 @@ class OfficePresent extends SchismScene {
     
     onEnter() {
 
-        this.bgm = this.sound.add("bgm");
-        this.bgm.play({
-            loop: true
-        });
-
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0).setDepth(envDepth);
 
@@ -87,6 +82,7 @@ class OfficePresent extends SchismScene {
                     x: `-=${270}`,
                     duration: 1000,
                     onComplete: () => {
+                        console.log(podDoor.x);
                         this.player.body.enable = true;
                         this.player.play('idle');
                         podDoor.setDepth(envDepth);
@@ -96,7 +92,8 @@ class OfficePresent extends SchismScene {
                 });
             });
         } else {
-            podDoor.x = 1010 - 270;
+            podDoor.x = 60;
+            podDoor.setDepth(envDepth);
         }
 
         // Create dog
@@ -146,7 +143,7 @@ class OfficePresent extends SchismScene {
 
         this.ui.swapButton.visible = false;
         this.ui.swapButton.disableInteractive();
-
+        
         this.ui.interactButton.on('pointerover', () => {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), laptop.getBounds()) 
                 && !this.getData('interactedLaptop')) {

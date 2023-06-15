@@ -23,13 +23,8 @@ class OfficePast extends SchismScene {
     }
     
     onEnter() {
-
-       //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
-       
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Past').setOrigin(0);
-
 
         //UI
         this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen", "sound");
@@ -53,13 +48,6 @@ class OfficePast extends SchismScene {
         // Link mobile controls to Player
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
-
-        // Create dog
-        this.dog = new Dog(this, 1700, this.player.y, "solBase").setDepth(dogDepth);
-        this.dog.create();
-        this.dog.visible = false;
-        this.dog.canFollow = false;
-        this.dog.flipX = true;
 
         // Interactable Events
         let laptop = this.physics.add.sprite(1024, 960, 'laptopPast').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
@@ -114,17 +102,11 @@ class OfficePast extends SchismScene {
         //Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
-
-        this.physics.add.collider(this.dog, this.floor);
-        this.physics.add.collider(this.dog, this.worldbounds);
     }
 
     update() {
         // Update Player Logics
         this.player.update();
-
-        // Update Dog Logics
-        this.dog.update();
 
         // Update UI Logics
         this.ui.update();
