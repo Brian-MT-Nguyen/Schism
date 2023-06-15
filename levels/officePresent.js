@@ -112,67 +112,96 @@ class OfficePresent extends SchismScene {
         this.door.body.immovable = true;
 
         // Interactable Events
-        let laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
-        laptop.body.allowGravity = false;
-        laptop.body.immovable = true;
+        this.interactables =  this.add.group();
+
+        this.laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
+        this.laptop.body.allowGravity = false;
+        this.laptop.body.immovable = true;
+        this.interactables.add(this.laptop);
+
+        //console.log(interactables);
 
         if(this.getData('interactedLaptop')) {
             laptop.setTexture('laptopPresentOn');
         }
 
-        let dogTreats = this.physics.add.sprite(1274, 960, 'dogTreatsFut').setOrigin(0.5).setScale(0.25).setDepth(objectDepth);
-        dogTreats.body.allowGravity = false;
-        dogTreats.body.immovable = true;
+        this.dogTreats = this.physics.add.sprite(1274, 960, 'dogTreatsFut').setOrigin(0.5).setScale(0.25).setDepth(objectDepth);
+        this.dogTreats.body.allowGravity = false;
+        this.dogTreats.body.immovable = true;
+        this.interactables.add(this.dogTreats);
+
+        /* bomb.preFX.setPadding(32);
+
+        const fx = bomb.preFX.addGlow();
+
+        //  For PreFX Glow the quality and distance are set in the Game Configuration
+
+        this.tweens.add({
+            targets: fx,
+            outerStrength: 10,
+            yoyo: true,
+            loop: -1,
+            ease: 'sine.inout'
+        }); */
 
         if(this.getData('interactedTreats')) {
 
         }
 
-        let crateDoorPresent = this.physics.add.sprite(1700, 1125, 'crateDoorPresent').setOrigin(0.5).setScale(0.4).setDepth(objectForeDepth);
-        crateDoorPresent.body.allowGravity = false;
-        crateDoorPresent.body.immovable = true;
-        crateDoorPresent.visible = false;
+        this.crateDoorPresent = this.physics.add.sprite(1700, 1125, 'crateDoorPresent').setOrigin(0.5).setScale(0.4).setDepth(objectForeDepth);
+        this.crateDoorPresent.body.allowGravity = false;
+        this.crateDoorPresent.body.immovable = true;
+        this.crateDoorPresent.visible = false;
+        this.interactables.add(this.crateDoorPresent);
 
         if(this.getData('friendAcquired')) {
 
         }
 
-        let cratePresent = this.physics.add.sprite(1970, 1100, 'cratePresent').setOrigin(0.5).setScale(0.6).setDepth(objectForeDepth);
-        cratePresent.body.allowGravity = false;
-        cratePresent.body.immovable = true;
+        this.cratePresent = this.physics.add.sprite(1970, 1100, 'cratePresent').setOrigin(0.5).setScale(0.6).setDepth(objectForeDepth);
+        this.cratePresent.body.allowGravity = false;
+        this.cratePresent.body.immovable = true; 
+        this.interactables.add(this.cratePresent);
+
+        //interactables.preFX.setPadding(32);
+
+        //  For PreFX Glow the quality and distance are set in the Game Configuration
+
 
         this.ui.swapButton.visible = false;
         this.ui.swapButton.disableInteractive();
 
         this.ui.interactButton.on('pointerover', () => {
-            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), laptop.getBounds()) 
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.laptop.getBounds()) 
                 && !this.getData('interactedLaptop')) {
-                laptop.setTexture('laptopPresentOn');
+                this.laptop.setTexture('laptopPresentOn');
                 this.startDialogue('desk', () => {}, () => {this.addData('interactedLaptop')});
             }
-            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), dogTreats.getBounds()) 
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.dogTreats.getBounds()) 
                 && this.getData('interactedLaptop') != undefined && !this.getData('interactedTreats')) {
                 this.startDialogue('dogTreats', () => {
-                    dogTreats.setScrollFactor(0);
-                    dogTreats.setDepth(objectForeDepth);
-                    dogTreats.x = game.config.width/2;
-                    dogTreats.y = game.config.height/3;
-                    dogTreats.angle = -15;
-                    dogTreats.setScale(1);
+                    this.dogTreats.setScrollFactor(0);
+                    this.dogTreats.setDepth(objectForeDepth);
+                    this.dogTreats.x = game.config.width/2;
+                    this.dogTreats.y = game.config.height/3;
+                    this.dogTreats.angle = -15;
+                    this.dogTreats.setScale(1);
                 }, () => {
                     this.addData('interactedTreats');
-                    dogTreats.destroy();
+                    this.dogTreats.destroy();
                 });
             }
-            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), cratePresent.getBounds()) 
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.cratePresent.getBounds()) 
                 && this.getData('interactedLaptop') && this.getData('interactedTreats')  && !this.getData('friendAcquired')) {
                 this.startDialogue('crate', () => {
+                    this.crateDoorPresent.visible = true;
                     this.dog.visible = true;
                 }, () => {
                     this.addData('friendAcquired');
                     this.dog.canFollow = true;
                     this.ui.swapButton.visible = true;
                     this.ui.swapButton.setInteractive();
+                    
                 });
             }
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.door.getBounds()) 
@@ -198,13 +227,52 @@ class OfficePresent extends SchismScene {
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
 
-
         //Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
 
         this.physics.add.collider(this.dog, this.floor);
         this.physics.add.collider(this.dog, this.worldbounds);
+
+        
+        this.interactables.getChildren().forEach( (object) => {
+
+            if(object == this.laptop && !this.getData('interactedLaptop')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.laptopGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 10,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+
+            if(object == this.dogTreats && !this.getData('interactedTreats')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.dogTreatsGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 10,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+
+            if(object == this.cratePresent && !this.getData('friendAcquired')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.crateGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 10,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+          });
     }
 
     update() {
@@ -216,5 +284,28 @@ class OfficePresent extends SchismScene {
 
         // Update UI Logics
         this.ui.update();
+
+        if(this.getData('interactedLaptop')){
+            this.laptopGlow.stop();
+            this.laptopGlow.destroy();
+            this.laptop.destroy();
+            this.laptop = this.physics.add.sprite(1024, 960, 'laptopPresentOn').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
+            this.laptop.body.allowGravity = false;
+            this.laptop.body.immovable = true;
+        }
+
+        if(this.getData('friendAcquired')) {
+            this.crateGlow.stop();
+            this.crateGlow.destroy();
+            this.cratePresent.destroy();
+            this.cratePresent = this.physics.add.sprite(1970, 1100, 'cratePresent').setOrigin(0.5).setScale(0.6).setDepth(objectForeDepth);
+            this.cratePresent.body.allowGravity = false;
+            this.cratePresent.body.immovable = true; 
+        }
+
+        if(this.getData('interactedTreats')) {
+            this.dogTreatsGlow.stop();
+            this.dogTreatsGlow.destroy();
+        }
     }
 }
