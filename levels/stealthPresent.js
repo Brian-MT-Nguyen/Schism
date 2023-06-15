@@ -80,13 +80,28 @@ class StealthPresent extends SchismScene {
         this.enemyInteractBox.body.setSize(700,600);
 
         // Create console
+        this.interactables =  this.add.group();
         this.consoleBroke = this.physics.add.sprite(2400, 1120, "consoleFuture").setDepth(objectDepth).setScale(0.8);
         this.consoleBroke.body.allowGravity = false;
         this.consoleBroke.body.immovable = true;
+        this.interactables.add(this.consoleBroke);
 
         this.ui.swapButton.visible = false;
         
         // Interactable Events
+        this.interactables.getChildren().forEach( (object) => {
+            if(object == this.consoleBroke && !this.getData('interactedConsole')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.consoleGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 20,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+        });
         
         //sit
         this.ui.interactButton.on('pointerover', () => {
@@ -165,9 +180,13 @@ class StealthPresent extends SchismScene {
 
         this.physics.add.overlap(this.player, this.enemyInteractBox, this.enemyDetection, null, this);
 
-        this.physics.add.overlap(this.player, this.consoleBroke, () => {
-            this.ui.swapButton.setVisible(true)
-        });
+        this.ui.interactButton.on('pointerover', () => {
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.consoleBroke.getBounds()) 
+                && !this.getData('interactedConsole')) {
+                    this.addData('interactedConsole');
+                    this.ui.swapButton.visible = true;
+            }
+        })
 
         if (this.getData('robotOff') && this.getData('robotOff') != undefined) {
             this.enemyInteractBox.destroy(); 
@@ -208,5 +227,14 @@ class StealthPresent extends SchismScene {
         // Enemy hitbox detection
         this.enemyInteractBox.x = this.enemy.x;
         this.enemyInteractBox.y = this.enemy.y;
+
+        if(this.getData('interactedConsole')) {
+            this.consoleGlow.stop();
+            this.consoleGlow.destroy();
+            this.consoleBroke.destroy();
+            this.consoleBroke = this.physics.add.sprite(2400, 1120, "consoleFuture").setDepth(objectDepth).setScale(0.8);
+            this.consoleBroke.body.allowGravity = false;
+            this.consoleBroke.body.immovable = true;
+        }
     }
 }
