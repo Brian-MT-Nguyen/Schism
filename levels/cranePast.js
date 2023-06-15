@@ -1,6 +1,6 @@
 class CranePast extends SchismScene {
     constructor() {
-        super("cranepast", "Level2Past");
+        super("CranePast", "CranePast");
     }
 
     preload() {
@@ -117,8 +117,11 @@ class CranePast extends SchismScene {
         this.bridge.body.allowGravity = false;
         this.bridge.body.immovable = false;
 
-
-        this.goal = this.rect
+        //goal
+        this.goal = this.add.rectangle(2560 *.94, 1200, 2560*.12, 100);
+        this.physics.add.existing(this.goal);
+        this.goal.body.allowGravity = false;
+        this.goal.body.immovable = true;
 
         // Dialogue
         /*  this.time.delayedCall(6000, () => {
@@ -139,6 +142,10 @@ class CranePast extends SchismScene {
 
         this.physics.add.overlap(this.player, this.dog, () => {});
         this.physics.add.overlap(this.player, this.console, () => {});
+
+        this.physics.add.overlap(this.player, this.goal, () => {
+            this.time.delayedCall(1000, ()=>{this.ui.swapButton.setVisible(true)})
+            });
         
         this.ui.interactButton.on('pointerover', () => {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), consoleWork.getBounds()) 
@@ -146,17 +153,15 @@ class CranePast extends SchismScene {
                 //laptop.setTexture('laptopPresentOn');
                 this.startDialogue('workCon', () => {}, () => {this.addData('bridgeMade')})
 
-
                 this.ui.leftButton.setVisible(false);
                 this.ui.rightButton.setVisible(false);
                 this.ui.upButton.setVisible(false);
                 this.ui.interactButton.setVisible(false);
                 this.ui.muteButton.setVisible(false);
                 this.ui.fsButton.setVisible(false);
-
+                this.player.rect.setVisible(false);
 
                 //Makeshift cinematic
-                //this.cameras.main.pan(2560*.5, 1440*.5  , 1000);
                 this.cameras.main.zoomTo(.75, 3000);
                 
                 this.bridge.body.allowGravity = true;
@@ -171,23 +176,23 @@ class CranePast extends SchismScene {
                     this.ui.leftButton.setVisible(true);
                     this.ui.rightButton.setVisible(true);
                     this.ui.upButton.setVisible(true);
-                    this.ui.swapButton.setVisible(true);
                     this.ui.interactButton.setVisible(true);
                     this.ui.muteButton.setVisible(true);
                     this.ui.fsButton.setVisible(true);
+                    this.player.rect.setVisible(true);
                     //this.cameras.main.startFollow(this.player)
                     //this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
                     this.cameras.main.zoomTo(1, 500);
                 })
-                    
-
-                //console.log("bunk");
-
-                
-                
             }
         })
+
+        this.ui.swapButton.on('pointerover', () => {
+            this.addData('x', this.player.x);
+            this.addData('y', this.player.y);
+            this.timeTravel('CranePresent');
+        });
 
         
     }
@@ -201,6 +206,16 @@ class CranePast extends SchismScene {
 
         // Update UI Logics
         this.ui.update();
+
+        if(this.player.x > 2560){
+            this.gotoScene("CranePresent");
+            resetData();
+        }
+
+        if(this.player.y > 1920){
+            this.gotoScene("CranePresent");
+            resetData();
+        }
 
     }
 }
