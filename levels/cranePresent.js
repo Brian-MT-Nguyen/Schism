@@ -65,16 +65,18 @@ class CranePresent extends SchismScene {
         //let pod = this.add.image(330, 1010, 'podPresent').setOrigin(0.5).setScale(1.1).setDepth(envDepth);
         //let podDoor = this.add.image(330, 1010, 'podDoor').setOrigin(0.5).setDepth(playerDepth);
 
-        
+        //interactables
+        this.interactables =  this.add.group();
 
         // Create dog
         this.dog = new Dog(this, this.player.x, this.player.y, "solSit").setDepth(dogDepth);
         this.dog.create();  
 
         // Create console
-        let consoleBroke = this.physics.add.sprite(2560 *.3, 1920*.49, "consoleFuture").setDepth(objectDepth);
-        consoleBroke.body.allowGravity = false;
-        consoleBroke.body.immovable = true;
+        this.consoleBroke = this.physics.add.sprite(2560 *.3, 1920*.49, "consoleFuture").setDepth(objectDepth);
+        this.consoleBroke.body.allowGravity = false;
+        this.consoleBroke.body.immovable = true;
+        this.interactables.add(this.consoleBroke);
 
         //create crane
         let crane = this.physics.add.sprite(2560 *.415, 1920*.3, "cranePresent").setDepth(objectDepth-1);
@@ -89,7 +91,6 @@ class CranePresent extends SchismScene {
         /* let laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
         laptop.body.allowGravity = false;
         laptop.body.immovable = true; */
-        
 
         // Create floor
         /* this.floor = this.add.rectangle(0, 1250, 2560, 100).setOrigin(0);
@@ -139,7 +140,7 @@ class CranePresent extends SchismScene {
             });
 
         this.ui.interactButton.on('pointerover', () => {
-            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), consoleBroke.getBounds()) 
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.consoleBroke.getBounds()) 
             && !this.getData('interactedConsole')) {
                 //laptop.setTexture('laptopPresentOn');
                 this.startDialogue('brokenCon', () => {}, () => {this.addData('interactedConsole')})
@@ -154,7 +155,23 @@ class CranePresent extends SchismScene {
             //this.scene.start('CranePast');
             this.timeTravel('cranePast');
         });
-    }
+
+
+        this.interactables.getChildren().forEach( (object) => {
+
+            if(object == this.consoleBroke && !this.getData('interactedConsole')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.consoleGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 20,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+    })
+}
 
     update() {
         // Update Player Logics
@@ -167,6 +184,16 @@ class CranePresent extends SchismScene {
         this.ui.update();
 
         //bg.width, bg.height
+
+        if(this.getData('interactedConsole')){
+            this.consoleGlow.stop();
+            this.consoleGlow.destroy();
+            this.consoleBroke.destroy();
+            this.consoleBroke = this.physics.add.sprite(2560 *.3, 1920*.49, "consoleFuture").setDepth(objectDepth);
+            this.consoleBroke.body.allowGravity = false;
+            this.consoleBroke.body.immovable = true;
+        }
+
 
         if(this.player.x > 2560){
             this.gotoScene("CranePresent");
