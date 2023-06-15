@@ -80,9 +80,17 @@ class OfficePast extends SchismScene {
         this.ui.interactButton.on('pointerover', () => {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), keycard.getBounds())) {
                 this.startDialogue('keycard', () => {
+                    keycard.setScrollFactor(0);
+                    keycard.setDepth(objectForeDepth);
+                    keycard.x = game.config.width/2;
+                    keycard.y = game.config.height/3;
+                    keycard.angle = -15;
+                    keycard.setScale(1);
                 }, () => {
                     this.ui.swapButton.visible = true;
                     this.ui.swapButton.setInteractive();
+                    keycard.destroy();
+                    this.addData('keycard');
                 });
             }
         });

@@ -11,6 +11,7 @@ const objectForeDepth = 4;
 const dialogueDepth = 6;
 const uiDepth = 5;
 
+let bgm;
 let barkPlace = 0;
 
 const game = new Phaser.Game({
