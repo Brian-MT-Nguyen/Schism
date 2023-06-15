@@ -1,6 +1,6 @@
 class CranePast extends SchismScene {
     constructor() {
-        super("CranePast", "CranePast");
+        super("cranePast", "Level2Past");
     }
 
     preload() {
@@ -173,17 +173,22 @@ class CranePast extends SchismScene {
 
                 this.physics.add.collider(this.bridge, this.floor3, () => {
                     //console.log("bunk")
-                    this.ui.leftButton.setVisible(true);
-                    this.ui.rightButton.setVisible(true);
-                    this.ui.upButton.setVisible(true);
-                    this.ui.interactButton.setVisible(true);
-                    this.ui.muteButton.setVisible(true);
-                    this.ui.fsButton.setVisible(true);
-                    this.player.rect.setVisible(true);
+                    
                     //this.cameras.main.startFollow(this.player)
                     //this.cameras.main.setBounds(0, 0, bg.width, bg.height);
 
                     this.cameras.main.zoomTo(1, 500);
+
+                    this.time.delayedCall(1000, () => {
+                        this.ui.leftButton.setVisible(true);
+                        this.ui.rightButton.setVisible(true);
+                        this.ui.upButton.setVisible(true);
+                        this.ui.interactButton.setVisible(true);
+                        this.ui.muteButton.setVisible(true);
+                        this.ui.fsButton.setVisible(true);
+                        this.player.rect.setVisible(true);
+                    })
+                    
                 })
             }
         })
@@ -191,7 +196,7 @@ class CranePast extends SchismScene {
         this.ui.swapButton.on('pointerover', () => {
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
-            this.timeTravel('CranePresent');
+            this.timeTravel('cranepresent');
         });
 
         
