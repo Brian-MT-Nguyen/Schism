@@ -11,7 +11,7 @@ const objectForeDepth = 4;
 const dialogueDepth = 6;
 const uiDepth = 5;
 
-let bgm;
+let bgm = undefined;
 let muteStatus = 0;
 let barkPlace = 0;
 

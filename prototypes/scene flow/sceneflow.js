@@ -8,7 +8,7 @@ class IntroCinematic extends Phaser.Scene {
 
     preload() {
         if(!gameDone) {
-            this.load.video('schismIntro', '../../assets/title/schism_intro_wip.mp4');
+            this.load.video('schismIntro', '../../assets/title/schismCinematic.mp4');
         }
     }
 

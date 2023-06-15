@@ -29,10 +29,12 @@ class TitleScreen extends Phaser.Scene {
     }
   
     create() {
-        bgm = this.sound.add("bgm");
-        bgm.play({
-            loop: true
-        });
+        if(bgm == undefined) {
+            bgm = this.sound.add("bgm");
+            bgm.play({
+                loop: true
+            });
+        }
 
         // Create backdrop
         let bg = this.add.image(0, -360, 'office').setOrigin(0);
