@@ -2,8 +2,6 @@ class UI extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, arrow, interact, mute, swap, fullScreen, unmute){
         super(scene, arrow, interact, mute, swap, fullScreen, unmute);
 
-        let muteStatus = 0;
-
         // Left Button
         this.leftButton = scene.add.sprite(0, 0, arrow).setScale(0.12).setDepth(uiDepth);
         this.leftButton.setFlipX(true);
@@ -29,14 +27,17 @@ class UI extends Phaser.Physics.Arcade.Sprite {
         // Mute Button
         this.muteButton = scene.add.sprite(0, 0, mute).setScale(0.12).setDepth(uiDepth);
         this.muteButton.setScrollFactor(0);
+        if(muteStatus == 1) {
+            this.muteButton = this.muteButton.setTexture(unmute);
+        }
         this.muteButton.setInteractive()
         .on('pointerdown', () => {
             if(muteStatus == 0){
-                this.muteButton = this.muteButton.setTexture(unmute)
+                this.muteButton = this.muteButton.setTexture(unmute);
                 game.sound.mute = true;
                 muteStatus = 1;
             }else{
-                this.muteButton = this.muteButton.setTexture(mute)
+                this.muteButton = this.muteButton.setTexture(mute);
                 game.sound.mute = false;
                 muteStatus = 0;
             }

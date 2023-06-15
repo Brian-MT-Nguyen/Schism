@@ -23,13 +23,8 @@ class OfficePast extends SchismScene {
     }
     
     onEnter() {
-
-       //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
-       
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Past').setOrigin(0);
-
 
         //UI
         this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen", "sound");
@@ -54,13 +49,6 @@ class OfficePast extends SchismScene {
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
 
-        // Create dog
-        this.dog = new Dog(this, 1700, this.player.y, "solBase").setDepth(dogDepth);
-        this.dog.create();
-        this.dog.visible = false;
-        this.dog.canFollow = false;
-        this.dog.flipX = true;
-
         // Interactable Events
         let laptop = this.physics.add.sprite(1024, 960, 'laptopPast').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
         laptop.body.allowGravity = false;
@@ -80,9 +68,17 @@ class OfficePast extends SchismScene {
         this.ui.interactButton.on('pointerover', () => {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), keycard.getBounds())) {
                 this.startDialogue('keycard', () => {
+                    keycard.setScrollFactor(0);
+                    keycard.setDepth(objectForeDepth);
+                    keycard.x = game.config.width/2;
+                    keycard.y = game.config.height/3;
+                    keycard.angle = -15;
+                    keycard.setScale(1);
                 }, () => {
                     this.ui.swapButton.visible = true;
                     this.ui.swapButton.setInteractive();
+                    keycard.destroy();
+                    this.addData('keycard');
                 });
             }
         });
@@ -106,17 +102,11 @@ class OfficePast extends SchismScene {
         //Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
-
-        this.physics.add.collider(this.dog, this.floor);
-        this.physics.add.collider(this.dog, this.worldbounds);
     }
 
     update() {
         // Update Player Logics
         this.player.update();
-
-        // Update Dog Logics
-        this.dog.update();
 
         // Update UI Logics
         this.ui.update();
