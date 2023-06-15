@@ -17,7 +17,6 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
             frameRate: 8,
             repeat: -1
         });
-        this.play('run');
     }
 
     update() {
@@ -25,6 +24,7 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
 
         // Have Dog follow player
         if(this.body.velocity.x > 0) {
+            this.body.setOffset(100,0);
             if(!this.running) {
                 this.running = true;
                 this.flipX = false;
@@ -38,6 +38,7 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
             }
         }
         else if(this.body.velocity.x < 0) {
+            this.body.setOffset(100,0);
             if(!this.running) {
                 this.running = true;
                 this.flipX = true;
@@ -51,6 +52,7 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
             }
         }
         else if(this.body.velocity.x == 0  && this.running){
+            this.body.setOffset(0,0);
             this.running = false;
             this.stop();
             this.setTexture("solBase");

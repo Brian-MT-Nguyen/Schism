@@ -2,13 +2,11 @@
 class ending extends Phaser.Scene {
     constructor() {
         super("ending", "ending");
-
-        this.load.path = '../../assets/levels/';
-        this.load.image('end', 'endscreen.png');
     }
 
     preload(){
-
+        this.load.path = '../assets/levels/';
+        this.load.image('end', '../assets/levels/endscreen.png');
     }
 
     onEnter() {

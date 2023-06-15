@@ -1,12 +1,12 @@
 
-class CoreGameplayAlt extends SchismScene {
+class OfficePast extends SchismScene {
 
     //acursors;
 
     //goal;
 
     constructor() {
-        super("CoreGameplayAlt", "CoreGameplayAlt");
+        super("officepast", "Level1Past");
     }
 
     preload() {

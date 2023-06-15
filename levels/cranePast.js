@@ -1,6 +1,6 @@
-class CoreGameplay2Alt extends SchismScene {
+class CranePast extends SchismScene {
     constructor() {
-        super("CoreGameplay2Alt", "CoreGameplay2Alt");
+        super("cranepast", "Level2Past");
     }
 
     preload() {

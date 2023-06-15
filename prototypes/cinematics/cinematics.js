@@ -1,5 +1,4 @@
-let gameDone = false;
-let inSettings = false;
+
 
 class BeginIntro extends Phaser.Scene {
   constructor() {

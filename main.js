@@ -1,8 +1,14 @@
+// Menu variables
+let gameDone = true;
+let inSettings = false;
+
 // Depth variables
 const envDepth = 0;
 const playerDepth = 3;
 const dogDepth = 2;
 const objectDepth = 1;
+
+let barkPlace = 0;
 
 const game = new Phaser.Game({
     preload() {
@@ -29,10 +35,7 @@ const game = new Phaser.Game({
         }
     },
     backgroundColor: 0x000000,
-    //scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt, CoreGameplay3, CoreGameplay3Alt, ending],
-    //scene: [CoreGameplay3, CoreGameplay3Alt, ending],
-    //scene: [CoreGameplay],
-    scene: [CoreGameplay],
-    //scene: [CoreGameplay2, CoreGameplay2Alt,CoreGameplay3],
+    //BeginIntro, StudioIntro, IntroCinematic, TitleScreen, SettingsMenu, 
+    scene: [OfficePresent, OfficePast, CranePresent, CranePast, StealthPresent, StealthPast, ending],
     title: "Schism"
 });
