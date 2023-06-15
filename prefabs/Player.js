@@ -105,7 +105,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.jumping = true;
                 this.text.setText("jumping");
                 this.scene.time.delayedCall(250, () => {
-                    this.setVelocityY(-1000);
+                    this.setVelocityY(-1100);
                 });
                 this.stop();
                 if(!this.isPaused) {
