@@ -4,7 +4,7 @@ class BeginIntro extends Phaser.Scene {
     }
     preload() {
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
-        this.load.video('schismIntro', '../assets/title/schismCinematic.mp4');
+        this.load.video('schismIntro', 'assets/title/schismCinematic.mp4');
     }
     create() {
         this.cameras.main.setBackgroundColor('#777B7E');
@@ -39,7 +39,7 @@ class StudioIntro extends Phaser.Scene {
         super('studiointro')
     }
     preload() {
-        this.load.path = '../assets/studio/';
+        this.load.path = 'assets/studio/';
         this.load.audio('sfxOpen', 'FridgeOpen.wav');
         this.load.audio('sfxClose', 'FridgeClose.wav');
         this.load.image('gfc', 'GreenFridgeClosed.png');
