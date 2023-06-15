@@ -1,7 +1,7 @@
 
 class CranePresent extends SchismScene {
     constructor() {
-        super("CranePresent", "CranePresent");
+        super("cranepresent", "Level2Present");
     }
 
     preload() {
@@ -122,7 +122,7 @@ class CranePresent extends SchismScene {
         this.physics.add.overlap(this.player, this.console, () => {});
 
         this.physics.add.overlap(this.player, this.goal, () => {
-            this.time.delayedCall(1000, this.gotoScene("StealthPresent"))
+            this.time.delayedCall(1000, this.gotoScene("stealthpresent"))
             });
 
         this.ui.interactButton.on('pointerover', () => {
@@ -139,7 +139,7 @@ class CranePresent extends SchismScene {
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
             //this.scene.start('CranePast');
-            this.timeTravel('CranePast');
+            this.timeTravel('cranepresent');
         });
     }
 
