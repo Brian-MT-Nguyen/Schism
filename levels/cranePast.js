@@ -28,7 +28,7 @@ class CranePast extends SchismScene {
         this.load.path = '../assets/interactables/';
         this.load.image('consolePast', 'consolePast.png');
         this.load.image('lvl3platform', 'lvl3platform.png');
-        this.load.image('cranePresent', 'cranePast.png');
+        this.load.image('cranePast', 'cranePast.png');
         this.load.image('craneHandPast', 'craneHandPast.png');
 
         //levels
@@ -73,7 +73,7 @@ class CranePast extends SchismScene {
         //let podDoor = this.add.image(330, 1010, 'podDoor').setOrigin(0.5).setDepth(playerDepth);
 
         //create crane
-        let crane = this.physics.add.sprite(2560 *.415, 1920*.3, "cranePresent").setDepth(objectDepth);
+        let crane = this.physics.add.sprite(2560 *.415, 1920*.3, "cranePast").setDepth(objectDepth);
         crane.body.allowGravity = false;
         crane.body.immovable = true;
 
