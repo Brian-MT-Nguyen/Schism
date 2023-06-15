@@ -1,12 +1,10 @@
-//Really shit ways of seeing if we saw things in scene
-let atDesk = 0;
-let keyStatus = 0;
-let brkCon = 0;
-let platStat = 0;
-//let barkPlace = 0;
+// Depth variables
+const envDepth = 0;
+const playerDepth = 3;
+const dogDepth = 2;
+const objectDepth = 1;
 
 const game = new Phaser.Game({
-// https://www.youtube.com/watch?v=H4BAEf5V-Yc&ab_channel=BreakingCopyright%E2%80%94RoyaltyFreeMusic
     preload() {
         //sound
         this.load.path = '../assets/sound/';
@@ -34,7 +32,7 @@ const game = new Phaser.Game({
     //scene: [CoreGameplay, CoreGameplayAlt, CoreGameplay2, CoreGameplay2Alt, CoreGameplay3, CoreGameplay3Alt, ending],
     //scene: [CoreGameplay3, CoreGameplay3Alt, ending],
     //scene: [CoreGameplay],
-    scene: []
+    scene: [CoreGameplay],
     //scene: [CoreGameplay2, CoreGameplay2Alt,CoreGameplay3],
     title: "Schism"
 });

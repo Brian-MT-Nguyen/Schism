@@ -11,7 +11,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.rect.setScrollFactor(0);
 
         this.text = scene.add.text(this.rect.x + 330, (1920 * 0.51), "").setOrigin(0.5,0.5)
-        .setStyle({ fontSize: 100 });
+            .setStyle({ fontSize: 100 });
         this.text.setScrollFactor(0);
       
         this.moving = false;
@@ -44,6 +44,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             frameRate: 4
         });
 
+        // Set hitbox to be idle frame
+        this.body.setSize(400,600);
+        this.body.setOffset(100, 0);
+
         // Play idle on load
         this.play('idle');
 
@@ -52,6 +56,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.playerInteractBox.visible = false;
         this.playerInteractBox.body.immovable = true;
         this.playerInteractBox.body.allowGravity = false;
+        this.playerInteractBox.body.setSize(600,600);
 
         // Be able to listen to 2 touch inputs
         this.scene.input.addPointer(2);
@@ -75,8 +80,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.play('run');
             }
             this.moving = true;
-            this.playerInteractBox.body.setSize(555,600);
-            this.playerInteractBox.body.setOffset(-200,0);
+            this.playerInteractBox.body.setSize(600,600);
+            this.playerInteractBox.body.setOffset(-100,0);
         });
 
         rightButton.on('pointerover', () =>
@@ -88,8 +93,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.play('run');
             }
             this.moving = true;
-            this.playerInteractBox.body.setSize(555,600);
-            this.playerInteractBox.body.setOffset(0,0);
+            this.playerInteractBox.body.setSize(600,600);
+            this.playerInteractBox.body.setOffset(100,0);
         });
 
         jumpButton.on('pointerover', () =>

@@ -24,7 +24,7 @@ class SchismScene extends Phaser.Scene {
         this.dialogueRectangle = this.add.rectangle(220, 1035, 1470, 300, 0x000000).setOrigin(0).setDepth(10).setAlpha(0.7);
         this.dialogueRectangle.setScrollFactor(0);
         this.dialogueRectangle.visible = false;
-        this.dialogueText = this.add.text(240, 1055, '', {fontSize: 40, color: '#ffffff', wordWrap: { width: 1470 }}).setDepth(10);
+        this.dialogueText = this.add.text(240, 1055, '', {fontSize: 40, color: '#ffffff', wordWrap: { width: 1460 }}).setDepth(10);
         this.dialogueText.setScrollFactor(0);
         this.dialogueKey;
         this.dialogueIndex = 0;
