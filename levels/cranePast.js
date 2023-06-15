@@ -69,6 +69,9 @@ class CranePast extends SchismScene {
         this.player.create(mobileControls);
         this.ui.swapButton.setVisible(false);
 
+        //interactables
+        this.interactables =  this.add.group();
+
         //let pod = this.add.image(330, 1010, 'podPresent').setOrigin(0.5).setScale(1.1).setDepth(envDepth);
         //let podDoor = this.add.image(330, 1010, 'podDoor').setOrigin(0.5).setDepth(playerDepth);
 
@@ -83,9 +86,10 @@ class CranePast extends SchismScene {
         craneHand.body.immovable = true;
 
         // Create console
-        let consoleWork = this.physics.add.sprite(2560 *.3, 1920*.49, "consolePast").setDepth(objectDepth);
-        consoleWork.body.allowGravity = false;
-        consoleWork.body.immovable = true;
+        this.consoleWork = this.physics.add.sprite(2560 *.3, 1920*.49, "consolePast").setDepth(objectDepth);
+        this.consoleWork.body.allowGravity = false;
+        this.consoleWork.body.immovable = true;
+        this.interactables.add(this.consoleWork);
 
         /* let laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
         laptop.body.allowGravity = false;
@@ -148,7 +152,7 @@ class CranePast extends SchismScene {
             });
         
         this.ui.interactButton.on('pointerover', () => {
-            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), consoleWork.getBounds()) 
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.consoleWork.getBounds()) 
             && !this.getData('bridgeMade')) {
                 //laptop.setTexture('laptopPresentOn');
                 this.startDialogue('workCon', () => {}, () => {this.addData('bridgeMade')})
@@ -199,6 +203,22 @@ class CranePast extends SchismScene {
             this.timeTravel('cranepresent');
         });
 
+
+        this.interactables.getChildren().forEach( (object) => {
+
+            if(object == this.consoleWork && !this.getData('bridgeMade')){
+                object.preFX.setPadding(32);
+                let fx = object.preFX.addGlow();
+                this.consoleWorkGlow = this.tweens.add({
+                    targets: fx,
+                    outerStrength: 15,
+                    yoyo: true,
+                    loop: -1,
+                    ease: 'sine.inout'
+                });
+            }
+    })
+
         
     }
 
@@ -211,6 +231,15 @@ class CranePast extends SchismScene {
 
         // Update UI Logics
         this.ui.update();
+
+        if(this.getData('bridgeMade')){
+            this.consoleWorkGlow.stop();
+            this.consoleWorkGlow.destroy();
+            this.consoleWork.destroy();
+            this.consoleWork = this.physics.add.sprite(2560 *.3, 1920*.49, "consolePast").setDepth(objectDepth);
+            this.consoleWork.body.allowGravity = false;
+            this.consoleWork.body.immovable = true;
+        }
 
         if(this.player.x > 2560){
             this.gotoScene("CranePresent");
