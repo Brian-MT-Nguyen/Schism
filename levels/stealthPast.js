@@ -36,6 +36,7 @@ class StealthPast extends SchismScene {
 
         //Interactables
         this.load.path = '../../assets/interactables/';
+        this.load.image('consolePast', 'consolePast.png');
     }
     
     onEnter() {
@@ -59,6 +60,7 @@ class StealthPast extends SchismScene {
         // Link mobile controls to Player
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
+        this.ui.swapButton.setVisible(false);
 
         // Interactable Events
 
@@ -75,6 +77,17 @@ class StealthPast extends SchismScene {
         this.floor.body.allowGravity = false;
         this.floor.body.immovable = true;
 
+        // Create console
+        this.consoleWork = this.physics.add.sprite(2400, 1120, "consolePast").setDepth(objectDepth).setScale(0.8);
+        this.consoleWork.body.allowGravity = false;
+        this.consoleWork.body.immovable = true;
+
+        this.ui.interactButton.on('pointerover', () => {
+            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.consoleWork.getBounds())) {
+                this.addData('robotOff');
+                this.ui.swapButton.setVisible(true);
+            }
+        })
         // Dialogue
 
         //Physics

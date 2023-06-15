@@ -26,6 +26,7 @@ class StealthPresent extends SchismScene {
         this.load.path = '../assets/sound/';
         this.load.audio('sound', 'sound.mp3');
         this.load.audio('bgm', 'bgm.mp3');
+        this.load.audio('woof', 'woof.mp3');
 
         //UI
         this.load.path = '../assets/UI/';
@@ -38,6 +39,7 @@ class StealthPresent extends SchismScene {
 
         //Interactables
         this.load.path = '../../assets/interactables/';
+        this.load.image('consoleFuture', 'consoleFuture.png');
     }
     
     onEnter() {
@@ -70,16 +72,47 @@ class StealthPresent extends SchismScene {
         this.dog.flipX = true;
 
         // Create enemy
-        this.enemy = this.physics.add.sprite(2000, 1120, 'enemyBase').setDepth(playerDepth).setScale(0.8);
+        this.enemy = this.physics.add.sprite(2000, 1100, 'enemyBase').setDepth(playerDepth).setScale(0.8);
         this.enemyInteractBox = this.physics.add.sprite(this.enemy.x, this.enemy.y, "enemyBase").setOrigin(0.5).setScale(0.8);
         this.enemyInteractBox.visible = false;
         this.enemyInteractBox.body.immovable = true;
         this.enemyInteractBox.body.allowGravity = false;
         this.enemyInteractBox.body.setSize(700,600);
 
+        // Create console
+        this.consoleBroke = this.physics.add.sprite(2400, 1120, "consoleFuture").setDepth(objectDepth).setScale(0.8);
+        this.consoleBroke.body.allowGravity = false;
+        this.consoleBroke.body.immovable = true;
+
         this.ui.swapButton.visible = false;
-        this.ui.swapButton.disableInteractive();
+        
         // Interactable Events
+        
+        //sit
+        this.ui.interactButton.on('pointerover', () => {
+
+            if(this.getData('robotOff')){
+                if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.dog.getBounds()) ) {
+                    this.gotoScene('ending');
+                }
+            }
+            let dogX = this.dog.x;
+            if(this.dog.canFollow == true){
+                this.sitDog()
+            }
+            else{
+                //bark
+                this.bark(this.dog, this.enemy);
+                /* let time = (this.enemy.x - this.dog.x)*5;
+
+                this.tweens.add({
+                    targets: this.enemy,
+                    x: dogX,
+                    duration:time,
+                    ease: 'Linear', // You can change the easing function if desired
+                  }); */
+            }
+        })
 
         // Time Travel
         this.ui.swapButton.on('pointerover', () => {
@@ -119,7 +152,6 @@ class StealthPresent extends SchismScene {
         //Physics
         this.physics.add.collider(this.player, this.floor);
         this.physics.add.collider(this.player, this.worldbounds);
-        this.physics.add.collider(this.player, this.enemy);
 
 
         this.physics.add.collider(this.enemy, this.floor);
@@ -133,11 +165,34 @@ class StealthPresent extends SchismScene {
 
         this.physics.add.overlap(this.player, this.enemyInteractBox, this.enemyDetection, null, this);
 
+        this.physics.add.overlap(this.player, this.consoleBroke, () => {
+            this.ui.swapButton.setVisible(true)
+        });
+
+        if (this.getData('robotOff') && this.getData('robotOff') != undefined) {
+            this.enemyInteractBox.destroy(); 
+            this.enemy.setTexture('enemyDisabled');
+        }
     }
 
     enemyDetection() {
         this.scene.start('stealthpresent');
         this.resetData();
+    }
+
+    sitDog(){
+        this.dog.canFollow = false;
+    }
+
+    bark(dog, enemy){
+        let time = (enemy.x - dog.x)*5;
+
+                this.tweens.add({
+                    targets: enemy,
+                    x: dog.x,
+                    duration:time,
+                    ease: 'Linear', // You can change the easing function if desired
+                  });
     }
 
     update() {

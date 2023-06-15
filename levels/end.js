@@ -6,7 +6,7 @@ class ending extends Phaser.Scene {
 
     preload(){
         this.load.path = '../assets/levels/';
-        this.load.image('end', '../assets/levels/endscreen.png');
+        this.load.image('end', 'endscreen.png');
     }
 
     onEnter() {
@@ -15,7 +15,7 @@ class ending extends Phaser.Scene {
         /* this.add.text(2560 *.5, 1920 *.5,"you did it");
         this.add.text(2560 *.47, 1920 *.6,":>"); */
 
-        let bg = this.add.image(0, 0, 'end').setOrigin(0);
+        let bg = this.add.image(0, 0, 'end').setOrigin(0).setDepth(envDepth);
 
 
         //this.input.on('pointerdown', () => this.scene.start('lvl3'));
@@ -24,9 +24,6 @@ class ending extends Phaser.Scene {
     update(){
         //console.log("dog");
         this.add.text(1920 *.5, 1080 *.5,"you did it");
-        this.add.text(2560 *.5, 1920 *.6,":>");
+        //this.add.text(2560 *.5, 1920 *.6,":>");
     }
-    
-
-
 }
