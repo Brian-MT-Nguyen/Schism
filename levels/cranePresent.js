@@ -28,6 +28,8 @@ class CranePresent extends SchismScene {
         //interactables 
         this.load.path = '../assets/interactables/';
         this.load.image('consoleFuture', 'consoleFuture.png');
+        this.load.image('cranePresent', 'cranePresent.png');
+        this.load.image('craneHandPresent', 'craneHandPresent.png');
 
         //levels
         this.load.path = '../../assets/levels/';
@@ -73,6 +75,16 @@ class CranePresent extends SchismScene {
         let consoleBroke = this.physics.add.sprite(2560 *.3, 1920*.49, "consoleFuture").setDepth(objectDepth);
         consoleBroke.body.allowGravity = false;
         consoleBroke.body.immovable = true;
+
+        //create crane
+        let crane = this.physics.add.sprite(2560 *.415, 1920*.3, "cranePresent").setDepth(objectDepth-1);
+        crane.body.allowGravity = false;
+        crane.body.immovable = true;
+
+        //create crane
+        let craneHand = this.physics.add.sprite(2560 *.17, 1920*.58, "craneHandPresent").setDepth(objectDepth);
+        craneHand.body.allowGravity = false;
+        craneHand.body.immovable = true;
 
         /* let laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
         laptop.body.allowGravity = false;
