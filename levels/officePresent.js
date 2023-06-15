@@ -143,7 +143,7 @@ class OfficePresent extends SchismScene {
 
         this.ui.swapButton.visible = false;
         this.ui.swapButton.disableInteractive();
-        
+
         this.ui.interactButton.on('pointerover', () => {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), laptop.getBounds()) 
                 && !this.getData('interactedLaptop')) {
@@ -178,6 +178,7 @@ class OfficePresent extends SchismScene {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.door.getBounds()) 
                 && this.getData('keycard')) {
                 this.gotoScene('cranepresent');
+                this.resetData();
             }
         });
 
