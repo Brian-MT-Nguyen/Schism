@@ -144,8 +144,8 @@ class StealthPresent extends SchismScene {
         this.ui.interactButton.on('pointerover', () => {
 
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.door.getBounds()) ) {
-                this.gotoScene('ending');
                 this.resetData();
+                this.gotoScene('ending');
             }
             if(this.dog.canFollow == true && !this.getData('level3Lured')){
                 this.sitDog()

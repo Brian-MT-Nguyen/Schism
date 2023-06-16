@@ -1,5 +1,5 @@
 // Menu variables
-let gameDone = true;
+let gameDone = false;
 let inSettings = false;
 
 // Depth variables
