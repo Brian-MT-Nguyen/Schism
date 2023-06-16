@@ -3,6 +3,21 @@ let atDesk = 0;
 let keyStatus = 0;
 let brkCon = 0;
 let platStat = 0;
+// Menu variables
+let gameDone = true;
+let inSettings = false;
+
+// Depth variables
+const envDepth = 0;
+const playerDepth = 3;
+const dogDepth = 2;
+const objectDepth = 1;
+const objectForeDepth = 4;
+const dialogueDepth = 6;
+const uiDepth = 5;
+
+let bgm = undefined;
+let muteStatus = 0;
 
 
 class CoreGameplay extends SchismScene {
@@ -13,9 +28,14 @@ class CoreGameplay extends SchismScene {
     preload() {
         //characters
         this.load.path = '../../assets/character/';
-        this.load.image('lunebase', 'luneBaseSprite.png');
+        this.load.image('luneSleep', 'luneSleep.png');
+        this.load.image('luneBase', 'luneBaseSprite.png');
         this.load.image('solBase', 'solBaseSprite.png');
         this.load.image('solSit', 'solSitting.png');
+        this.load.spritesheet('luneIdle', 'luneIdle_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneRun', 'luneRun_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneJump', 'luneJump_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 300});
 
 
         //levels
@@ -34,6 +54,17 @@ class CoreGameplay extends SchismScene {
         this.load.image('mute', 'mute.png');
         this.load.image('sound', 'sound.png');
         this.load.image('swap', 'swap.png');
+        this.load.image('fullscreen', "fullScreen.png");
+
+        //Interactables
+        this.load.path = '../../assets/interactables/';
+        this.load.image('podPresent', 'podPresent.PNG');
+        this.load.image('podDoor', 'podDoor.PNG');
+        this.load.image('laptopPresent', 'laptopPresent.png');
+        this.load.image('laptopPresentOn', 'laptopPresent_on.png');
+        this.load.image('dogTreatsFut', 'dogTreatsFuture.png');
+        this.load.image('cratePresent', 'cratePresent.png');
+        this.load.image('crateDoorPresent', 'crateDoorPresent.png');
     }
     
     onEnter() {
@@ -47,14 +78,14 @@ class CoreGameplay extends SchismScene {
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0);
 
         //UI
-        this.ui = new UI(this, "right", "interact", "mute", "swap");
+        this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen");
 
         this.ui.swapButton.on('pointerdown', () => {
             this.timeTravel("CoreGameplayAlt");
         });
         
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 300, 1035, 'lunebase');
+        this.player = new Player(this, 300, 1010, 'luneBase');
         let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
         this.player.create(mobileControls);
 
@@ -164,13 +195,6 @@ class CoreGameplayAlt extends SchismScene {
     }
 
     preload() {
-        //characters
-        this.load.path = '../../assets/character/';
-        this.load.image('lunebase', 'luneBaseSprite.png');
-        this.load.image('solBase', 'solBaseSprite.png');
-        this.load.image('solSit', 'solSitting.png');
-
-
         //levels
         this.load.path = '../../assets/levels/';
         this.load.image('lvl1Past', 'officeLvlPast.png');
@@ -180,17 +204,18 @@ class CoreGameplayAlt extends SchismScene {
 
        //let rKey = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
-       this.bgm = this.sound.add("bgm");
-       this.bgm.play({
-        loop: true
-    });
-
        
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Past').setOrigin(0);
 
+                //UI
+                this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen");
+
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 300, 1035, 'lunebase');
+        this.player = new Player(this, 300, 1010, 'luneBase');
+        let mobileControls = [this.ui.leftButton, this.ui.rightButton, this.ui.upButton];
+        this.player.create(mobileControls);
+
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -241,6 +266,7 @@ class CoreGameplayAlt extends SchismScene {
     update() {
         // Update Player Logics
         this.player.update();
+        this.ui.update();
 
         if(Phaser.Input.Keyboard.JustDown(this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E))) {
             this.player.body.enable = false;
@@ -300,7 +326,7 @@ class CoreGameplay2 extends SchismScene {
         let bg = this.add.image(0, 0, 'lvl').setOrigin(0);
 
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 300, 1035, 'lunebase');
+        this.player = new Player(this, 300, 1010, 'lunebase');
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -411,7 +437,7 @@ class CoreGameplay2Alt extends SchismScene {
         let bg = this.add.image(0, 0, 'lvl2Past').setOrigin(0);
 
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 300, 1035, 'lunebase');
+        this.player = new Player(this, 300, 1010, 'lunebase');
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -545,7 +571,7 @@ class CoreGameplay3 extends SchismScene {
          let bg = this.add.image(0, 0, 'lvl3present').setOrigin(0);
  
          // Create Player + Set Position + Camera Follow
-         this.player = new Player(this, 300, 1035, 'lunebase');
+         this.player = new Player(this, 300, 1010, 'lunebase');
          if(this.getData('x') != undefined) {
              this.player.x = this.getData('x');
          }
@@ -715,7 +741,7 @@ class CoreGameplay3Alt extends SchismScene {
          let bg = this.add.image(0, 0, 'lvl3past').setOrigin(0);
  
          // Create Player + Set Position + Camera Follow
-         this.player = new Player(this, 300, 1035, 'lunebase');
+         this.player = new Player(this, 300, 1010, 'lunebase');
          if(this.getData('x') != undefined) {
              this.player.x = this.getData('x');
          }
