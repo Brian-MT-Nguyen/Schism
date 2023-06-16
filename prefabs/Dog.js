@@ -9,6 +9,8 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
         this.running = false;
         this.jumping = false;
         this.canFollow = true;
+        this.level3Back = false;
+        this.y += 80;
     }
 
     create() {

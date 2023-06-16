@@ -4,10 +4,10 @@ class BeginIntro extends Phaser.Scene {
     }
     preload() {
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
-        this.load.video('schismIntro', 'assets/title/schismCinematic.mp4');
     }
     create() {
         this.cameras.main.setBackgroundColor('#777B7E');
+
         // Ensure font loads in for user since it's the first scene
         WebFont.load({
             google: {
@@ -46,8 +46,30 @@ class StudioIntro extends Phaser.Scene {
         this.load.image('gfho', 'GreenFridgeHalfOpened.png');
         this.load.image('gfo', 'GreenFridgeOpened.png');
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+
+        
+        //UI
+        this.load.path = 'assets/UI/';
+        this.load.image('right', 'right.png');
+        this.load.image('interact', 'interact.png');
+        this.load.image('mute', 'mute.png');
+        this.load.image('sound', 'sound.png');
+        this.load.image('swap', 'swap.png');
+        this.load.image('fullscreen', "fullScreen.png");
     }
     create() {
+        //UI
+        this.fsButton = this.add.sprite(100,100,'fullscreen').setDepth(uiDepth);
+        this.fsButton.setScrollFactor(0);
+        this.fsButton.setInteractive()
+        .on('pointerdown', () => {
+            if (this.scale.isFullscreen) {
+                this.scale.stopFullscreen();
+            } else {
+                this.scale.startFullscreen();
+            }
+        });
+
   
         this.cameras.main.setBackgroundColor('#777B7E');
         //preload studio text
@@ -134,7 +156,12 @@ class IntroCinematic extends Phaser.Scene {
         super("introcinematic");
     }
 
+    preload() {
+        this.load.video('schismIntro', 'assets/title/schismCinematic.mp4');
+    }
+
     create() {
+
         let video = this.add.video(game.config.width/2, game.config.height/2, 'schismIntro');
 
         video.on('complete', () => {

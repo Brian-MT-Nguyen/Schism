@@ -1,4 +1,3 @@
-
 class ending extends Phaser.Scene {
     constructor() {
         super("ending", "ending");
@@ -35,7 +34,9 @@ class ending extends Phaser.Scene {
 
         this.time.delayedCall(5000, () => {
             this.credits = this.add.text(game.config.width-300, 1080 *.1, "THE END\n\nClick anywhere to restart", {fontSize: 32}).setOrigin(0.5, 0).setDepth(playerDepth);
-            
+            this.input.on('pointerdown', () => {
+                this.scene.start('introcinematic');
+            });
         }, this);
     }
     

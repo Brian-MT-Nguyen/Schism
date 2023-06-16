@@ -4,6 +4,35 @@ class SettingsMenu extends Phaser.Scene {
     }
   
     create() {
+        this.fsButton = this.add.sprite(100,100,'fullscreen').setDepth(uiDepth);
+        this.fsButton.setScrollFactor(0);
+        this.fsButton.setInteractive()
+        .on('pointerdown', () => {
+            if (this.scale.isFullscreen) {
+                this.scale.stopFullscreen();
+            } else {
+                this.scale.startFullscreen();
+            }
+        })
+
+        this.muteButton = this.add.sprite(1820, 100, "mute").setScale(0.12).setDepth(uiDepth);
+        this.muteButton.setScrollFactor(0);
+        if(muteStatus == 1) {
+            this.muteButton = this.muteButton.setTexture("sound");
+        }
+        this.muteButton.setInteractive()
+        .on('pointerdown', () => {
+            if(muteStatus == 0){
+                this.muteButton = this.muteButton.setTexture("sound");
+                game.sound.mute = true;
+                muteStatus = 1;
+            }else{
+                this.muteButton = this.muteButton.setTexture("mute");
+                game.sound.mute = false;
+                muteStatus = 0;
+            }
+        })
+
         // Update in settings var
         inSettings = true;
   
