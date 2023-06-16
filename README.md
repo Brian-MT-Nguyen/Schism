@@ -1,5 +1,5 @@
 # Schism
-https://brian-mt-nguyen.github.io/Schism/
+Link to Deployed Game: https://brian-mt-nguyen.github.io/Schism/
 
 ## Credits:  
 - Abraham Halim (Testing Lead, Programmer)
