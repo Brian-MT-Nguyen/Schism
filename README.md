@@ -17,9 +17,9 @@ This project was created for our final project in CMPM120. We wanted to implemen
 - Intro Cinematic sometimes does not load for iOS devices, but does load (as shown in playthrough)
 
 ## Prototypes:
-- https://brian-mt-nguyen.github.io/Schism/prototypes/cinematics/cinematics-1.html by Samip Niraula
-- https://brian-mt-nguyen.github.io/Schism/prototypes/core%20gameplay/core-gameplay-1.html by Abraham Halim
-- https://brian-mt-nguyen.github.io/Schism/prototypes/scene%20flow/scene-flow-1.html By Brian Nguyen
+- Cinematics Prototype: https://brian-mt-nguyen.github.io/Schism/prototypes/cinematics/cinematics-1.html by Samip Niraula
+- Core Gameplay Prototype: https://brian-mt-nguyen.github.io/Schism/prototypes/core%20gameplay/core-gameplay-1.html by Abraham Halim
+- Scene Flow Prototype: https://brian-mt-nguyen.github.io/Schism/prototypes/scene%20flow/scene-flow-1.html By Brian Nguyen
 
 ## Core Requirements
 - [project archive] The team has submitted a self-contained archive of their design and deployment work (e.g. a repository on GitHub). This archive contains some documentation (e.g. a README.md file) that is immediately visible even to non-technical audiences. ***SATISFIED*** as described below
