@@ -4,14 +4,42 @@ class StealthPast extends SchismScene {
     }
 
     preload() {
+        //characters
+        this.load.path = 'assets/character/';
+        this.load.image('luneSleep', 'luneSleep.png');
+        this.load.image('luneBase', 'luneBaseSprite.png');
+        this.load.image('solBase', 'solBaseSprite.png');
+        this.load.image('solSit', 'solSitting.png');
+        this.load.spritesheet('luneIdle', 'luneIdle_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneRun', 'luneRun_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneJump', 'luneJump_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 300});
+
+
         //levels
         this.load.path = 'assets/levels/';
         this.load.image('lvl3Past', 'level3past.png');
+
+        //sound
+        this.load.path = 'assets/sound/';
+        this.load.audio('sound', 'sound.mp3');
+        this.load.audio('bgm', 'bgm.mp3');
+
+        //UI
+        this.load.path = 'assets/UI/';
+        this.load.image('right', 'right.png');
+        this.load.image('interact', 'interact.png');
+        this.load.image('mute', 'mute.png');
+        this.load.image('sound', 'sound.png');
+        this.load.image('swap', 'swap.png');
+        this.load.image('fullscreen', "fullScreen.png");
+
+        //Interactables
+        this.load.path = 'assets/interactables/';
+        this.load.image('consolePast', 'consolePast.png');
     }
     
     onEnter() {
-        this.tpSound = this.sound.add('sound');
-
         // Create background
         let bg = this.add.image(0, 0, 'lvl3Past').setOrigin(0).setDepth(envDepth);
 
@@ -19,7 +47,7 @@ class StealthPast extends SchismScene {
         this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen", "sound");
         
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 300, 1010, 'luneBase').setDepth(playerDepth);
+        this.player = new Player(this, 300, 1010, 'luneSleep').setDepth(playerDepth);
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -36,10 +64,9 @@ class StealthPast extends SchismScene {
 
         // Time Travel
         this.ui.swapButton.on('pointerover', () => {
-            this.tpSound.play();
-            this.addData('x', this.player.x);
-            this.addData('y', this.player.y);
-            this.timeTravel('stealthpresent');
+                this.addData('x', this.player.x);
+                this.addData('y', this.player.y);
+                this.timeTravel('stealthpresent');
         });
         
         // Create floor
@@ -65,7 +92,6 @@ class StealthPast extends SchismScene {
                 this.consoleWork = this.physics.add.sprite(2400, 1120, "consolePast").setDepth(objectDepth).setScale(0.8);
                 this.consoleWork.body.allowGravity = false;
                 this.consoleWork.body.immovable = true;
-                this.startDialogue('finalCon', () => {}, () => {});
             }
         })
 

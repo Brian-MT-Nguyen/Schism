@@ -40,13 +40,13 @@ class SchismScene extends Phaser.Scene {
         // Create world bounds
         this.worldbounds = this.add.group();
         this.lWall = this.add.rectangle(-100,0,100,1920).setOrigin(0);
-        this.scene.physics.add.existing(this.lWall);
+        this.physics.add.existing(this.lWall);
         this.lWall.body.allowGravity = false;
         this.lWall.body.immovable = true;
         this.worldbounds.add(this.lWall);
 
         this.rWall = this.add.rectangle(2560,0,100,1920).setOrigin(0);
-        this.scene.physics.add.existing(this.rWall);
+        this.physics.add.existing(this.rWall);
         this.rWall.body.allowGravity = false;
         this.rWall.body.immovable = true;
         this.worldbounds.add(this.rWall);
@@ -120,6 +120,11 @@ class SchismScene extends Phaser.Scene {
         this.dialogueActive = false;
         this.dialogueRectangle.visible = false;
         this.dialogueText.setText('');
+    
+        // Call the callback function if it exists
+        if (typeof this.dialogueCallback === 'function') {
+            this.dialogueCallback();
+        }
 
         // Enable character movement
         this.player.body.enable = true;
@@ -128,11 +133,6 @@ class SchismScene extends Phaser.Scene {
         // Unregister the dialogue event handlers
         this.input.keyboard.off('keydown-SPACE', this.handleDialogueInteraction, this);
         this.input.off('pointerdown', this.handleDialogueInteraction, this);
-
-        // Call the callback function if it exists
-        if (typeof this.dialogueCallback === 'function') {
-            this.dialogueCallback();
-        }
     }
     
     // Scene Transition Functions

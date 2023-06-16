@@ -6,31 +6,51 @@ class StealthPresent extends SchismScene {
     preload() {
         //characters
         this.load.path = 'assets/character/';
+        this.load.image('luneSleep', 'luneSleep.png');
+        this.load.image('luneBase', 'luneBaseSprite.png');
+        this.load.image('solBase', 'solBaseSprite.png');
+        this.load.image('solSit', 'solSitting.png');
         this.load.image('enemyBase', 'enemyBaseSprite.png');
         this.load.image('enemyDisabled', 'enemyBaseSprite_disabled.png');
+        this.load.spritesheet('luneIdle', 'luneIdle_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneRun', 'luneRun_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('luneJump', 'luneJump_spritesheet.png', {frameWidth: 600, frameHeight: 600});
+        this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 300});
 
-        //sound
-        this.load.path = 'assets/sound/';
-        this.load.audio('woof', 'woof.mp3');
 
         //levels
         this.load.path = 'assets/levels/';
         this.load.image('lvl3Pres', 'level3_present.png');
+
+        //sound
+        this.load.path = 'assets/sound/';
+        this.load.audio('sound', 'sound.mp3');
+        this.load.audio('bgm', 'bgm.mp3');
+        this.load.audio('woof', 'woof.mp3');
+
+        //UI
+        this.load.path = 'assets/UI/';
+        this.load.image('right', 'right.png');
+        this.load.image('interact', 'interact.png');
+        this.load.image('mute', 'mute.png');
+        this.load.image('sound', 'sound.png');
+        this.load.image('swap', 'swap.png');
+        this.load.image('fullscreen', "fullScreen.png");
+
+        //Interactables
+        this.load.path = 'assets/interactables/';
+        this.load.image('consoleFuture', 'consoleFuture.png');
     }
     
     onEnter() {
-        this.tpSound = this.sound.add('sound');
-
         // Create background
         let bg = this.add.image(0, 0, 'lvl3Pres').setOrigin(0).setDepth(envDepth);
-
-        this.barkSound = this.sound.add('woof');
 
         //UI
         this.ui = new UI(this, "right", "interact", "mute", "swap", "fullscreen", "sound");
         
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 200, 1110, 'luneBase').setDepth(playerDepth);
+        this.player = new Player(this, 200, 1110, 'luneSleep').setDepth(playerDepth);
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -48,14 +68,8 @@ class StealthPresent extends SchismScene {
         this.dog = new Dog(this, 200, this.player.y, "solBase").setDepth(dogDepth);
         this.dog.create();
         this.dog.visible = true;
-        this.dog.canFollow = false;
-        if(!this.getData('level3Lured')) {
-            this.dog.canFollow = true;
-        }
-
-        if(this.getData('level3Lured')) {
-            this.dog.level3Back = true;
-        }
+        this.dog.canFollow = true;
+        this.dog.flipX = true;
 
         // Create enemy
         this.enemy = this.physics.add.sprite(2000, 1100, 'enemyBase').setDepth(playerDepth).setScale(0.8);
@@ -63,8 +77,7 @@ class StealthPresent extends SchismScene {
         this.enemyInteractBox.visible = false;
         this.enemyInteractBox.body.immovable = true;
         this.enemyInteractBox.body.allowGravity = false;
-        this.enemyInteractBox.body.setSize(2870,600);
-        this.enemyInteractBox.body.setOffset(-1000, 0);
+        this.enemyInteractBox.body.setSize(700,600);
 
         // Create console
         this.interactables =  this.add.group();
@@ -74,13 +87,6 @@ class StealthPresent extends SchismScene {
         this.interactables.add(this.consoleBroke);
 
         this.ui.swapButton.visible = false;
-
-        // Create door
-        this.door = this.add.rectangle(1190, 980, 160, 370).setOrigin(0);
-        this.physics.add.existing(this.door);
-        this.door.body.allowGravity = false;
-        this.door.body.immovable = true;
-        this.interactables.add(this.door);
         
         // Interactable Events
         this.interactables.getChildren().forEach( (object) => {
@@ -100,29 +106,34 @@ class StealthPresent extends SchismScene {
         //sit
         this.ui.interactButton.on('pointerover', () => {
 
-            if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.door.getBounds()) ) {
-                this.gotoScene('ending');
-                this.resetData();
+            if(this.getData('robotOff')){
+                if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.dog.getBounds()) ) {
+                    this.gotoScene('ending');
+                }
             }
-            if(this.dog.canFollow == true && !this.getData('level3Lured')){
+            let dogX = this.dog.x;
+            if(this.dog.canFollow == true){
                 this.sitDog()
             }
             else{
-                console.log("we in");
-                if(!this.getData('barked') && !this.getData('level3Lured')) {
-                    //bark
-                    this.bark(this.dog, this.enemy);
-                }   
+                //bark
+                this.bark(this.dog, this.enemy);
+                /* let time = (this.enemy.x - this.dog.x)*5;
+
+                this.tweens.add({
+                    targets: this.enemy,
+                    x: dogX,
+                    duration:time,
+                    ease: 'Linear', // You can change the easing function if desired
+                  }); */
             }
         })
 
         // Time Travel
         this.ui.swapButton.on('pointerover', () => {
-            this.tpSound.play();
-            this.addData('x', this.player.x);
-            this.addData('y', this.player.y);
-            this.timeTravel('stealthpast');
-            this.addData('level3Lured');
+                this.addData('x', this.player.x);
+                this.addData('y', this.player.y);
+                this.timeTravel('stealthpast');
         });
         
         // Create floor
@@ -151,13 +162,7 @@ class StealthPresent extends SchismScene {
         this.platform2.body.checkCollision.down = false;
 		this.platform2.body.checkCollision.left = false;
 		this.platform2.body.checkCollision.right = false;
-
         // Dialogue
-        if(!this.getData('level3GoalDone')) {
-            this.startDialogue('level3Goal', () => {}, () => {
-                this.startDialogue('barkTutorial', () => {}, () => {this.addData('level3GoalDone')});
-            });
-        }
 
         //Physics
         this.physics.add.collider(this.player, this.floor);
@@ -178,11 +183,8 @@ class StealthPresent extends SchismScene {
         this.ui.interactButton.on('pointerover', () => {
             if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.consoleBroke.getBounds()) 
                 && !this.getData('interactedConsole')) {
-                this.startDialogue('brokenCon', () => {
                     this.addData('interactedConsole');
-                }, () => {
                     this.ui.swapButton.visible = true;
-                });
             }
         })
 
@@ -193,12 +195,8 @@ class StealthPresent extends SchismScene {
     }
 
     enemyDetection() {
-        this.player.body.enable = false;
-        this.player.stop();
-        this.dog.stop();
-        this.gotoScene('stealthpresent');
+        this.scene.start('stealthpresent');
         this.resetData();
-        this.addData('level3GoalDone');
     }
 
     sitDog(){
@@ -206,15 +204,14 @@ class StealthPresent extends SchismScene {
     }
 
     bark(dog, enemy){
-        this.addData('barked');
         let time = (enemy.x - dog.x)*5;
-        this.barkSound.play();
-        this.tweens.add({
-            targets: enemy,
-            x: dog.x,
-            duration:time,
-            ease: 'Linear', // You can change the easing function if desired
-        });
+
+                this.tweens.add({
+                    targets: enemy,
+                    x: dog.x,
+                    duration:time,
+                    ease: 'Linear', // You can change the easing function if desired
+                  });
     }
 
     update() {

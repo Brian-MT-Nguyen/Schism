@@ -1,16 +1,12 @@
 {
-    "startTutorial": ["Hmmm what happened? Who am I? What am I doing here? Maybe these objects in front of me has clues...\n\nTap to Proceed", "Tap the left and right arrow buttons at the bottom left to move left and right respectively. Tap the up arrow button at the bottom right to jump. You can also full screen\n\nTap to Proceed"],
-    "interactTutorial": ["Looks like I'm next to one of the objects!\n\nTap to Proceed", "Tap the cursor arrow button at the bottom right to interact with the object\n\nTap to Proceed"],
-    "desk": ["**It is day 482, and I have come to the realization that the most crucial part of Project Moon’s development is..well..not here with me. I have to travel to the Corvus facility to retrieve it, but hopefully I will be back soon for Lune’s awakening.**\n\nTap to Proceed", "Interesting, looks like I must get to that facility to get more clues... First step is to get out of this room, but that door at the end of the room is shut!\n\nTap to Proceed", "There must be something else that can help me... Let me look around\n\nTap to Proceed"],
-    "dogTreats": ["There's jar of dog treats. Unfortunately, you can not eat them, but maybe something else can.\n\nTap to Proceed"],
-    "crate": ["Lune steps forward and opens a crate as Sol jumps out, barking at the stranger. You give it a dog treat in hopes of befriending it and find a new hidden power to switch to the past.\n\nTap to Proceed", "Tap the Eclipse button at the bottom right when it appears to swap to the past or present (This is an important action that will only appear when you are able to so look out!)\n\nTap to Proceed"],
-    "keycard": ["You found a key card. This could be useful.\n\nTap to Proceed", "I could use this to get through the door once I time travel back.\n\nTap to Proceed"],
-    "level2Goal": ["I need to keep going to get to the facility, but theres a massive gap in the way I definitely can't jump over...\n\nTap to Proceed", "Maybe this console in front of me might help..\n\nTap to Proceed"],
-    "level3Goal": ["Woah! That's a guard that will harm me if I get too close... How can I reach that console so I can get to the door in the middle?\n\nTap to Proceed", "Sol seems to be willing to lure the guards if you tell him what to do\n\nTap to Proceed"],
-    "barkTutorial": ["Interact with Sol to have him sit in the position you want the guard to be lured to, then, once you have repositioned to be out of the guards way, you can interact again to have Sol bark to lure them. (Hint: maybe you can get above the guard)\n\nTap to Proceed"],
-    "brokenCon": ["The console is broken in it's current state and seemingly can't do anything with it.\n\nTap to Proceed"],
-    "crossPlatform": ["Sweet! I can get across now then travel back to the present to get closer to the facility!\n\nTap to Proceed"],
-    "workCon": ["The console turns on and it drops a steel beam to make a bridge.\n\nTap to Proceed"],
-    "finalCon":["As you touch the console a light envelops you.\n\nTap to Proceed", "Great! That should have disabled the guard so I can get to that door in the middle and get to the bottom of this mystery!\n\nTap to Proceed"],
+    "tutorial1": ["Tap the left and right arrow buttons at the bottom right to move left and right respectively."],
+    "desk": ["It is day 482, and I have come to the realization that the most crucial part of Project Moon’s development is..well..not here with me. I have to travel to the Corvus facility to retrieve it, but hopefully I will be back soon for Lune’s awakening."],
+    "dogTreats": ["There's jar of dog treats. Unfortunately, you can not eat them, but maybe something else can"],
+    "crate": ["Lune steps forward and opens a crate as Sol jumps out, barking at the stranger. You give it a dog treat in hopes of befriending it and find a new hidden power to switch to the past."],
+    "keycard": ["You found a key card. This can be useful."],
+    "brokenCon": ["The console is broken, can't do anything with it"],
+    "workCon": ["The console turns on and it drops a steel beam to make a bridge"],
+    "finalCon":["As you touch the console a light envelops you", "..."],
     "endScrene": ["Day 987: Lune, if you find this message, then you will grow to be disappointed upon my absence. Ever since you came into this world, I knew you would grow the heart to look for your creator. I established that in you. However, after I have learned that the state of this world has fallen, I had to create something to take care of Sol.", "I had to create you."]
+
 }
