@@ -45,7 +45,7 @@ This project was created for our final project in CMPM120. We wanted to implemen
     - Core gameplay can be reached within 1 minute. ***SATISFIED*** as shown in walkthrough below (about 50 seconds timed)
     - The game's main progression can be followed to some satisfying ending point within 10 minutes by a player experienced with related videogames. ***SATISFIED*** Over 4 minutes of gameplay as shown in walkthrough below
 
-### Selectable Requirements (choose 3)
+## Selectable Requirements (choose 3)
 - Data-driven experience progression (e.g. defined in a separate JSON/XML or other data file). You should be able to give us the name of one or more text files containing game design details in a format that isn't a programming language.  
 (Satisfied via dialogue.json file that holds all the game's dialogue which is one of the indicators to advance player and levels)  
 - Advanced visual assets (a file-based visual asset that isn't just an image or simple collection of images, such as a video, mesh, or mesh animation).
@@ -53,8 +53,9 @@ This project was created for our final project in CMPM120. We wanted to implemen
 - Complete closed captioning (all sounds, not just speech, is described with on-screen text)
 (Satisfied via dialogue + player action captions)
 
-### Asset Credits
+## Asset Credits
 All Art was made by Hazelle Malonzo and Max Schwab except the following below\
+\
 Music Source: https://www.youtube.com/watch?v=H4BAEf5V-Yc&ab_channel=BreakingCopyright%E2%80%94RoyaltyFreeMusic (Trimmed it + Reverb + Tempo Increase + Higher Pitch + Copyright Free)\
 For all these audio assets, we used audacity and recorded real life sound effects of the objects we wanted to represent.
   * FridgeClose.wav
