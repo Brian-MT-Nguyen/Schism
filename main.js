@@ -32,6 +32,6 @@ const game = new Phaser.Game({
         }
     },
     backgroundColor: 0x000000,
-    scene: [BeginIntro, StudioIntro, IntroCinematic, TitleScreen, SettingsMenu, OfficePresent, OfficePast, CranePresent, CranePast, StealthPresent, StealthPast, ending],
+    scene: [IntroCinematic, TitleScreen, SettingsMenu, OfficePresent, OfficePast, CranePresent, CranePast, StealthPresent, StealthPast, ending],
     title: "Schism"
 });
