@@ -62,6 +62,7 @@ For all these audio assets, we used audacity and recorded real life sound effect
   * FridgeClose.wav
   * FridgeOpen.wav
 * 2+ image assets (such as .png files)\
+
 For all these image assets, we used illustrator and live painted pixel art except for the fridges.\
 For the fridges, we took it from https://www.vecteezy.com/vector-art/5146413-refrigerator-pixel-art and changed it from white to green in illustrator (same live paint technique) and modified it further for the half opened and opened images.
   * CheeseSlice.png
@@ -74,7 +75,7 @@ For the fridges, we took it from https://www.vecteezy.com/vector-art/5146413-ref
 ## Walkthrough ##  
 https://www.youtube.com/watch?v=OrQWdVzMFFA
 
-### Coregameplay Summary
+## Coregameplay Summary
 ### Audio:
 - Background Music Loops
 - Sound Effects on time swapping and barking
