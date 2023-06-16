@@ -23,6 +23,8 @@ class OfficePast extends SchismScene {
     }
     
     onEnter() {
+        this.tpSound = this.sound.add('sound');
+
         // Create background
         let bg = this.add.image(0, 0, 'lvl1Past').setOrigin(0);
 
@@ -33,7 +35,7 @@ class OfficePast extends SchismScene {
         let pod = this.add.image(330, 1010, 'podPast').setOrigin(0.5).setScale(1.1).setDepth(envDepth);
         
         // Create Player + Set Position + Camera Follow
-        this.player = new Player(this, 300, 1010, 'luneSleep').setDepth(playerDepth);
+        this.player = new Player(this, 300, 1010, 'luneBase').setDepth(playerDepth);
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
         }
@@ -88,6 +90,7 @@ class OfficePast extends SchismScene {
 
         // Time Travel
         this.ui.swapButton.on('pointerover', () => {
+            this.tpSound.play();
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
             this.timeTravel('officepresent');

@@ -5,26 +5,6 @@ class CranePresent extends SchismScene {
     }
 
     preload() {
-        //characters
-        this.load.path = 'assets/character/';
-        this.load.image('luneSleep', 'luneSleep.png');
-        this.load.image('luneBase', 'luneBaseSprite.png');
-        this.load.image('solBase', 'solBaseSprite.png');
-        this.load.image('solSit', 'solSitting.png');
-        this.load.spritesheet('luneIdle', 'luneIdle_spritesheet.png', {frameWidth: 600, frameHeight: 600});
-        this.load.spritesheet('luneRun', 'luneRun_spritesheet.png', {frameWidth: 600, frameHeight: 600});
-        this.load.spritesheet('luneJump', 'luneJump_spritesheet.png', {frameWidth: 600, frameHeight: 600});
-        this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 300});
-
-        //UI
-        this.load.path = 'assets/UI/';
-        this.load.image('right', 'right.png');
-        this.load.image('interact', 'interact.png');
-        this.load.image('mute', 'mute.png');
-        this.load.image('sound', 'sound.png');
-        this.load.image('swap', 'swap.png');
-        this.load.image('fullscreen', "fullScreen.png");
-
         //interactables 
         this.load.path = 'assets/interactables/';
         this.load.image('consoleFuture', 'consoleFuture.png');
@@ -37,6 +17,7 @@ class CranePresent extends SchismScene {
     }
 
     onEnter() {
+        this.tpSound = this.sound.add('sound');
 
         // Create background
         let bg = this.add.image(0, 0, 'lvl').setOrigin(0).setDepth(envDepth);
@@ -150,6 +131,7 @@ class CranePresent extends SchismScene {
         })
 
         this.ui.swapButton.on('pointerover', () => {
+            this.tpSound.play();
             this.addData('x', this.player.x);
             this.addData('y', this.player.y);
             //this.scene.start('CranePast');
@@ -170,8 +152,13 @@ class CranePresent extends SchismScene {
                     ease: 'sine.inout'
                 });
             }
-    })
-}
+        });
+
+        // Dialogue
+        if(!this.getData('level2GoalDone')) {
+            this.startDialogue('level2Goal', () => {this.addData('level2GoalDone')}, () => {});
+        }   
+    }
 
     update() {
         // Update Player Logics
@@ -196,12 +183,12 @@ class CranePresent extends SchismScene {
 
 
         if(this.player.x > 2560){
-            this.gotoScene("CranePresent");
+            this.gotoScene("cranepresent");
             this.resetData();
         }
 
         if(this.player.y > 1920){
-            this.gotoScene("CranePresent");
+            this.gotoScene("cranepresent");
             this.resetData();
         }
     }
