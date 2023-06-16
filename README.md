@@ -57,20 +57,15 @@ This project was created for our final project in CMPM120. We wanted to implemen
 All Art was made by Hazelle Malonzo and Max Schwab except the following below\
 Music Source: https://www.youtube.com/watch?v=H4BAEf5V-Yc&ab_channel=BreakingCopyright%E2%80%94RoyaltyFreeMusic (Trimmed it + Reverb + Tempo Increase + Higher Pitch + Copyright Free)\
 For all these audio assets, we used audacity and recorded real life sound effects of the objects we wanted to represent.
-  * CheeseFall.wav
-  * CheeseSlap.wav
   * FridgeClose.wav
   * FridgeOpen.wav
 * 2+ image assets (such as .png files)\
 
 For all these image assets, we used illustrator and live painted pixel art except for the fridges.\
 For the fridges, we took it from https://www.vecteezy.com/vector-art/5146413-refrigerator-pixel-art and changed it from white to green in illustrator (same live paint technique) and modified it further for the half opened and opened images.
-  * CheeseSlice.png
   * GreenFridgeClosed.png
   * GreenFridgeHalfOpened.png
   * GreenFridgeOpened.png
-  * GreenGradient.png
-  * The Cheezer.png
   
 ## Walkthrough ##  
 https://www.youtube.com/watch?v=OrQWdVzMFFA
