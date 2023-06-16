@@ -21,6 +21,19 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
+        if(this.level3Back) {
+            this.setVelocityX(700);
+            if(this.x < this.scene.player.x - 50) {
+                if(!this.running && !this.scene.player.isPaused) {
+                    this.running = true;
+                    this.play('run');
+                }
+            } else {
+                this.canFollow = true;
+                this.level3Back = false;
+                this.flipX = true;
+            }
+        }
         if(this.canFollow) {
             this.setVelocityX(this.scene.player.body.velocity.x);
             // Have Dog follow player
@@ -66,7 +79,9 @@ class Dog extends Phaser.Physics.Arcade.Sprite {
                 this.body.enable = true;
             }
         } else {
-            this.setTexture('solSit');
+            if(!this.level3Back) {
+                this.setTexture('solSit');
+            }
         }
     }
 }

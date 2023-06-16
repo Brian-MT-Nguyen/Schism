@@ -48,6 +48,7 @@ class OfficePresent extends SchismScene {
     onEnter() {
 
         // Create background
+        this.tpSound = this.sound.add('sound');
         let bg = this.add.image(0, 0, 'lvl1Pres').setOrigin(0).setDepth(envDepth);
 
         //UI
@@ -57,6 +58,8 @@ class OfficePresent extends SchismScene {
         this.player = new Player(this, 300, 1010, 'luneSleep').setDepth(playerDepth);
         if(this.getData('started') == undefined) {
             this.player.body.enable = false;
+        } else {
+            this.player.setTexture('luneBase');
         }
         if(this.getData('x') != undefined) {
             this.player.x = this.getData('x');
@@ -73,26 +76,25 @@ class OfficePresent extends SchismScene {
 
         // Start of game pod opening
         let pod = this.add.image(330, 1010, 'podPresent').setOrigin(0.5).setScale(1.1).setDepth(envDepth);
-        let podDoor = this.add.image(330, 1010, 'podDoor').setOrigin(0.5).setDepth(playerDepth);
+        let podDoor = this.add.image(330, 1010, 'podDoor').setOrigin(0.5).setScale(1.1).setDepth(playerDepth);
 
         if(this.getData('started') == undefined) {
             this.time.delayedCall(400, () => {
                 this.tweens.add({
                     targets: podDoor, 
-                    x: `-=${270}`,
+                    x: `-=${300}`,
                     duration: 1000,
                     onComplete: () => {
-                        console.log(podDoor.x);
                         this.player.body.enable = true;
                         this.player.play('idle');
                         podDoor.setDepth(envDepth);
                         this.addData('started');
-                        this.startDialogue("tutorial1", () => {}, () => {});
+                        this.startDialogue("startTutorial", () => {}, () => {});
                     }
                 });
             });
         } else {
-            podDoor.x = 60;
+            podDoor.x = 30;
             podDoor.setDepth(envDepth);
         }
 
@@ -116,14 +118,10 @@ class OfficePresent extends SchismScene {
         this.interactables.add(this.door);
 
         // Interactable Events
-       
-
         this.laptop = this.physics.add.sprite(1024, 960, 'laptopPresent').setOrigin(0.5).setScale(0.4).setDepth(objectDepth);
         this.laptop.body.allowGravity = false;
         this.laptop.body.immovable = true;
         this.interactables.add(this.laptop);
-
-        //console.log(interactables);
 
         if(this.getData('interactedLaptop')) {
             this.laptop.setTexture('laptopPresentOn');
@@ -135,7 +133,6 @@ class OfficePresent extends SchismScene {
         this.dogTreats.body.immovable = true;
         this.interactables.add(this.dogTreats);
         }
-        
 
         this.crateDoorPresent = this.physics.add.sprite(1700, 1125, 'crateDoorPresent').setOrigin(0.5).setScale(0.4).setDepth(objectForeDepth);
         this.crateDoorPresent.body.allowGravity = false;
@@ -147,11 +144,6 @@ class OfficePresent extends SchismScene {
         this.cratePresent.body.allowGravity = false;
         this.cratePresent.body.immovable = true; 
         this.interactables.add(this.cratePresent);
-
-        //interactables.preFX.setPadding(32);
-
-        //  For PreFX Glow the quality and distance are set in the Game Configuration
-
 
         this.ui.swapButton.visible = false;
         this.ui.swapButton.disableInteractive();
@@ -199,6 +191,7 @@ class OfficePresent extends SchismScene {
         // Time Travel
         this.ui.swapButton.on('pointerover', () => {
             if(this.getData('friendAcquired') != undefined) {
+                this.tpSound.play();
                 this.addData('x', this.player.x);
                 this.addData('y', this.player.y);
                 this.timeTravel('officepast');
@@ -221,7 +214,6 @@ class OfficePresent extends SchismScene {
 
         
         this.interactables.getChildren().forEach( (object) => {
-
             if(object == this.laptop && !this.getData('interactedLaptop')){
                 object.preFX.setPadding(32);
                 let fx = object.preFX.addGlow();
@@ -257,12 +249,7 @@ class OfficePresent extends SchismScene {
                     ease: 'sine.inout'
                 });
             }
-
-            
-
-          });
-
-          
+        });
     }
 
     update() {
@@ -274,6 +261,12 @@ class OfficePresent extends SchismScene {
 
         // Update UI Logics
         this.ui.update();
+
+        if(Phaser.Geom.Intersects.RectangleToRectangle(this.player.playerInteractBox.getBounds(), this.laptop.getBounds()) 
+            && !this.getData('interactTutorialDone')) {
+            this.addData('interactTutorialDone');
+            this.startDialogue('interactTutorial', () => {this.player.stop()}, () => {this.player.play('idle')});
+        }
 
         if(this.getData('interactedLaptop')){
             this.laptopGlow.stop();

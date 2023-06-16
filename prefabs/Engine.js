@@ -120,11 +120,6 @@ class SchismScene extends Phaser.Scene {
         this.dialogueActive = false;
         this.dialogueRectangle.visible = false;
         this.dialogueText.setText('');
-    
-        // Call the callback function if it exists
-        if (typeof this.dialogueCallback === 'function') {
-            this.dialogueCallback();
-        }
 
         // Enable character movement
         this.player.body.enable = true;
@@ -133,6 +128,11 @@ class SchismScene extends Phaser.Scene {
         // Unregister the dialogue event handlers
         this.input.keyboard.off('keydown-SPACE', this.handleDialogueInteraction, this);
         this.input.off('pointerdown', this.handleDialogueInteraction, this);
+
+        // Call the callback function if it exists
+        if (typeof this.dialogueCallback === 'function') {
+            this.dialogueCallback();
+        }
     }
     
     // Scene Transition Functions
