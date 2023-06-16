@@ -16,7 +16,7 @@ This project was created for our final project in CMPM120. We wanted to implemen
 - Full Screen is not supported for Safari
 - Intro Cinematic sometimes does not load for iOS devices, but does load (as shown in playthrough)
 
-### Prototypes:
+## Prototypes:
 - https://brian-mt-nguyen.github.io/Schism/prototypes/cinematics/cinematics-1.html by Samip Niraula
 - https://brian-mt-nguyen.github.io/Schism/prototypes/core%20gameplay/core-gameplay-1.html by Abraham Halim
 - https://brian-mt-nguyen.github.io/Schism/prototypes/scene%20flow/scene-flow-1.html By Brian Nguyen
