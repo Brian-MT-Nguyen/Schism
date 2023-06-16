@@ -25,15 +25,6 @@ class OfficePresent extends SchismScene {
         this.load.audio('sound', 'sound.mp3');
         this.load.audio('bgm', 'bgm.mp3');
 
-        //UI
-        this.load.path = 'assets/UI/';
-        this.load.image('right', 'right.png');
-        this.load.image('interact', 'interact.png');
-        this.load.image('mute', 'mute.png');
-        this.load.image('sound', 'sound.png');
-        this.load.image('swap', 'swap.png');
-        this.load.image('fullscreen', "fullScreen.png");
-
         //Interactables
         this.load.path = 'assets/interactables/';
         this.load.image('podPresent', 'podPresent.PNG');

@@ -11,54 +11,11 @@ class StealthPresent extends SchismScene {
 
         //sound
         this.load.path = 'assets/sound/';
-        this.load.audio('sound', 'sound.mp3');
         this.load.audio('woof', 'woof.mp3');
 
         //levels
         this.load.path = 'assets/levels/';
         this.load.image('lvl3Pres', 'level3_present.png');
-
-
-        
-        //characters
-        this.load.path = 'assets/character/';
-        this.load.image('luneSleep', 'luneSleep.png');
-        this.load.image('luneBase', 'luneBaseSprite.png');
-        this.load.image('solBase', 'solBaseSprite.png');
-        this.load.image('solSit', 'solSitting.png');
-        this.load.spritesheet('luneIdle', 'luneIdle_spritesheet.png', {frameWidth: 600, frameHeight: 600});
-        this.load.spritesheet('luneRun', 'luneRun_spritesheet.png', {frameWidth: 600, frameHeight: 600});
-        this.load.spritesheet('luneJump', 'luneJump_spritesheet.png', {frameWidth: 600, frameHeight: 600});
-        this.load.spritesheet('sol', 'spritesheetSol-01.png', {frameWidth: 600, frameHeight: 300});
-
-
-        //levels
-        this.load.path = 'assets/levels/';
-        this.load.image('lvl1Pres', 'scene_1_present.png');
-
-        //sound
-        this.load.path = 'assets/sound/';
-        this.load.audio('sound', 'sound.mp3');
-        this.load.audio('bgm', 'bgm.mp3');
-
-        //UI
-        this.load.path = 'assets/UI/';
-        this.load.image('right', 'right.png');
-        this.load.image('interact', 'interact.png');
-        this.load.image('mute', 'mute.png');
-        this.load.image('sound', 'sound.png');
-        this.load.image('swap', 'swap.png');
-        this.load.image('fullscreen', "fullScreen.png");
-
-        //Interactables
-        this.load.path = 'assets/interactables/';
-        this.load.image('podPresent', 'podPresent.PNG');
-        this.load.image('podDoor', 'podDoor.PNG');
-        this.load.image('laptopPresent', 'laptopPresent.png');
-        this.load.image('laptopPresentOn', 'laptopPresent_on.png');
-        this.load.image('dogTreatsFut', 'dogTreatsFuture.png');
-        this.load.image('cratePresent', 'cratePresent.png');
-        this.load.image('crateDoorPresent', 'crateDoorPresent.png');
     }
     
     onEnter() {
