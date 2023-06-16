@@ -3,7 +3,7 @@ Link to Deployed Game: https://brian-mt-nguyen.github.io/Schism/
 
 ## Credits:  
 - Abraham Halim (Testing Lead, Programmer)
-- Brian Nguyen (Technology Lead)
+- Brian Nguyen (Technology Lead, Programmer)
 - Hazelle Malonzo (Art Co-Lead)
 - Max Schwab (Art Co-Lead)
 - Samip Niraula (Production Lead, Programmer)
