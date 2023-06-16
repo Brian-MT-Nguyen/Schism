@@ -55,7 +55,7 @@ This project was created for our final project in CMPM120. We wanted to implemen
 
 ### Asset Credits
 All Art was made by Hazelle Malonzo and Max Schwab except the following below\
-Music Source: https://www.youtube.com/watch?v=H4BAEf5V-Yc&ab_channel=BreakingCopyright%E2%80%94RoyaltyFreeMusic (Trimmed it + Copyright Free)\
+Music Source: https://www.youtube.com/watch?v=H4BAEf5V-Yc&ab_channel=BreakingCopyright%E2%80%94RoyaltyFreeMusic (Trimmed it + Reverb + Tempo Increase + Higher Pitch + Copyright Free)\
 For all these audio assets, we used audacity and recorded real life sound effects of the objects we wanted to represent.
   * CheeseFall.wav
   * CheeseSlap.wav
